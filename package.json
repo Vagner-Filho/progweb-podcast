@@ -1,0 +1,22 @@
+{
+  "name": "progweb-podcast",
+  "version": "1.0.0",
+  "description": "trabalhoProgWeb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vagner-Filho/progweb-podcast.git"
+  },
+  "author": "Vagner Filho, Victor Cassol Henrique Dias, Luiz Felipe, Juliendy Dos Santos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vagner-Filho/progweb-podcast/issues"
+  },
+  "homepage": "https://github.com/Vagner-Filho/progweb-podcast#readme",
+  "dependencies": {
+    "bootstrap": "^5.1.1"
+  }
+}
