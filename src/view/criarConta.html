@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div class='nome'>
+            <h1> Criar conta </h1>
+        </div>
+    </header>
+    <div class="first-line">
+        <div>
+            Nome de usuário
+            <br>
+            <input type="text" id="nome-usuario" name="nome-usuario">
+        </div>
+        <div>
+            Nome de usuário
+            <br>
+            <input type="text" id="nome-usuario" name="nome-usuario">
+        </div>
+    </div>
+    <div class='second-line'>
+        <div>
+            Data de Nascimento
+            <br>
+            <input type="text" id="data-nascimento" name="data-nascimento">
+        </div>
+        <div>
+            Descrição
+            <br>
+            <textarea id="descricao-episodio" ></textarea>
+        </div>
+    </div>
+    <div class='third-line'>
+        <div>
+            E-mail
+            <br>
+            <input type="text" id="e-mail" name="e-mail">
+        </div>
+        <div>
+            Gênero
+            <br>
+            <input type="text" id="genero" name="genero">
+        </div>
+    </div>
+    <div class='fourth-line'>
+        <div>
+            Senha
+            <br>
+            <input type="text" id="senha" name="senha">
+        </div>
+        <div>
+            Classificação
+            <br>
+            <input type="text" id="classificacao" name="classificacao">
+        </div>
+    </div>
+    <div>
+        <button>Criar conta</button>
+    </div>
+</body>
+<style>
+    body > div {
+        display: flex;
+        padding-left: 10%;
+        margin-bottom: 50px;
+    }
+
+    body > div > div {
+        font-family: 'Inter', sans-serif;
+    }
+
+    .nome  {
+        color: #3BB4B4;
+        font-family: 'Intel', sans-serif;
+        font-weight: bolder;
+        font-size: 1.33rem;
+        padding-left: 10%;
+        padding-top: 30px;
+        padding-bottom: 40px;
+    }
+    
+    input {
+        outline: none;
+        height: 50px;
+        margin-top: 20px;
+        font-size: 20px;
+        width: 200%;
+        border: 1px solid;
+        border-color: rgb(214, 211, 211);
+    }
+
+    textarea {
+        height: 100px;
+        margin-top: 20px;
+        font-size: 20px;
+        width: 206%;
+        border: 1px solid;
+        border-color: rgb(214, 211, 211);
+    }
+
+    .first-line > :nth-child(2) {
+        margin-left: 33%;
+    }
+
+    .second-line > :nth-child(2) {
+        margin-left: 33%;
+    }
+
+    .third-line > :nth-child(2) {
+        margin-left: 33%;
+    }
+
+    .fourth-line > :nth-child(2) {
+        margin-left: 33%;
+    }
+
+    body > :nth-child(6) {
+        margin-top: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-right: 20px;
+    }
+
+    button {
+        font-family: 'Inter', sans-serif;
+        font-size: 20px;
+        background-color: rgb(187, 184, 184);
+        height: 70px;
+        width: 300px;
+        border-radius: 50px;
+        border: 0px;
+    }
+
+</style>
+</html>
