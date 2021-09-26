@@ -2837,7 +2837,6 @@ textarea.form-control-lg {
   border-radius: 0.25rem;
 }
 
-
 .was-validated :invalid ~ .invalid-feedback,
 .was-validated :invalid ~ .invalid-tooltip,
 .is-invalid ~ .invalid-feedback,
