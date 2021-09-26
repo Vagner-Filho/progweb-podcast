@@ -29,16 +29,20 @@
 
   .barra-pesquisa input {
     width: 100%;
-    border: 0;
+    height: 100%;
+    border-radius: 25px;
+    border: 0 !important;
     background: unset;
+    padding: 0px 20px;
+    outline: none;
   }
 
-  .barra-pesquisa input:hover {
+  .barra-pesquisa:focus-within {
+    border: 2px solid black !important;
+  }
+
+  .barra-pesquisa:hover {
     border: 1px solid #3BB4B4;
-  }
-
-  .barra-pesquisa input::placeholder {
-    padding-left: 30px;
   }
 
   .barra-pesquisa button {

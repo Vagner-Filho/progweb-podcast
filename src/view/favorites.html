@@ -174,4 +174,32 @@
     ::-webkit-scrollbar-thumb:hover {
         background: #555;
     }
+
+    @media (max-width: 576px) {
+        .podcast-container {
+            flex-direction: column;
+            position: relative;
+        }
+        .podcast-container img {
+            margin: auto;
+        }
+        .podcast-info {
+            padding-left: 0 !important;
+        }
+        .podcast-info p {
+            height: 100px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .podcast-info .head {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .options {
+            position: absolute;
+            bottom: 185px;
+            left: 0;
+        }
+    }
 </style>
