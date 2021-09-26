@@ -17,30 +17,42 @@ class hamburguerMenu extends HTMLElement {
                 </button>
                 <div class="h-line"></div>
                 <div class="align-on-menu home">
-                    <img src="../rss/img/home.svg" alt="home-menu">
-                    Home
+                    <a href="../view/home.html">
+                        <img src="../rss/img/home.svg" alt="home-menu">
+                        Home
+                    </a>
                 </div>
                 <div class="align-on-menu">
-                    <img src="../rss/img/heart.svg" alt="favorites-menu">
-                    Favoritos
+                    <a href="../view/favorites.html">
+                        <img src="../rss/img/heart.svg" alt="favorites-menu">
+                        Favoritos
+                    </a>
                 </div>
                 <div class="align-on-menu">
-                    <img src="../rss/img/list.svg" alt="channels-menu">
-                    Canais
-                </div>
-                <div class="h-line"></div>
-                <div class="align-on-menu">
-                    <img src="../rss/img/add.svg" alt="new-episode-menu">
-                    Novo Episódio
-                </div>
-                <div class="align-on-menu">
-                    <img src="../rss/img/chart.svg" alt="statistics-menu">
-                    Estatísticas
+                    <a href="../view/channels.html">
+                        <img src="../rss/img/list.svg" alt="channels-menu">
+                        Canais
+                    </a>
                 </div>
                 <div class="h-line"></div>
                 <div class="align-on-menu">
-                    <img src="../rss/img/account.svg" alt="account-menu">
-                    Conta
+                    <a href="../view/newEpisode.html">
+                        <img src="../rss/img/add.svg" alt="new-episode-menu">
+                        Novo Episódio
+                    </a>
+                </div>
+                <div class="align-on-menu">
+                    <a href="../view/statistic.html">
+                        <img src="../rss/img/chart.svg" alt="statistics-menu">
+                        Estatísticas
+                    </a>
+                </div>
+                <div class="h-line"></div>
+                <div class="align-on-menu">
+                    <a href="../view/account.html">
+                        <img src="../rss/img/account.svg" alt="account-menu">
+                        Conta
+                    </a>
                 </div>
             </div>
         </div>
@@ -75,11 +87,6 @@ class hamburguerMenu extends HTMLElement {
             left: 0;
             display: none;
             z-index: 999;
-    
-        /*  padding: 10px 30px;
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start; */
         }
         .side-menu:active {
             display: block;
@@ -98,6 +105,11 @@ class hamburguerMenu extends HTMLElement {
             justify-content: flex-start;
             align-items: center;
             padding: 10px 10px;
+            cursor: pointer;
+        }
+        .align-on-menu a {
+            text-decoration: none;
+            color: black;
         }
         .align-on-menu img {
             padding: 0 10px;
