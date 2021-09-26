@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
+    <title>Login</title>
+</head>
+<body>
+    <form name=login>
+        <header>
+            Login
+        </header>
+        <div>
+            <label for="email">E-mail</label><br>
+            <input type="email" id="email" name="email">
+        </div>
+        <label for="senha">Senha</label>
+        <div class="senhaComScript">
+            <input type="password" id="senha" name="senha"><br>
+            <button type="button" id="botao"><img src="../rss/img/eye-solid.svg"></button><br>
+        </div>
+        <button class="senhaEsquecida"><u>Esqueci a senha</u></button>
+        <button class="completarLogin" type="submit">Entrar</button>
+    </form>
+</body>
+</html>
+<style>
+    body {
+        font-family: 'Inter', sans-serif;
+        font-weight: bolder;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    div {
+        padding-bottom: 75px;
+    }
+
+    header {
+        color: #3BB4B4;
+        font-size: 2.33rem;
+        padding-top: 30px;
+        padding-bottom: 40px;
+    }
+
+    input {
+        outline: none;
+        height: 50px;
+        width: 400px;
+        margin-top: 20px;
+        font-size: 20px;
+        border: 1px solid;
+        border-color: rgb(214, 211, 211);
+        margin-bottom: -15px;
+    }
+
+    
+    .completarLogin {
+        font-family: 'Inter', sans-serif;
+        font-weight: bolder;
+        font-size: 20px;
+        background-color: rgb(187, 184, 184);
+        height: 70px;
+        width: 300px;
+        border-radius: 50px;
+        border: 0px;
+        cursor: pointer;
+    }
+
+    input:hover {
+        border: 1px solid #3BB4B4;
+    }
+
+    .completarLogin:hover {
+        border: 1px solid #3BB4B4;
+    }
+
+   #botao{
+        background-color: transparent;
+        border: 0;
+        margin-top: 25px;
+        margin-left: -55px;
+        opacity: .5;
+        outline: 0;
+        height: 28px;
+        width: 45px;
+        margin-bottom: -10px;
+    }
+
+    img {
+        margin-top: -9px;
+        margin-left: -5px;
+        height: 40px;
+        width: 40px;
+        cursor: pointer;
+    }
+
+    .senhaComScript {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 7px;
+    }
+
+    .senhaEsquecida {
+        font-family: 'Inter', sans-serif;
+        font-weight: bolder;
+        margin-top: -55px;
+        margin-bottom: 100px;
+        margin-right: 305px;
+        background-color: transparent;
+        border: 0;
+        outline: 0;
+        cursor: pointer;
+    }
+
+    .senhaEsquecida:hover {
+        font-style: italic;
+    }
+
+    form > :nth-child(3) {
+        margin-right: 360px;
+    }
+
+</style>
+<script type="text/javascript">
+
+    var botao = document.getElementById('botao')
+    
+    botao.addEventListener('click', function(){
+    
+        let senha = document.getElementById('senha')
+    
+        if (senha.type == 'password') {
+        senha.type = 'text'
+        } else {
+            senha.type = 'password'
+        }
+    })
+    </script>
