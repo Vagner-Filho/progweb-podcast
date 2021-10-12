@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <button  id='botao' value='naoMostra'>OLAAAAAA
+            <img id='img1' class='img1' src="../rss/img/eye-solid.svg"> 
+            <img id='img2' class='img2' src="../rss/img/eye-slash-solid.svg"> 
+        </button >
+    
+    
+</body>
+</html>
+<style>
+    .img1 {
+        display: initial;
+    }
+
+    .img2 {
+        display: none;
+    }
+    
+
+</style>
+<script type="text/javascript"> 
+
+    var botaoMostrarSenha = document.getElementById('botao')
+    
+    botaoMostrarSenha.addEventListener('click', function(){
+        let imagem1 = document.getElementById('img1')
+        let imagem2 = document.getElementById('img2')
+
+        if (imagem1.style.display === 'initial') {
+            imagem1.style.display = 'none'
+            imagem2.style.display = 'initial'
+        } else {
+            imagem1.style.display = 'initial'
+            imagem2.style.display = 'none'
+        }
+    })
+
+    /*var btn = document.getElementById('botao')
+    var img = document.getElementById('img1')
+
+    btn.onclick = function () {
+        if (btn.value==='naoMostra') {
+            img.src = '../rss/img/eye-slash-solid.svg'
+            btn.value = "mostra"
+        } else {
+            img.src = '../rss/img/eye-solid.svg'
+            btn.value = "naoMostra"
+
+        }
+    }*/
+</script>

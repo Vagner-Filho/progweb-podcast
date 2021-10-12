@@ -13,6 +13,8 @@
     O que consiste em baixar o código fonte, incluir na pasta utils e fazer a referência onde quer usar :) -->
     <link rel="stylesheet" href="../utils/css/bootstrap.css">
     <script src="../utils/js/bootstrap.bundle.js" async></script>
+    <script src="../js/components/sideMenu.js"></script>
+    <script src="../js/components/searchBar.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,8 +22,10 @@
     <title>Home</title>
 </head>
 <body>
-    <div class="container-fluid">
+    <side-menu></side-menu>
+    <div class="container-fluid mt-5">
         <div class="row">
+            <search-bar class="mt-5"></search-bar>
             <section>
                 <div class="col-10 offset-1">
                     <div class="main-head">
@@ -124,6 +128,7 @@
 <style>
     body {
         background-color: #fff;
+        z-index: 1;
     }
     .main-head, .head {
         display: flex;

@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/components/sideMenu.js"></script>
 
     <link rel="stylesheet" href="../utils/css/bootstrap.css">
     <script src="../utils/js/bootstrap.bundle.js" async></script>
+    <script src="../js/components/searchBar.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,8 +17,10 @@
     <title>Favoritos</title>
 </head>
 <body>
-    <div class="container-fluid">
+    <side-menu></side-menu>
+    <div class="container-fluid mt-5">
         <div class="row">
+            <search-bar class="mt-5"></search-bar>
             <div class="col-10 offset-1">
                 <div class="main-head">
                     <div class="head-text">
@@ -169,5 +173,33 @@
     /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover {
         background: #555;
+    }
+
+    @media (max-width: 576px) {
+        .podcast-container {
+            flex-direction: column;
+            position: relative;
+        }
+        .podcast-container img {
+            margin: auto;
+        }
+        .podcast-info {
+            padding-left: 0 !important;
+        }
+        .podcast-info p {
+            height: 100px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .podcast-info .head {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .options {
+            position: absolute;
+            bottom: 185px;
+            left: 0;
+        }
     }
 </style>
