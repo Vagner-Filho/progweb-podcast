@@ -22,6 +22,8 @@ class searchBar extends HTMLElement {
         .barra-pesquisa {
           display: flex;
           flex-direction: row;
+          font-family: 'Inter', sans-serif;
+          font-weight: bolder;
           position: relative;
           outline: none;
           width: 500px;
