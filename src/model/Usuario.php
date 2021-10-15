@@ -5,14 +5,14 @@
 */
 class Usuario {
 
-    public $nomeUsuario;
-    public $nomeCanal;
-    public $dataNasc;
-    public $descricao;
-    public $genero;
-    public $email;
-    public $senha;
-    public $classificacao;
+    private $nomeUsuario;
+    private $nomeCanal;
+    private $dataNasc;
+    private $descricao;
+    private $genero;
+    private $email;
+    private $senha;
+    private $classificacao;
 
     function __construct(string $nomeUsuario, string $nomeCanal, $dataNasc,
     string $descricao, string $genero, string $email, string $senha, string $classificacao) {

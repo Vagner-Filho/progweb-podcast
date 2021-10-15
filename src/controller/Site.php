@@ -66,7 +66,7 @@ class SiteController extends Controller  {
             
             //$validos = validar($infos);
 
-            $validos = False;
+            $validos = True;
 
             foreach ($infos as $key => $value) {
                 if (isset($value) && $value != '') {
@@ -135,7 +135,6 @@ class SiteController extends Controller  {
                     $validos = False;
                 }
             }
-            $validos = True;
 
             if ($validos) {
                 $user = new Usuario ($infos['nomeUsuario'], $infos['nomeCanal'], $infos['dataNasc'],
