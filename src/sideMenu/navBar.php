@@ -8,55 +8,55 @@
             <button onclick="switchSideMenu(false)" class="align-on-menu hamburguer">
                 <img src="../rss/img/menu.svg" alt="hamburguer-menu">
                 PODCAST
-            </button>
-            <div class="h-line"></div>
-            <div class="align-on-menu home">
-                <a href="../view/home.html">
-                    <img src="../rss/img/home.svg" alt="home-menu">
-                    Home
-                </a>
-            </div>
-            <div class="align-on-menu">
-                <a href="../view/favorites.html">
-                    <img src="../rss/img/heart.svg" alt="favorites-menu">
-                    Favoritos
-                </a>
-            </div>
-            <div class="align-on-menu">
-                <a href="../view/channels.html">
-                    <img src="../rss/img/list.svg" alt="channels-menu">
-                    Canais
-                </a>
-            </div>
-            <div class="h-line"></div>
-            <div class="align-on-menu">
-                <a href="../view/newEpisode.html">
-                    <img src="../rss/img/add.svg" alt="new-episode-menu">
-                    Novo Episódio
-                </a>
-            </div>
-            <div class="align-on-menu">
-                <a href="../view/statistic.html">
-                    <img src="../rss/img/chart.svg" alt="statistics-menu">
-                     Estatísticas
-                </a>
-            </div>
-            <div class="h-line"></div>
-            <div class="align-on-menu">
-                <a href="../view/account.html">
-                    <img src="../rss/img/account.svg" alt="account-menu">
-                    Conta
-                </a>
-            </div>
-            <div class="h-line"></div>
-            <div class="align-on-menu sair">
-                <a href="../view/login.html">
-                    <img src="../rss/img/sign-out-alt-solid.svg" >
-                    Sair
-                </a>
+                </button>
+                <div class="h-line"></div>
+                <div class="align-on-menu home">
+                    <a href="../controller/index.php?acao=home">
+                        <img src="../rss/img/home.svg" alt="home-menu">
+                        Home
+                    </a>
+                </div>
+                <div class="align-on-menu">
+                    <a href="../controller/index.php?acao=favorites">
+                        <img src="../rss/img/heart.svg" alt="favorites-menu">
+                        Favoritos
+                    </a>
+                </div>
+                <div class="align-on-menu">
+                    <a href="../controller/index.php?acao=channels">
+                        <img src="../rss/img/list.svg" alt="channels-menu">
+                        Canais
+                    </a>
+                </div>
+                <div class="h-line"></div>
+                <div class="align-on-menu">
+                    <a href="../controller/index.php?acao=newEpisode">
+                        <img src="../rss/img/add.svg" alt="new-episode-menu">
+                        Novo Episódio
+                    </a>
+                </div>
+                <div class="align-on-menu">
+                    <a href="../controller/index.php?acao=statistic">
+                        <img src="../rss/img/chart.svg" alt="statistics-menu">
+                        Estatísticas
+                    </a>
+                </div>
+                <div class="h-line"></div>
+                <div class="align-on-menu">
+                    <a href="../controller/index.php?acao=account">
+                        <img src="../rss/img/account.svg" alt="account-menu">
+                        Conta
+                    </a>
+                </div>
+                <div class="h-line"></div>
+                <div class="align-on-menu sair">
+                    <a href="../controller/index.php?acao=sair">
+                        <img src="../rss/img/sign-out-alt-solid.svg">
+                        Sair
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
 </body>
 
 <script>

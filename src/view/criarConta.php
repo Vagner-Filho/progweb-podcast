@@ -11,58 +11,58 @@
 </head>
 <body>
     <section>
-        <form name="cadastro" id="form" method="POST">
+        <form action='index.php?acao=criarConta' name="cadastro" id="form" method="POST">
             <header>
                 <div class='nome'>
                     <h1> Criar conta </h1>
                 </div>
             </header>
+            <?php include(__DIR__.'/alert.php') ?>
             <div class="first-line">
                 <div>
                     <label for="nome-usuario">Nome de Usuário</label>
-                    <input type="text" id="nome-usuario" name="nome-usuario">
+                    <input type="text" id="nome-usuario" name="nome-usuario" required>
                 </div>
                 <div>
                     <label for="nome-canal">Nome do Canal</label>
-                    <input type="text" id="nome-canal" name="nome-canal">
+                    <input type="text" id="nome-canal" name="nome-canal" required>
                 </div>
             </div>
             <div class='second-line'>
                 <div>
                     <label for="data-nascimento">Data de Nascimento</label>
-                    <input type="date" id="data-nascimento" name="data-nascimento">
+                    <input type="date" id="data-nascimento" name="data-nascimento" required>
                 </div>
                 <div>
                     <label for="descricao-episodio">Descrição</label>
-                    <textarea id="descricao-episodio" ></textarea>
+                    <textarea id="descricao-episodio" name="descricao-episodio" required></textarea>
                 </div>
             </div>
             <div class='third-line'>
                 <div>
                     <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email">
+                    <input type="email" id="email" name="email" required>
                 </div>
                 <div>
-                    
                     <label for="genero">Gênero</label>
-                    <input list='generos' type="text" id="genero" name="genero" >
-                    <datalist id='generos'>
+                    <input list='generos' type="text" id="genero" name="genero" required>
+                    <!-- <datalist id='generos'>
                         <option value="Masculino">
                         <option value="Feminino">
                         <option value="Não-Binário">
                         <option value="Trans">
                         <option value="Outro">
-                    </datalist>
+                    </datalist> -->
                 </div>
             </div>
             <div class='fourth-line'>
                 <div>           
                     <label for="senha">Senha</label>
-                    <input type="text" id="senha" name="senha">
+                    <input type="text" id="senha" name="senha" required>
                 </div>
                 <div>
                     <label for="classificacao">Classificação</label>
-                    <input type="text" id="classificacao" name="classificacao">
+                    <input type="text" id="classificacao" name="classificacao" required>
                 </div>
             </div>
             <div class="criar">
@@ -75,6 +75,12 @@
 </body>
 </html>
 <style>
+
+    body {
+        font-family: 'Inter', sans-serif;
+        font-weight: bolder;
+    }
+
     div {
         display: flex;
         margin-bottom: 35px;
@@ -85,8 +91,6 @@
         width: 100%;
         display: flex;
         flex-direction: column;
-        font-family: 'Inter', sans-serif;
-        font-weight: bolder;
     }
 
     div > div:nth-child(1) {
@@ -96,8 +100,6 @@
 
     .nome  {
         color: #3BB4B4;
-        font-family: 'Inter', sans-serif;
-        font-weight: bolder;
         font-size: 1.33rem;
         padding-left: 8%;
         padding-top: 30px;
@@ -127,9 +129,10 @@
         width: 100%;
     }
 
-    input:invalid {
+    /*input:invalid {
         border: 2px solid rgb(206, 4, 4);
-    }
+    }*/
+
 
     input:hover {
         border: 1px solid #3BB4B4;
@@ -176,6 +179,9 @@
         cursor: pointer;
     }
 
+    .voltar {
+    }
+
     
     @media (max-width: 695px) {
         
@@ -215,23 +221,17 @@
         textarea {
             width: 100%;
         }
+
+        .alerta {
+            margin-left: 0%;
+        }
+
     }
     
+    @media (max-width: 580px) {
+        .alerta {
+            width: 100%;
+        }
+    }
 
 </style>
-<script type="text/javascript">
-
-    var botaoCriar = document.getElementById('criar')
-    const form = document.querySelector('#form')
-
-    //ISSO CANCELA O FORMULARIO PARA MUDAR DE PAGINA
-    //Só coloquei aqui pra conseguir navegar entre as páginas, quando
-    //a gente colocar as verificações e o banco de dados é só mudar aqui
-    form.addEventListener('submit', event => {
-        event.preventDefault()
-    })
-    
-    botaoCriar.addEventListener('click', function(){
-        window.location.href = "login.html" 
-    })
-</script>

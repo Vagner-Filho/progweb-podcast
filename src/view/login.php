@@ -5,21 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
-    <title>loginTeste</title>
+    <title>login</title>
 </head>
 <body>
     <section>
-        <form name='login' id="form" method="POST">
+        <form action="../controller/index.php" name='login' id="form" method="POST">
             <header>
                 Login
             </header>
+            <?php include(__DIR__.'/alert.php') ?>
             <div class='emailUsuario'>
                 <label for="email">E-mail</label><br>
-                <input type="email" id="email" name="email">
+                <input type="email" id="email" name="email" 
+                value="<?php if(isset($_GET['email'])) {?>  <?= $_GET['email']; }?>"
+                 required>
             </div>
             <div class="senhaUsuario">
                 <label for="senha">Senha</label><br>
-                <input type="password" id="senha" name="senha"><br>
+                <input type="password" id="senha" name="senha" required><br>
                 <button type="button" id="botao">
                     <img id='img1' class='img1' src="../rss/img/eye-solid.svg"> 
                     <img id='img2' class='img2' src="../rss/img/eye-slash-solid.svg" >
@@ -182,23 +185,9 @@
 
     function criarConta() {
 
-        window.location.href = "criarConta.html" 
+        window.location.href = "../controller/index.php?acao=criarConta" 
      
     }
-
-    var botaoEntrar = document.getElementById('entrar')
-    const form = document.querySelector('#form')
-
-    //ISSO CANCELA O FORMULARIO PARA MUDAR DE PAGINA
-    //Só coloquei aqui pra conseguir navegar entre as páginas, quando
-    //a gente colocar as verificações e o banco de dados é só mudar aqui
-    form.addEventListener('submit', event => {
-        event.preventDefault()
-    })
-    
-    botaoEntrar.addEventListener('click', function(){
-        window.location.href = "home.html" 
-    })
 
 </script>
 

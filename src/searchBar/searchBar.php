@@ -8,6 +8,7 @@
     <img src="../searchBar/searchItem.svg">
   </button>
 </div>
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 <style>
   .barra-pesquisa {
@@ -48,6 +49,7 @@
   .barra-pesquisa:hover {
     border: 1px solid #3BB4B4;
     background-color: rgb(224, 222, 222);
+    margin-bottom: -2px;
   }
 
   .barra-pesquisa button {
