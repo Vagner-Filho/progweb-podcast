@@ -13,6 +13,7 @@ class Usuario {
     private $email;
     private $senha;
     private $classificacao;
+    private $dataInscricao;
 
     function __construct(string $nomeUsuario, string $nomeCanal, $dataNasc,
     string $descricao, string $genero, string $email, string $senha, string $classificacao) {
@@ -24,7 +25,7 @@ class Usuario {
         $this->email = $email;
         $this->senha = hash('sha256', $senha);
         $this->classificacao = $classificacao;
-        
+        $this->dataInscricao = new DateTime("now", new DateTimezone("America/Campo_Grande"));
     }
 
     /**

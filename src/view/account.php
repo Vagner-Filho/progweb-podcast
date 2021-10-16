@@ -1,3 +1,9 @@
+<?php 
+if (!$data) {
+	header('location:login.php?mensagem=Você precisa se identificar primeiro');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,25 +38,25 @@
 							<div class="info">
 								<p>Nome de usuário</p>
 								<div class="line"></div>
-								<p>John Doe</p>
+								<p><?= $data->nomeUsuario ?></p>
 							</div>
 							
 							<div class="info">
 								<p>Email</p>
 								<div class="line"></div>
-								<p>JhonDoe@blamail.com</p>
+								<p><?= $data->email ?></p>
 							</div>
 							
 							<div class="info">
 								<p>Data de nascimento</p>
 								<div class="line"></div>
-								<p>31/02/1995</p>
+								<p><?= $data->dataNasc->format('d/m/Y') ?></p>
 							</div>
 							
 							<div class="info">
 								<p>Data de inscrição</p>
 								<div class="line"></div>
-								<p>15/09/2021</p>
+								<p><?= $data->dataInscricao->format('d/m/Y') ?></p>
 							</div>
 							
 							<button class="btn-edit">Editar informações</button>
@@ -69,34 +75,32 @@
 								<div class="channel-picture"></div>
 		
 								<div class="channel-description">
-									<p>
-										Condimentum phasellus eget adipiscing venenatis lobortis id metus quam vivamus, ultricies dictumst aliquet senectus porta tempus maecenas amet.
-									</p>
+									<p><?= $data->descricao ?></p>
 								</div>
 		
 							</div>
 		
 							<div class="side">
 								<div class="channel-title">
-									Matando Robô Gigante
+									<?= $data->nomeCanal ?>
 								</div>
 
 								<div class="info">
 									<p>Gênero</p>
 									<div class="line"></div>
-									<p>Cultura/Tecnologia</p> 	
+									<p><?= $data->genero ?></p>
 								</div>
 
 								<div class="info">
 									<p>Classificação</p>
 									<div class="line"></div>
-									<p>Livre</p> 	
+									<p><?= $data->classificacao ?></p>
 								</div>
 
 								<div class="info">
 									<p>Criador</p>
 									<div class="line"></div>
-									<p>Jhon Doe</p> 	
+									<p><?= $data->nomeUsuario ?></p>
 								</div>
 								<button class="btn-edit">Editar informações</button>
 							</div>

@@ -137,7 +137,8 @@ class SiteController extends Controller  {
             }
 
             if ($validos) {
-                $user = new Usuario ($infos['nomeUsuario'], $infos['nomeCanal'], $infos['dataNasc'],
+                $dataNasc = new DateTime($infos['dataNasc'], new DateTimezone("America/Campo_Grande"));
+                $user = new Usuario ($infos['nomeUsuario'], $infos['nomeCanal'], $dataNasc,
                     $infos['descricao'], $infos['genero'], $infos['email'], $infos['senha'], $infos['classificacao']);
                 
                 array_push($_SESSION['users'], $user);
@@ -154,7 +155,7 @@ class SiteController extends Controller  {
     
     public function account() {
         if (!$this->loggedUser) {
-            header('Location: index.php?acao=entrar&mensagem=Você precisa se identificar primeiro');    
+            header('Location: index.php?mensagem=Você precisa se identificar primeiro');    
             return;
         }
         $this->view('account', $this->loggedUser);        
@@ -162,7 +163,7 @@ class SiteController extends Controller  {
 
     public function channels() {
         if (!$this->loggedUser) {
-            header('Location: index.php?acao=entrar&mensagem=Você precisa se identificar primeiro');    
+            header('Location: index.php?mensagem=Você precisa se identificar primeiro');    
             return;
         }
         $this->view('channels', $this->loggedUser);        
@@ -170,7 +171,7 @@ class SiteController extends Controller  {
     
     public function favorites() {
         if (!$this->loggedUser) {
-            header('Location: index.php?acao=entrar&mensagem=Você precisa se identificar primeiro');    
+            header('Location: index.php?mensagem=Você precisa se identificar primeiro');    
             return;
         }
         $this->view('favorites', $this->loggedUser);        
@@ -178,7 +179,7 @@ class SiteController extends Controller  {
 
     public function home() {
         if (!$this->loggedUser) {
-            header('Location: index.php?acao=entrar&mensagem=Você precisa se identificar primeiro');    
+            header('Location: index.php?mensagem=Você precisa se identificar primeiro');    
             return;
         }
         $this->view('home', $this->loggedUser);        
@@ -186,7 +187,7 @@ class SiteController extends Controller  {
 
     public function newEpisode() {
         if (!$this->loggedUser) {
-            header('Location: index.php?acao=entrar&mensagem=Você precisa se identificar primeiro');    
+            header('Location: index.php?mensagem=Você precisa se identificar primeiro');    
             return;
         }
         $this->view('newEpisode', $this->loggedUser);        
@@ -194,7 +195,7 @@ class SiteController extends Controller  {
 
     public function statistic() {
         if (!$this->loggedUser) {
-            header('Location: index.php?acao=entrar&mensagem=Você precisa se identificar primeiro');    
+            header('Location: index.php?mensagem=Você precisa se identificar primeiro');    
             return;
         }
         $this->view('statistic', $this->loggedUser);        
@@ -202,7 +203,7 @@ class SiteController extends Controller  {
 
     public function sair() {
         if (!$this->loggedUser) {
-            header('Location: index.php?acao=entrar&mensagem=Você precisa se identificar primeiro');
+            header('Location: index.php?mensagem=Você precisa se identificar primeiro');
             return;
         }
         unset($_SESSION['user']);

@@ -1,3 +1,9 @@
+<?php 
+if (!$data) {
+	header('location:login.php?mensagem=Você precisa se identificar primeiro');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

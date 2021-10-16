@@ -11,7 +11,7 @@
 </head>
 <body>
     <section>
-        <form action='index.php?acao=criarConta' name="cadastro" id="form" method="POST">
+        <form action='../controller/index.php?acao=criarConta' name="cadastro" id="form" method="POST">
             <header>
                 <div class='nome'>
                     <h1> Criar conta </h1>
