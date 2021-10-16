@@ -75,14 +75,14 @@ if (!$data) {
 								<div class="channel-picture"></div>
 		
 								<div class="channel-description">
-									<p><?= $data->descricao ?></p>
+								<p><?= $data->descricao ?></p>
 								</div>
 		
 							</div>
 		
 							<div class="side">
 								<div class="channel-title">
-									<?= $data->nomeCanal ?>
+								<?= $data->nomeCanal ?>
 								</div>
 
 								<div class="info">

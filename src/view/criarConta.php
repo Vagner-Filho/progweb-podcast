@@ -31,7 +31,7 @@
             <div class='second-line'>
                 <div>
                     <label for="data-nascimento">Data de Nascimento</label>
-                    <input type="date" id="data-nascimento" name="data-nascimento" required>
+                    <input type="date" id="data-nascimento" name="data-nascimento" min='1900-01-01' required>
                 </div>
                 <div>
                     <label for="descricao-episodio">Descrição</label>

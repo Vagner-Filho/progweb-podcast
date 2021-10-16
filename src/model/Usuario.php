@@ -15,7 +15,7 @@ class Usuario {
     private $classificacao;
     private $dataInscricao;
 
-    function __construct(string $nomeUsuario, string $nomeCanal, $dataNasc,
+    /*function __construct(string $nomeUsuario, string $nomeCanal, DateTime $dataNasc,
     string $descricao, string $genero, string $email, string $senha, string $classificacao) {
         $this->nomeUsuario = $nomeUsuario;
         $this->nomeCanal = $nomeCanal;
@@ -26,6 +26,19 @@ class Usuario {
         $this->senha = hash('sha256', $senha);
         $this->classificacao = $classificacao;
         $this->dataInscricao = new DateTime("now", new DateTimezone("America/Campo_Grande"));
+    }*/
+
+    function __construct(string $nomeUsuario, string $nomeCanal, DateTime $dataNasc,
+    string $descricao, string $genero, string $email, string $senha, string $classificacao, DateTime $dataInscricao) {
+        $this->nomeUsuario = $nomeUsuario;
+        $this->nomeCanal = $nomeCanal;
+        $this->dataNasc = $dataNasc;
+        $this->descricao = $descricao;
+        $this->genero = $genero;
+        $this->email = $email;
+        $this->senha = hash('sha256', $senha);
+        $this->classificacao = $classificacao;
+        $this->dataInscricao = $dataInscricao;
     }
 
     /**
@@ -49,6 +62,7 @@ class Usuario {
     public function igual(string $email, string $senha) {
         return $this->email === $email && $this->senha === hash('sha256', $senha);
     }
+    
 }
 
 ?>

@@ -1,6 +1,6 @@
 <?php 
-
 require '../model/Usuario.php';
+require '../model/Database.php';
 require 'Controlador.php';
 
 class SiteController extends Controller  {
@@ -13,26 +13,44 @@ class SiteController extends Controller  {
 
     function __construct() {
         session_start();
-        if (isset($_SESSION['user'])) $this->loggedUser = $_SESSION['user'];
+        if (isset($_SESSION['user'])) {
+            $this->loggedUser = $_SESSION['user'];
+        }
     }
-
 
     public function login() {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $db = Database::getInstance();
+
+            $stmt = $db->query("select * from usuarios");
+
             $existeIgual = False;
 
-            if (isset($_SESSION['users'])) {
-                foreach ($_SESSION['users'] as $user) {
-                    if ($user->igual($_POST['email'], $_POST['senha'])) {
+            if ($stmt) {
+                //Variavel que tem a tabela usuario como Array
+                $table = $stmt->fetchAll();
+                
+                foreach ($table as $key => $value) {
+                    if ($_POST['email'] === $value['email'] && hash('sha256', $_POST['senha']) === $value['senha']) {
+
+                        $dataNasc = new DateTime($value['data_nasc'], new DateTimezone("America/Campo_Grande"));
+                        $dataInscricao = new DateTime($value['data_inscricao'], new DateTimezone("America/Campo_Grande"));
+                
+                        $user = new Usuario ($value['nome_usuario'], $value['nome_canal'], $dataNasc,
+                        $value['descricao'], $value['genero'], $value['email'], $value['senha'], $value['classificacao'], $dataInscricao);
+                        
+                        
                         $_SESSION['user'] = $this->loggedUser = $user;
+                        
                         $existeIgual = True;
                         break;
                     }
                 }
             }
 
-            if ($existeIgual) {
+            if ($existeIgual) { 
                 $this->view('home', $this->loggedUser);
             } else {
                 header('Location: index.php?email=' . $_POST['email'] . '&mensagem=Email e/ou senha incorreta!');
@@ -52,7 +70,8 @@ class SiteController extends Controller  {
     public function criarConta() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            if (!isset($_SESSION['users'])) $_SESSION['users'] = array();
+            Database::createSchema();
+            $db = Database::getInstance();
 
             $infos = array(
                 'nomeUsuario' => $_POST['nome-usuario'],
@@ -65,6 +84,8 @@ class SiteController extends Controller  {
                 'classificacao' => $_POST['classificacao']);
             
             //$validos = validar($infos);
+
+            $stmt = $db->query("select * from usuarios");            
 
             $validos = True;
 
@@ -84,7 +105,7 @@ class SiteController extends Controller  {
                             }
                             break;
                         case 'dataNasc':
-                            $date = new DateTime("now", new DateTimezone("America/Campo_Grande"));;
+                            $date = new DateTime("now", new DateTimezone("America/Campo_Grande"));
                             $dataNasc = new DateTime($value, new DateTimezone("America/Campo_Grande"));
                             if ($date < $dataNasc) {
                                 header('location:index.php?acao=criarConta&mensagem=Data inválida!');
@@ -105,8 +126,9 @@ class SiteController extends Controller  {
                             break;
                         case 'email':
                             //Verifica se o email é UNIQUE
-                            foreach ($_SESSION['users'] as $user) {
-                                if ($user->email == $value) {
+                            $emailsTable = $stmt->fetchAll();
+                            foreach ($emailsTable as $emails) {
+                                if ($emails['email'] == $value) {
                                     header('Location:index.php?acao=criarConta&mensagem=Email já cadastrado!');
                                     $validos = False;
                                 }
@@ -138,10 +160,12 @@ class SiteController extends Controller  {
 
             if ($validos) {
                 $dataNasc = new DateTime($infos['dataNasc'], new DateTimezone("America/Campo_Grande"));
+                $dataInscricao = new DateTime("now", new DateTimezone("America/Campo_Grande"));
                 $user = new Usuario ($infos['nomeUsuario'], $infos['nomeCanal'], $dataNasc,
-                    $infos['descricao'], $infos['genero'], $infos['email'], $infos['senha'], $infos['classificacao']);
+                    $infos['descricao'], $infos['genero'], $infos['email'], $infos['senha'], $infos['classificacao'], $dataInscricao);
                 
-                array_push($_SESSION['users'], $user);
+                
+                DataBase::adicionarUsuario($user);
                 
                 header("Location: index.php?email=" . $infos['email'] . "&mensagem=Usuário cadastrado com sucesso!");
                 return;

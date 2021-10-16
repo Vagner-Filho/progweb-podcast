@@ -34,5 +34,5 @@
     }
 </style>
 <script>
-    setTimeout(() => { document.getElementById('alert').remove(); }, 5000);
+    setTimeout(() => { document.getElementById('alert').remove(); }, 4000);
 </script>
