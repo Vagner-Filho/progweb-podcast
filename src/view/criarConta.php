@@ -11,7 +11,7 @@
 </head>
 <body>
     <section>
-        <form action='../controller/index.php?acao=criarConta' name="cadastro" id="form" method="POST">
+        <form action='index.php?acao=criarConta' name="cadastro" id="form" method="POST">
             <header>
                 <div class='nome'>
                     <h1> Criar conta </h1>
@@ -46,13 +46,6 @@
                 <div>
                     <label for="genero">Gênero</label>
                     <input list='generos' type="text" id="genero" name="genero" required>
-                    <!-- <datalist id='generos'>
-                        <option value="Masculino">
-                        <option value="Feminino">
-                        <option value="Não-Binário">
-                        <option value="Trans">
-                        <option value="Outro">
-                    </datalist> -->
                 </div>
             </div>
             <div class='fourth-line'>

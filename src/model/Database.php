@@ -51,25 +51,4 @@ final class Database {
             PRIMARY KEY (id),
             UNIQUE INDEX email_UNIQUE (email ASC));");
     }
-
-    public static function adicionarUsuario(Usuario $user): void {
-        $stm = self::$conexao->prepare('insert into usuarios (nome_usuario, 
-        nome_canal, data_nasc, descricao, genero, email, senha,
-        classificacao, data_inscricao) 
-        values 
-        (:nome_usuario, :nome_canal, :dataNasc, :descricao, 
-        :genero, :email, :senha, :classificacao, :dataInscricao)');
-
-        $stm->bindParam(':nome_usuario', $user->nomeUsuario);
-        $stm->bindParam(':nome_canal', $user->nomeCanal);
-        $stm->bindParam(':dataNasc', $user->dataNasc->format('Y-m-d'));
-        $stm->bindParam(':descricao', $user->descricao);
-        $stm->bindParam(':genero', $user->genero);
-        $stm->bindParam(':email', $user->email);
-        $stm->bindParam(':senha', $user->senha);
-        $stm->bindParam(':classificacao', $user->classificacao);
-        $stm->bindParam(':dataInscricao', $user->dataInscricao->format('Y-m-d'));
-        $stm->execute();
-
-    }
 }

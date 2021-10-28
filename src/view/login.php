@@ -9,7 +9,7 @@
 </head>
 <body>
     <section>
-        <form action="../controller/index.php" name='login' id="form" method="POST">
+        <form action=# name='login' id="form" method="POST">
             <header>
                 Login
             </header>
@@ -185,7 +185,7 @@
 
     function criarConta() {
 
-        window.location.href = "../controller/index.php?acao=criarConta" 
+        window.location.href = "index.php?acao=criarConta" 
      
     }
 

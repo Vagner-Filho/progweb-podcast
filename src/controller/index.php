@@ -1,10 +1,8 @@
 <?php
 error_reporting(E_ERROR | E_PARSE);
 
-include_once('Site.php');
+include_once('Login.php');
 $controller = new SiteController();
-
-
 
 switch ($_GET['acao']) {
     case 'account':
