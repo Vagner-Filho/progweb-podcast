@@ -1,6 +1,6 @@
 <?php 
 if (!$data) {
-	header('location:login.php?mensagem=Você precisa se identificar primeiro');
+	header('location: /login?mensagem=Você precisa se identificar primeiro');
 }
 ?>
 
@@ -11,10 +11,10 @@ if (!$data) {
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="stylesheet" href="../utils/css/bootstrap.css">
-    <script src="../utils/js/bootstrap.bundle.js" async></script>
-    <script src="../js/components/sideMenu.js"></script>
-    <script src="../js/components/searchBar.js"></script>
+	<link rel="stylesheet" href="src/utils/css/bootstrap.css">
+    <script src="src/utils/js/bootstrap.bundle.js" async></script>
+    <script src="src/jscript/components/sideMenu.js"></script>
+    <script src="src/jscript/components/searchBar.js"></script>
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

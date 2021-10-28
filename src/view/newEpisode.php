@@ -1,6 +1,6 @@
 <?php 
 if (!$data) {
-	header('location:login.php?mensagem=Você precisa se identificar primeiro');
+	header('location: /login?mensagem=Você precisa se identificar primeiro');
 }
 ?>
 
@@ -12,10 +12,10 @@ if (!$data) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../utils/css/bootstrap.css">
+    <link rel="stylesheet" href="src/utils/css/bootstrap.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
-    <script src="../utils/js/bootstrap.bundle.js" async></script>
-    <script src="../js/components/sideMenu.js"></script>
+    <script src="src/utils/js/bootstrap.bundle.js" async></script>
+    <script src="src/jscript/components/sideMenu.js"></script>
 
     <title>Novo Episódio</title>
 </head>
@@ -110,7 +110,7 @@ if (!$data) {
         margin-bottom: 20px;
     }
     .audio-input {
-        background: url('../rss/img/cloud_upload.svg');
+        background: url('src/rss/img/cloud_upload.svg');
         background-repeat: no-repeat;
         background-color: #E0E0E0;
         height: 100px;

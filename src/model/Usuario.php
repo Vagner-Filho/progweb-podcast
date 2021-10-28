@@ -110,13 +110,13 @@ class Usuario {
                     switch ($key) {
                         case 'nomeUsuario':
                             if (strlen($value) > 60) {
-                                header('location:index.php?acao=criarConta&mensagem=Nome de Usuário excedeu o tamanho permitido');
+                                header('location: /criarConta?mensagem=Nome de Usuário excedeu o tamanho permitido');
                                 return False;
                             }
                             break;
                         case 'nomeCanal':
                             if (strlen($value) > 45) {
-                                header('location:index.php?acao=criarConta&mensagem=Nome do Canal excedeu o tamanho permitido!');
+                                header('location:/criarConta?mensagem=Nome do Canal excedeu o tamanho permitido!');
                                 return False;
                             }
                             break;
@@ -130,13 +130,13 @@ class Usuario {
                             break;
                         case 'descricao':
                             if (strlen($value) > 200) {
-                                header('location:index.php?acao=criarConta&mensagem=Descrição excedeu o tamanho permitido!');
+                                header('location: /criarConta?mensagem=Descrição excedeu o tamanho permitido!');
                                 return False;
                             }
                             break;
                         case 'genero':
                             if (strlen($value) > 20) {
-                                header('location:index.php?acao=criarConta&mensagem=Gênero excedeu o tamanho permitido!');
+                                header('location: /criarConta?mensagem=Gênero excedeu o tamanho permitido!');
                                 return False;
                             }
                             break;
@@ -144,30 +144,30 @@ class Usuario {
                             //Verifica se o email é UNIQUE
                             $usuario = self::buscarUsuario($value);
                             if ($usuario ) {
-                                header('Location:index.php?acao=criarConta&mensagem=Email já cadastrado!');
+                                header('Location: /criarConta?mensagem=Email já cadastrado!');
                                 return False;
                             }
                             if (strlen($value) > 45 ) {
-                                header("location:index.php?acao=criarConta&mensagem=Email excedeu o tamanho permitido!");
+                                header("location: /criarConta?mensagem=Email excedeu o tamanho permitido!");
                                 return False;
                             }
                             break;
                         case 'senha':
                             if (strlen($value) > 30) {
-                                header('location:index.php?acao=criarConta&mensagem=Senha excedeu o tamanho permitido!');
+                                header('location: /criarConta?mensagem=Senha excedeu o tamanho permitido!');
                                 return False;
                             }
                             break;
                         case 'classificacao':
                             if (strlen($value) > 45) {
-                                header('location:index.php?acao=criarConta&mensagem=Classificação excedeu o tamanho permitido!');
+                                header('location: /criarConta?mensagem=Classificação excedeu o tamanho permitido!');
                                 return False;
                             }
                             break;
                     }
     
                 } else {
-                    header('location:index.php?acao=criarConta&mensagem=Existem campos vazios no formulário!');
+                    header('location: /criarConta?mensagem=Existem campos vazios no formulário!');
                     return False;
                 }
             }

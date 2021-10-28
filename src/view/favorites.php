@@ -1,6 +1,6 @@
 <?php 
 if (!$data) {
-	header('location:login.php?mensagem=Você precisa se identificar primeiro');
+	header('location: /login?mensagem=Você precisa se identificar primeiro');
 }
 ?>
 
@@ -10,11 +10,11 @@ if (!$data) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../js/components/sideMenu.js"></script>
+    <script src="src/jscript/components/sideMenu.js"></script>
 
-    <link rel="stylesheet" href="../utils/css/bootstrap.css">
-    <script src="../utils/js/bootstrap.bundle.js" async></script>
-    <script src="../js/components/searchBar.js"></script>
+    <link rel="stylesheet" href="src/utils/css/bootstrap.css">
+    <script src="src/utils/js/bootstrap.bundle.js" async></script>
+    <script src="src/jscript/components/searchBar.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,7 +37,7 @@ if (!$data) {
                     <div class="line"></div>
                 </div>
                 <section class="podcast-container">
-                    <img src="../rss/img/exampleThumb.svg" alt="podcast-capa">
+                    <img src="src/rss/img/exampleThumb.svg" alt="podcast-capa">
                     <div class="podcast-info">
                         <h5 class="head">
                             Lorem ipsum massa
@@ -50,12 +50,12 @@ if (!$data) {
                         </p>
                     </div>
                     <div class="options">
-                        <img src="../rss/img/heart.svg" alt="like-button">
-                        <img src="../rss/img/list.svg" alt="like-button">
+                        <img src="src/rss/img/heart.svg" alt="like-button">
+                        <img src="src/rss/img/list.svg" alt="like-button">
                     </div>
                 </section>
                 <section class="podcast-container">
-                    <img src="../rss/img/exampleThumb.svg" alt="podcast-capa">
+                    <img src="src/rss/img/exampleThumb.svg" alt="podcast-capa">
                     <div class="podcast-info">
                         <h5 class="head">
                             Lorem ipsum massa
@@ -68,12 +68,12 @@ if (!$data) {
                         </p>
                     </div>
                     <div class="options">
-                        <img src="../rss/img/heart.svg" alt="like-button">
-                        <img src="../rss/img/list.svg" alt="like-button">
+                        <img src="src/rss/img/heart.svg" alt="like-button">
+                        <img src="src/rss/img/list.svg" alt="like-button">
                     </div>
                 </section>
                 <section class="podcast-container">
-                    <img src="../rss/img/exampleThumb.svg" alt="podcast-capa">
+                    <img src="src/rss/img/exampleThumb.svg" alt="podcast-capa">
                     <div class="podcast-info">
                         <h5 class="head">
                             Lorem ipsum massa
@@ -86,8 +86,8 @@ if (!$data) {
                         </p>
                     </div>
                     <div class="options">
-                        <img src="../rss/img/heart.svg" alt="like-button">
-                        <img src="../rss/img/list.svg" alt="like-button">
+                        <img src="src/rss/img/heart.svg" alt="like-button">
+                        <img src="src/rss/img/list.svg" alt="like-button">
                     </div>
                 </section>
             </div>

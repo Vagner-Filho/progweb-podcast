@@ -1,6 +1,6 @@
 <?php 
 if (!$data) {
-	header('location:login.php?mensagem=Você precisa se identificar primeiro');
+	header('location: /login?mensagem=Você precisa se identificar primeiro');
 }
 ?>
 
@@ -17,10 +17,10 @@ if (!$data) {
 
     <!-- Tô apanhando pra aprender a usar módulos, então por motivos de prazo, bora usar as coisas internamente
     O que consiste em baixar o código fonte, incluir na pasta utils e fazer a referência onde quer usar :) -->
-    <link rel="stylesheet" href="../utils/css/bootstrap.css">
-    <script src="../utils/js/bootstrap.bundle.js" async></script>
-    <script src="../js/components/sideMenu.js"></script>
-    <script src="../js/components/searchBar.js"></script>
+    <link rel="stylesheet" href="src/utils/css/bootstrap.css">
+    <script src="src/utils/js/bootstrap.bundle.js" async></script>
+    <script src="src/jscript/components/sideMenu.js"></script>
+    <script src="src/jscript/components/searchBar.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -12,7 +12,7 @@ class searchBar extends HTMLElement {
         <div class="barra-pesquisa">
             <input type="text" placeholder="Pesquisar" />
             <button type="submit"> Buscar 
-                <img src="../searchBar/searchItem.svg">
+                <img src="src/searchBar/searchItem.svg">
             </button>
         </div>
         `;

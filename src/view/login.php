@@ -9,7 +9,7 @@
 </head>
 <body>
     <section>
-        <form action=# name='login' id="form" method="POST">
+        <form action='/login' name='login' id="form" method="POST">
             <header>
                 Login
             </header>
@@ -24,8 +24,8 @@
                 <label for="senha">Senha</label><br>
                 <input type="password" id="senha" name="senha" required><br>
                 <button type="button" id="botao">
-                    <img id='img1' class='img1' src="../rss/img/eye-solid.svg"> 
-                    <img id='img2' class='img2' src="../rss/img/eye-slash-solid.svg" >
+                    <img id='img1' class='img1' src="src/rss/img/eye-solid.svg"> 
+                    <img id='img2' class='img2' src="src/rss/img/eye-slash-solid.svg" >
                 </button><br>
             </div>
             <a href='' class="novaSenha">Esqueci a senha</u></a>
@@ -185,7 +185,7 @@
 
     function criarConta() {
 
-        window.location.href = "index.php?acao=criarConta" 
+        window.location.href = "/criarConta" 
      
     }
 

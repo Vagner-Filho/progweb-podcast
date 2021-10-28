@@ -14,6 +14,6 @@ abstract class Controller
     */
     public function view(string $view, $data = [])
     {
-      require '../view/' . $view . '.php';
+      require 'src/view/' . $view . '.php';
     }
 }
