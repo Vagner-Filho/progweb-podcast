@@ -56,7 +56,8 @@ class Usuario {
 
 
     static public function buscarUsuario($email)
-    {
+    {	
+		Database::createSchema();
         $conexao = Database::getInstance();
         $stm = $conexao->prepare('SELECT * FROM Usuarios WHERE email = :email');
         $stm->bindParam(':email', $email);
