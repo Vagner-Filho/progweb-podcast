@@ -66,8 +66,8 @@ class Usuario {
         $resultado = $stm->fetch();
 
         if ($resultado) {
-            $dataNasc = new DateTime($value['data_nasc'], new DateTimezone("America/Campo_Grande"));
-            $dataInscricao = new DateTime($value['data_inscricao'], new DateTimezone("America/Campo_Grande"));
+            $dataNasc = new DateTime($resultado['data_nasc'], new DateTimezone("America/Campo_Grande"));
+            $dataInscricao = new DateTime($resultado['data_inscricao'], new DateTimezone("America/Campo_Grande"));
     
             $usuario = new Usuario ($resultado['nome_usuario'], $resultado['nome_canal'], $dataNasc,
                 $resultado['descricao'], $resultado['genero'], $resultado['email'], $resultado['senha'], 

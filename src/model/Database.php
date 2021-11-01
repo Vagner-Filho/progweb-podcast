@@ -50,5 +50,16 @@ final class Database {
             data_inscricao DATE NOT NULL,
             PRIMARY KEY (id),
             UNIQUE INDEX email_UNIQUE (email ASC));");
+
+		$db->exec("CREATE TABLE IF NOT EXISTS episodios(
+			id INTEGER NOT NULL AUTO_INCREMENT,
+			titulo VARCHAR(100) NOT NULL,
+			descricao VARCHAR(200) NOT NULL,
+			canal INTEGER NOT NULL,
+			arquivoAudio LONGBLOB,
+			foto LONGBLOB,
+			PRIMARY KEY (id),
+			FOREIGN KEY (canal) REFERENCES usuarios(id)
+		);");
     }
 }

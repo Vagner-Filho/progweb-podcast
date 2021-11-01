@@ -155,6 +155,8 @@ class LoginController extends Controller  {
         unset($_SESSION['user']);
         header('Location: /login?mensagem=Usuário deslogado com sucesso!');
     }
+
+	
 }
 
 ?>
