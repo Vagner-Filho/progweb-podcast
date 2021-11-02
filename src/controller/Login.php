@@ -35,7 +35,7 @@ class LoginController extends Controller  {
 
     public function login() 
     {
-            $usuario = Usuario::buscarUsuario($_POST['email']);
+            $usuario = Usuario::buscarUsuarioPorEmail($_POST['email']);
 
             if ($usuario && $usuario->igual($_POST['email'], $_POST['senha'])) 
             {
@@ -167,7 +167,7 @@ class LoginController extends Controller  {
 		$episodio = new Episodio($infos['titulo'], $infos['descricao'], $_SESSION['user'], $infos['audio-file'], $infos['foto-episodio']);
 
 		$episodio->salvar();
-
+		//$episodio->getEpisodios($_SESSION['user']->id);
 		header('Location: /home');
 	}
 

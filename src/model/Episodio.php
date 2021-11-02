@@ -10,7 +10,7 @@ class Episodio{
 	private $arquivoAudio;
 	private $foto;
 
-	function __construct(string $titulo, string $descricao, Usuario $canal, string $arquivoAudio, string $foto)
+	function __construct(string $titulo, string $descricao, Usuario $canal, $arquivoAudio, $foto)
 	{
 		$this->titulo = $titulo;
 		$this->descricao = $descricao;
@@ -35,6 +35,31 @@ class Episodio{
         return $this->$campo = $valor;
     }
 
+	/**
+	 * Função que retorna todos os episodios do canal cujo id é passado por parâmetro
+	 */
+	public function getEpisodios($idCanal){
+		Database::createSchema();
+        $conexao = Database::getInstance();
+		$episodios = array();
+
+		$stm = $conexao->prepare('select * from episodios where canal = :canal');
+		$stm->bindParam(':canal', $idCanal);
+		$stm->execute();
+		$resultado = $stm->fetchAll();
+		foreach ($resultado as $value) {
+			//print_r($value);
+			$canal = Usuario::buscarUsuarioPorId($value['canal']);
+			$episodio = new Episodio($value['titulo'], $value['descricao'], $canal, $value['arquivoAudio'], $value['foto']);
+			
+			array_push($episodios, $episodio);
+		}
+		return $episodios;
+	}
+
+	/**
+	 * Função que salvar um episódio no banco de dados
+	 */
 	public function salvar(){
 		Database::createSchema();
         $conexao = Database::getInstance();
