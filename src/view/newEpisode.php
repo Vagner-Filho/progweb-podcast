@@ -25,25 +25,27 @@ if (!$data) {
     <div class="container-fluid mt-5">
         <div class="row">
             <div class="col-xxl-4 offset-xxl-4 col-12">
-                <form class="novo-episodio mt-5">
+                <form method="POST" action="/newEpisode" class="novo-episodio mt-5">
                     <div class='foto'>
                         <a href=#>
                             <div id='foto'class="default-pic"></div>
                         </a>
-                        <a href=# class="addFoto">
-                            <label for="foto" class="addPick">Adicionar foto</label>
-                        </a>
+                        <label for="foto-episodio" class="addPick">
+							Adicionar foto
+						</label>
+                        <input type="file" name="foto-episodio" id="foto-episodio" class="d-none" accept="image/*">
+                        
                     </div>
                     <label for="titulo-episodio" class="mt-5">Titulo do episódio</label>
                     <input type="text" id="titulo-episodio" name="titulo-episodio">
                     <label for="descricao-episodio" class="mt-4">Descrição</label>
-                    <textarea id="descricao-episodio" rows="5" cols="33"></textarea>
+                    <textarea id="descricao-episodio" rows="5" cols="33" name="descricao"></textarea>
                     <label for="audio-file" class="audio-input mt-5">
                         <div class="mt-5">
                             Adicionar arquivo de áudio
                         </div>    
                     </label>
-                    <input type="file" id="audio-file" class="d-none">
+                    <input type="file" id="audio-file" class="d-none" name="audio-file" accept="audio/*">
                     <button class="btn-cinza mt-5" type="submit">Salvar Episódio</button>
                 </form>
             </div>

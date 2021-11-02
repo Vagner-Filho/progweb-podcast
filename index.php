@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ERROR | E_PARSE);
 
-require 'src/libs/Route.php';
+include 'src/libs/Route.php';
 use Steampixel\Route;
 
 require 'src/controller/Login.php';
@@ -73,6 +73,11 @@ Route::add('/newEpisode', function() {
     $controller = new LoginController();
     $controller->newEpisode();
 }, 'get');
+
+Route::add('/newEpisode', function() {
+    $controller = new LoginController();
+	$controller->saveNewEpisode();
+}, 'post');
 
 Route::add('/statistic', function() {
     $controller = new LoginController();

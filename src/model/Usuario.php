@@ -4,7 +4,7 @@
 * Essa classe contem os dados de um usuario, e é guardado no BD.
 */
 class Usuario {
-
+	private $id;
     private $nomeUsuario;
     private $nomeCanal;
     private $dataNasc;
@@ -17,7 +17,7 @@ class Usuario {
 
     function __construct(string $nomeUsuario, string $nomeCanal, DateTime $dataNasc,
     string $descricao, string $genero, string $email, string $senha, string $classificacao, DateTime $dataInscricao) 
-    {
+    {	
         $this->nomeUsuario = $nomeUsuario;
         $this->nomeCanal = $nomeCanal;
         $this->dataNasc = $dataNasc;
@@ -54,8 +54,10 @@ class Usuario {
         return $this->email === $email && $this->senha === hash('sha256', $senha);
     }
 
-
-    static public function buscarUsuario($email)
+	/**
+	 * Função que busca um usuário pelo seu email e retorna um objeto usuário ou null caso não exista um usuário com o id passado
+	 */
+    static public function buscarUsuarioPorEmail($email)
     {	
 		Database::createSchema();
         $conexao = Database::getInstance();
@@ -66,12 +68,13 @@ class Usuario {
         $resultado = $stm->fetch();
 
         if ($resultado) {
-            $dataNasc = new DateTime($value['data_nasc'], new DateTimezone("America/Campo_Grande"));
-            $dataInscricao = new DateTime($value['data_inscricao'], new DateTimezone("America/Campo_Grande"));
+            $dataNasc = new DateTime($resultado['data_nasc'], new DateTimezone("America/Campo_Grande"));
+            $dataInscricao = new DateTime($resultado['data_inscricao'], new DateTimezone("America/Campo_Grande"));
     
             $usuario = new Usuario ($resultado['nome_usuario'], $resultado['nome_canal'], $dataNasc,
                 $resultado['descricao'], $resultado['genero'], $resultado['email'], $resultado['senha'], 
                 $resultado['classificacao'], $dataInscricao);
+			$usuario->id = $resultado['id'];
             
             $usuario->senha = $resultado['senha'];
             return $usuario;
@@ -80,6 +83,38 @@ class Usuario {
         }
     }
 
+	/**
+	 * Função que busca um usuário pelo seu id e retorna um objeto usuário ou null caso não exista um usuário com o id passado
+	 */
+	static public function buscarUsuarioPorId($id)
+    {	
+		Database::createSchema();
+        $conexao = Database::getInstance();
+        $stm = $conexao->prepare('SELECT * FROM Usuarios WHERE id = :id');
+        $stm->bindParam(':id', $id);
+
+        $stm->execute();
+        $resultado = $stm->fetch();
+
+        if ($resultado) {
+            $dataNasc = new DateTime($resultado['data_nasc'], new DateTimezone("America/Campo_Grande"));
+            $dataInscricao = new DateTime($resultado['data_inscricao'], new DateTimezone("America/Campo_Grande"));
+    
+            $usuario = new Usuario ($resultado['nome_usuario'], $resultado['nome_canal'], $dataNasc,
+                $resultado['descricao'], $resultado['genero'], $resultado['email'], $resultado['senha'], 
+                $resultado['classificacao'], $dataInscricao);
+			$usuario->id = $resultado['id'];
+            
+            $usuario->senha = $resultado['senha'];
+            return $usuario;
+        } else {
+            return NULL;
+        }
+    }
+
+	/**
+	 * Função que salva um usuário no banco de dados
+	 */
     public function salvar()
     {
         Database::createSchema();
@@ -104,6 +139,9 @@ class Usuario {
         $stm->execute();
     }
 
+	/**
+	 * Função que valida as informações passadas no formulário de cadastro de novo usuário
+	 */
     static public function validarDados($infos)
     {
         foreach ($infos as $key => $value) {
@@ -143,7 +181,7 @@ class Usuario {
                             break;
                         case 'email':
                             //Verifica se o email é UNIQUE
-                            $usuario = self::buscarUsuario($value);
+                            $usuario = self::buscarUsuarioPorEmail($value);
                             if ($usuario ) {
                                 header('Location: /criarConta?mensagem=Email já cadastrado!');
                                 return False;
