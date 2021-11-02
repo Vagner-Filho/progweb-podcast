@@ -4,8 +4,7 @@ error_reporting(E_ERROR | E_PARSE);
 include 'src/libs/Route.php';
 use Steampixel\Route;
 
-include 'src/controller/Login.php';
-include 'src/controller/NewEpisodeController.php';
+require 'src/controller/Login.php';
 
 $controller = new LoginController();
 
@@ -76,7 +75,7 @@ Route::add('/newEpisode', function() {
 }, 'get');
 
 Route::add('/newEpisode', function() {
-    $controller = new NewEpisodeController();
+    $controller = new LoginController();
 	$controller->saveNewEpisode();
 }, 'post');
 

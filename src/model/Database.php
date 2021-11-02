@@ -55,11 +55,11 @@ final class Database {
 			id INTEGER NOT NULL AUTO_INCREMENT,
 			titulo VARCHAR(100) NOT NULL,
 			descricao VARCHAR(200) NOT NULL,
-			canal INTEGER NOT NULL,
+			canal INTEGER,
 			arquivoAudio LONGBLOB,
 			foto LONGBLOB,
-			PRIMARY KEY (id),
-			FOREIGN KEY (canal) REFERENCES usuarios(id)
+			PRIMARY KEY (id)
 		);");
     }
 }
+//FOREIGN KEY (canal) REFERENCES usuarios(id)

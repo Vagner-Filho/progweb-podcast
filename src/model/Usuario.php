@@ -4,7 +4,7 @@
 * Essa classe contem os dados de um usuario, e é guardado no BD.
 */
 class Usuario {
-
+	private $id;
     private $nomeUsuario;
     private $nomeCanal;
     private $dataNasc;
@@ -17,7 +17,7 @@ class Usuario {
 
     function __construct(string $nomeUsuario, string $nomeCanal, DateTime $dataNasc,
     string $descricao, string $genero, string $email, string $senha, string $classificacao, DateTime $dataInscricao) 
-    {
+    {	
         $this->nomeUsuario = $nomeUsuario;
         $this->nomeCanal = $nomeCanal;
         $this->dataNasc = $dataNasc;
@@ -72,6 +72,7 @@ class Usuario {
             $usuario = new Usuario ($resultado['nome_usuario'], $resultado['nome_canal'], $dataNasc,
                 $resultado['descricao'], $resultado['genero'], $resultado['email'], $resultado['senha'], 
                 $resultado['classificacao'], $dataInscricao);
+			$usuario->id = $resultado['id'];
             
             $usuario->senha = $resultado['senha'];
             return $usuario;

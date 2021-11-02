@@ -2,8 +2,8 @@
 
 require 'src/model/Usuario.php';
 require 'src/model/Database.php';
+require 'src/model/Episodio.php';
 require 'Controlador.php';
-
 
 class LoginController extends Controller  {
     
@@ -155,6 +155,21 @@ class LoginController extends Controller  {
         unset($_SESSION['user']);
         header('Location: /login?mensagem=Usuário deslogado com sucesso!');
     }
+
+	public function saveNewEpisode(){
+		$infos = array(
+			'titulo' => $_POST['titulo-episodio'],
+			'descricao' => $_POST['descricao'],
+			'audio-file' => $_POST['audio-file'],
+			'foto-episodio' => $_POST['foto-episodio']
+		);
+
+		$episodio = new Episodio($infos['titulo'], $infos['descricao'], $_SESSION['user'], $infos['audio-file'], $infos['foto-episodio']);
+
+		$episodio->salvar();
+
+		header('Location: /home');
+	}
 
 	
 }
