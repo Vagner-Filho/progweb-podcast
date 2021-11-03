@@ -172,8 +172,7 @@
         cursor: pointer;
     }
 
-    .voltar {
-    }
+
 
     
     @media (max-width: 695px) {

@@ -26,6 +26,7 @@ if (!$data) {
         <div class="row">
             <div class="col-xxl-4 offset-xxl-4 col-12">
                 <form method="POST" action="/newEpisode" class="novo-episodio mt-5">
+				<?php include(__DIR__.'/alert.php') ?>
                     <div class='foto'>
                         <a href=#>
                             <div id='foto'class="default-pic"></div>

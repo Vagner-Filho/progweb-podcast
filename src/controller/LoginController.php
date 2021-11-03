@@ -3,7 +3,7 @@
 require 'src/model/Usuario.php';
 require 'src/model/Database.php';
 require 'src/model/Episodio.php';
-require 'Controlador.php';
+require 'Controller.php';
 
 class LoginController extends Controller  {
     
@@ -164,11 +164,12 @@ class LoginController extends Controller  {
 			'foto-episodio' => $_POST['foto-episodio']
 		);
 
+
 		$episodio = new Episodio($infos['titulo'], $infos['descricao'], $_SESSION['user'], $infos['audio-file'], $infos['foto-episodio']);
 
 		$episodio->salvar();
-		//$episodio->getEpisodios($_SESSION['user']->id);
-		header('Location: /home');
+		$episodio->getEpisodios($_SESSION['user']->id);
+		//header('Location: /newEpisode?mensagem=Episódio salvo com sucesso!');
 	}
 
 	

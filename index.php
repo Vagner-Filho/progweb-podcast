@@ -3,10 +3,7 @@ error_reporting(E_ERROR | E_PARSE);
 
 include 'src/libs/Route.php';
 use Steampixel\Route;
-
-require 'src/controller/Login.php';
-
-$controller = new LoginController();
+require 'src/controller/LoginController.php';
 
 /*Route::add('/login', fn () => $controller->login(), ['post']);
 Route::add('/criarConta', fn () => $controller->criarContaIndex(), ['post']);
