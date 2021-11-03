@@ -29,6 +29,10 @@ Route::add('/.*', function () {
 Route::run('/');
 */
 
+Route::add('/' , function() {
+    header('location: /login');
+}, 'get');
+
 Route::add('/login', function() {
     $controller = new LoginController();
     $controller->loginIndex();
