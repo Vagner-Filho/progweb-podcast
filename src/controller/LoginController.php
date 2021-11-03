@@ -168,8 +168,8 @@ class LoginController extends Controller  {
 		$episodio = new Episodio($infos['titulo'], $infos['descricao'], $_SESSION['user'], $infos['audio-file'], $infos['foto-episodio']);
 
 		$episodio->salvar();
-		$episodio->getEpisodios($_SESSION['user']->id);
-		//header('Location: /newEpisode?mensagem=Episódio salvo com sucesso!');
+		//$episodio->getEpisodios($_SESSION['user']->id);
+		header('Location: /newEpisode?mensagem=Episódio salvo com sucesso!');
 	}
 
 	
