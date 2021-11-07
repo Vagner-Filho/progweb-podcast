@@ -49,7 +49,9 @@ class Episodio{
 		$resultado = $stm->fetchAll();
 		foreach ($resultado as $value) {
 			//print_r($value);
+			
 			$canal = Usuario::buscarUsuarioPorId($value['canal']);
+
 			$episodio = new Episodio($value['titulo'], $value['descricao'], $canal, $value['arquivoAudio'], $value['foto']);
 			
 			array_push($episodios, $episodio);

@@ -56,8 +56,8 @@ final class Database {
 			titulo VARCHAR(100) NOT NULL,
 			descricao VARCHAR(200) NOT NULL,
 			canal INTEGER,
-			arquivoAudio LONGBLOB,
-			foto LONGBLOB,
+			arquivoAudio VARCHAR(60),
+			foto VARCHAR(60),
 			PRIMARY KEY (id)
 		);");
     }

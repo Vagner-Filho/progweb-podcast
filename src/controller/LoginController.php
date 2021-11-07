@@ -104,6 +104,16 @@ class LoginController extends Controller  {
         }
         $this->view('channels', $this->loggedUser);        
     }
+
+	public function mainChannel() 
+    {
+        if (!$this->loggedUser) 
+        {
+            header('Location: /login?mensagem=Você precisa se identificar primeiro');    
+            return;
+        }
+        $this->view('main-channel');        
+    }
     
     public function favorites() 
     {
@@ -157,19 +167,35 @@ class LoginController extends Controller  {
     }
 
 	public function saveNewEpisode(){
+
+		if(isset($_FILES['foto-episodio']) && isset($_FILES['audio-file'])){
+			$extensaoFoto = strtolower(substr($_FILES['foto-episodio']['name'], -4));
+			$novoNomeFoto = md5(time()).$extensaoFoto;
+			$diretorio = "src/controller/upload/";
+
+			move_uploaded_file($_FILES['foto-episodio']['tmp_name'], $diretorio.$novoNomeFoto);
+
+			$extensaoAudio = strtolower(substr($_FILES['audio-file']['name'], -4));
+			$novoNomeAudio = md5(time()).$extensaoAudio;
+
+			move_uploaded_file($_FILES['audio-file']['tmp_name'], $diretorio.$novoNomeAudio);
+
+		}
+
 		$infos = array(
 			'titulo' => $_POST['titulo-episodio'],
-			'descricao' => $_POST['descricao'],
-			'audio-file' => $_POST['audio-file'],
-			'foto-episodio' => $_POST['foto-episodio']
+			'descricao' => $_POST['descricao']
 		);
 
 
-		$episodio = new Episodio($infos['titulo'], $infos['descricao'], $_SESSION['user'], $infos['audio-file'], $infos['foto-episodio']);
+		$episodio = new Episodio($infos['titulo'], $infos['descricao'], $_SESSION['user'], $novoNomeAudio, $novoNomeFoto);
 
 		$episodio->salvar();
+		//$idCanal = $episodio->__get("canal")->__get("id");
 		//$episodio->getEpisodios($_SESSION['user']->id);
-		header('Location: /newEpisode?mensagem=Episódio salvo com sucesso!');
+		//header("Location: /mainChannel?id=${$idCanal}");
+		$this->view("main-channel", $episodio);
+		
 	}
 
 	

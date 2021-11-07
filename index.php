@@ -65,6 +65,11 @@ Route::add('/channels', function() {
     $controller->channels();
 }, 'get');
 
+Route::add('/mainChannel', function() {
+    $controller = new LoginController();
+    $controller->mainChannel();
+}, 'get');
+
 Route::add('/favorites', function() {
     $controller = new LoginController();
     $controller->favorites();

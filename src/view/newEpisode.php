@@ -25,7 +25,7 @@ if (!$data) {
     <div class="container-fluid mt-5">
         <div class="row">
             <div class="col-xxl-4 offset-xxl-4 col-12">
-                <form method="POST" action="/newEpisode" class="novo-episodio mt-5">
+                <form method="POST" action="/newEpisode" class="novo-episodio mt-5" enctype="multipart/form-data">
 				<?php include(__DIR__.'/alert.php') ?>
                     <div class='foto'>
                         <a href=#>
@@ -38,15 +38,15 @@ if (!$data) {
                         
                     </div>
                     <label for="titulo-episodio" class="mt-5">Titulo do episódio</label>
-                    <input type="text" id="titulo-episodio" name="titulo-episodio">
+                    <input type="text" id="titulo-episodio" name="titulo-episodio" required>
                     <label for="descricao-episodio" class="mt-4">Descrição</label>
-                    <textarea id="descricao-episodio" rows="5" cols="33" name="descricao"></textarea>
+                    <textarea id="descricao-episodio" rows="5" cols="33" name="descricao" required></textarea>
                     <label for="audio-file" class="audio-input mt-5">
                         <div class="mt-5">
                             Adicionar arquivo de áudio
                         </div>    
                     </label>
-                    <input type="file" id="audio-file" class="d-none" name="audio-file" accept="audio/*">
+                    <input type="file" id="audio-file" class="d-none" name="audio-file" accept="audio/*" required>
                     <button class="btn-cinza mt-5" type="submit">Salvar Episódio</button>
                 </form>
             </div>
