@@ -1,3 +1,11 @@
+<?php
+
+if($data){
+	$episodios = $data->getEpisodios($_SESSION['user']->__get('id'));
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,24 +67,39 @@
             </section>
             <section>
                 <div class="col-10 offset-1">
+
+				
                     <div class="ms-4">
                         <div class=ordenacao>
                             <p>Todos os episódios</p>
                         </div>
-                        <div class="episodio">
-                            <div class="icon-conteudo"></div>
-                            <div class="conteudo">
-                                <div class="title">Lorem ipsum massa</div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat excepturi voluptas numquam doloribus eveniet magnam molestiae. Animi optio in cupiditate eum blanditiis dolor tenetur libero quae illum dolores. Fugit, pariatur!</p>
-                            </div>
-                            <img src="../rss/img/heart.svg" alt="like-button">
-                        </div>
-                    </div>
-                    <div class="ms-4">
-                        <div class="divisao">
-                            <div class="line"></div>
-                        </div>
+					</div>
+					<?php foreach ($episodios as $ep) { ?>
+						<div class="episodio">
+							<div >
+								<?php echo '<img src =" ' . BASEPATH . 'uploads/' . $ep->__get('foto') . '" class="icon-conteudo" />' ?>
+							</div>
+							<div class="conteudo">
+								<div class="title">
+									<?=  $ep->__get('titulo') ?>
+								</div>
+								<p>
+									<?=  $ep->__get('descricao') ?>
+								</p>
+							</div>
+							<img src="src/rss/img/heart.svg" alt="like-button">
+						</div>
+						<div class="divisao">
+							<div class="line"></div>
+						</div>
+                   
+					
+					<?php } ?>
 
+
+
+                    <div class="ms-4">
+    
                         <div class="episodio">
                             <div class="icon-conteudo"></div>
                             <div class="conteudo">

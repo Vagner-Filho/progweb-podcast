@@ -10,7 +10,7 @@ class Episodio{
 	private $arquivoAudio;
 	private $foto;
 
-	function __construct(string $titulo, string $descricao, Usuario $canal, $arquivoAudio, $foto)
+	function __construct(string $titulo, string $descricao, Usuario $canal, string $arquivoAudio,string $foto)
 	{
 		$this->titulo = $titulo;
 		$this->descricao = $descricao;
@@ -46,19 +46,19 @@ class Episodio{
 		$stm = $conexao->prepare('select * from episodios where canal = :canal');
 		$stm->bindParam(':canal', $idCanal);
 		$stm->execute();
-		$resultado = $stm->fetchAll();
+		$resultado = $stm->fetchAll(PDO::FETCH_ASSOC);
 		foreach ($resultado as $value) {
-			//print_r($value);
+			//var_dump($value);
 			
 			$canal = Usuario::buscarUsuarioPorId($value['canal']);
 
-			$episodio = new Episodio($value['titulo'], $value['descricao'], $canal, $value['arquivoAudio'], $value['foto']);
+			$episodio = new Episodio($value['titulo'], $value['descricao'], $canal, $value['arquivoaudio'], $value['foto']);
 			
 			array_push($episodios, $episodio);
 		}
 		return $episodios;
 	}
-
+ 
 	/**
 	 * Função que salvar um episódio no banco de dados
 	 */

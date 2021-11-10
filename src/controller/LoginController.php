@@ -5,6 +5,8 @@ require 'src/model/Database.php';
 require 'src/model/Episodio.php';
 require 'Controller.php';
 
+define('BASEPATH', 'src/');
+
 class LoginController extends Controller  {
     
     /*
@@ -171,7 +173,7 @@ class LoginController extends Controller  {
 		if(isset($_FILES['foto-episodio']) && isset($_FILES['audio-file'])){
 			$extensaoFoto = strtolower(substr($_FILES['foto-episodio']['name'], -4));
 			$novoNomeFoto = md5(time()).$extensaoFoto;
-			$diretorio = "src/controller/upload/";
+			$diretorio = BASEPATH . "uploads/";
 
 			move_uploaded_file($_FILES['foto-episodio']['tmp_name'], $diretorio.$novoNomeFoto);
 
