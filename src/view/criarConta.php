@@ -19,6 +19,10 @@
             </header>
             <?php include(__DIR__.'/alert.php') ?>
             <div class="first-line">
+				<div>
+                    <label for="foto-usuario">Insira uma foto de perfil</label>
+                    <input type="file" id="foto-usuario" name="foto-usuario" accept="png, .jpg">
+                </div>
                 <div>
                     <label for="nome-usuario">Nome de Usuário</label>
                     <input type="text" id="nome-usuario" name="nome-usuario" required>
@@ -121,6 +125,11 @@
         font-weight: bolder;
         width: 100%;
     }
+
+	input[type='file'], input[type='file']:focus-within, input[type='file']:hover{
+		border: none;
+	}
+
 
     /*input:invalid {
         border: 2px solid rgb(206, 4, 4);
