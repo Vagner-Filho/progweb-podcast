@@ -99,31 +99,8 @@ if($data){
 						</div>
 					<?php } ?>
 
-                    <div class="ms-4">
-    
-                        <div class="episodio">
-                            <div class="icon-conteudo"></div>
-                            <div class="conteudo">
-                                <div class="title">Lorem ipsum massa</div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat excepturi voluptas numquam doloribus eveniet magnam molestiae. Animi optio in cupiditate eum blanditiis dolor tenetur libero quae illum dolores. Fugit, pariatur!</p>
-                            </div>
-                            <img src="src/rss/img/heart.svg" alt="like-button">
-                        </div>
-                    </div>
-                    <div class="ms-4">
-                        <div class="divisao">
-                            <div class="line"></div>
-                        </div>
-
-                        <div class="episodio">
-                            <div class="icon-conteudo"></div>
-                            <div class="conteudo">
-                                <div class="title">Lorem ipsum massa</div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat excepturi voluptas numquam doloribus eveniet magnam molestiae. Animi optio in cupiditate eum blanditiis dolor tenetur libero quae illum dolores. Fugit, pariatur!</p>
-                            </div>
-                            <img src="src/rss/img/heart.svg" alt="like-button">
-                        </div>
-                    </div>
+                    
+                    
                 </div>
             </section>
         </div>

@@ -34,7 +34,7 @@ if (!$data) {
                         <label for="foto-episodio" class="addPick">
 							Adicionar foto
 						</label>
-                        <input type="file" name="foto-episodio" id="foto-episodio" class="d-none" accept="png, .jpg">
+                        <input type="file" name="foto-episodio" id="foto-episodio" class="d-none" accept=".png, .jpg">
                         
                     </div>
                     <label for="titulo-episodio" class="mt-5">Titulo do episódio</label>
