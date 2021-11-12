@@ -73,46 +73,31 @@ if($data){
                         <div class=ordenacao>
                             <p>Todos os episódios</p>
                         </div>
-<<<<<<< HEAD
-					</div>
-					<?php foreach ($episodios as $ep) { ?>
-						<div class="episodio">
-							<div >
-								<?php echo '<img src =" ' . BASEPATH . 'uploads/' . $ep->__get('foto') . '" class="icon-conteudo" />' ?>
-							</div>
-							<div class="conteudo">
-								<div class="title">
-									<?=  $ep->__get('titulo') ?>
-								</div>
-								<p>
-									<?=  $ep->__get('descricao') ?>
-								</p>
-							</div>
-							<img src="src/rss/img/heart.svg" alt="like-button">
-						</div>
-						<div class="divisao">
-							<div class="line"></div>
-						</div>
-                   
-					
-					<?php } ?>
-
-
-=======
-                        <div class="episodio">
-                            <div class="icon-conteudo"></div>
-                            <div class="conteudo">
-                                <div class="title">Lorem ipsum massa</div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat excepturi voluptas numquam doloribus eveniet magnam molestiae. Animi optio in cupiditate eum blanditiis dolor tenetur libero quae illum dolores. Fugit, pariatur!</p>
-                            </div>
-                            <img src="src/rss/img/heart.svg" alt="like-button">
-                        </div>
+                        
                     </div>
-                    <div class="ms-4">
-                        <div class="divisao">
-                            <div class="line"></div>
-                        </div>
->>>>>>> 86bc7bd9b5f4d5930eea3b3cb44dbe5f3186ffee
+
+					<?php foreach ($episodios as $ep) { ?>
+						<div class="ms-4">
+							<div class="episodio">
+								<div>
+									<?php echo "<img src='" . BASEPATH . "uploads/" . $ep->__get('foto') . "' class='icon-conteudo'/>" ?>
+								</div>
+								<div class="conteudo">
+									<div class="title">
+										<?= $ep->__get('titulo') ?>
+									</div>
+									<p>
+										<?= $ep->__get('descricao') ?>
+									</p>
+								</div>
+								<img src="src/rss/img/heart.svg" alt="like-button">
+							</div>
+							
+							<div class="divisao">
+								<div class="line"></div>
+							</div>
+						</div>
+					<?php } ?>
 
                     <div class="ms-4">
     
