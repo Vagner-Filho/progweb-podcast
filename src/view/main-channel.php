@@ -13,9 +13,9 @@ if($data){
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="stylesheet" href="../utils/css/bootstrap.css">
-    <script src="../utils/js/bootstrap.bundle.js" async></script>
-    <script src="../js/components/sideMenu.js"></script>
+	<link rel="stylesheet" href="src/utils/css/bootstrap.css">
+    <script src="src/utils/js/bootstrap.bundle.js" async></script>
+    <script src="src/jscript/components/sideMenu.js"></script>
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,7 +59,7 @@ if($data){
                         </div>
                         <div class="tags">
                             <button class="tag">Cultura</button>
-                            <button class="tag" style="width: 150px";">Entretenimento</button>
+                            <button class="tag" style="width: 150px";>Entretenimento</button>
                             <button class="tag">Humor</button>
                         </div>
                     </div>
@@ -73,6 +73,7 @@ if($data){
                         <div class=ordenacao>
                             <p>Todos os episódios</p>
                         </div>
+<<<<<<< HEAD
 					</div>
 					<?php foreach ($episodios as $ep) { ?>
 						<div class="episodio">
@@ -97,6 +98,21 @@ if($data){
 					<?php } ?>
 
 
+=======
+                        <div class="episodio">
+                            <div class="icon-conteudo"></div>
+                            <div class="conteudo">
+                                <div class="title">Lorem ipsum massa</div>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat excepturi voluptas numquam doloribus eveniet magnam molestiae. Animi optio in cupiditate eum blanditiis dolor tenetur libero quae illum dolores. Fugit, pariatur!</p>
+                            </div>
+                            <img src="src/rss/img/heart.svg" alt="like-button">
+                        </div>
+                    </div>
+                    <div class="ms-4">
+                        <div class="divisao">
+                            <div class="line"></div>
+                        </div>
+>>>>>>> 86bc7bd9b5f4d5930eea3b3cb44dbe5f3186ffee
 
                     <div class="ms-4">
     
@@ -106,7 +122,7 @@ if($data){
                                 <div class="title">Lorem ipsum massa</div>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat excepturi voluptas numquam doloribus eveniet magnam molestiae. Animi optio in cupiditate eum blanditiis dolor tenetur libero quae illum dolores. Fugit, pariatur!</p>
                             </div>
-                            <img src="../rss/img/heart.svg" alt="like-button">
+                            <img src="src/rss/img/heart.svg" alt="like-button">
                         </div>
                     </div>
                     <div class="ms-4">
@@ -120,7 +136,7 @@ if($data){
                                 <div class="title">Lorem ipsum massa</div>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat excepturi voluptas numquam doloribus eveniet magnam molestiae. Animi optio in cupiditate eum blanditiis dolor tenetur libero quae illum dolores. Fugit, pariatur!</p>
                             </div>
-                            <img src="../rss/img/heart.svg" alt="like-button">
+                            <img src="src/rss/img/heart.svg" alt="like-button">
                         </div>
                     </div>
                 </div>
