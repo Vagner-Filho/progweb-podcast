@@ -148,6 +148,16 @@ class LoginController extends Controller  {
         $this->view('newEpisode', $this->loggedUser);        
     }
 
+    public function player() 
+    {
+        if (!$this->loggedUser) 
+        {
+            header('Location: /login?mensagem=Você precisa se identificar primeiro');    
+            return;
+        }
+        $this->view('player', $this->loggedUser);        
+    }
+
     public function statistic() 
     {
         if (!$this->loggedUser) 

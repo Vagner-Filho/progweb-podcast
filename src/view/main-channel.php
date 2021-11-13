@@ -4,6 +4,7 @@ if($data){
 	$episodios = $data->getEpisodios($_SESSION['user']->__get('id'));
 }*/
 $episodios = Episodio::getEpisodios($data->__get('id'));
+
 ?>
 
 <!DOCTYPE html>
@@ -37,11 +38,11 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
                             <div class="side">
                                 <div class="channel-title">
                                     <p>
-                                        MATANDO ROBÔS GIGANTES
+                                        <?= $data->nomeCanal ?>
                                     </p>
-                                    <p class="text">
+                                    <!--<p class="text">
                                         MTG
-                                    </p>
+                                    </p>-->
                                 </div>
                             </div>
                         </div>
@@ -55,12 +56,12 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
                             <button>Seguir</button>
                         </div>
                         <div class="descricao">
-                            <p>Breve descrição.</p>
+                            <p><?= $data->descricao ?></p>
                         </div>
                         <div class="tags">
-                            <button class="tag">Cultura</button>
-                            <button class="tag" style="width: 150px";>Entretenimento</button>
-                            <button class="tag">Humor</button>
+                            <button class="tag"><?= $data->genero ?></button>
+                            <!--<button class="tag" style="width: 150px";>Entretenimento</button>
+                            <button class="tag">Humor</button>-->
                         </div>
                     </div>
                 </div>
@@ -77,11 +78,14 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
                     </div>
 
 					<?php foreach ($episodios as $ep) { ?>
+                        
 						<div class="ms-4">
 							<div class="episodio">
-								<div>
-									<?php echo "<img src='" . BASEPATH . "uploads/" . $ep->__get('foto') . "' class='icon-conteudo'/>" ?>
-								</div>
+                                <a href="/player?id=<?= $ep->__get('id')?>">
+                                    <div>
+                                        <?php echo "<img src='" . BASEPATH . "uploads/" . $ep->__get('foto') . "' class='icon-conteudo'/>" ?>
+                                    </div>
+                                </a>
 								<div class="conteudo">
 									<div class="title">
 										<?= $ep->__get('titulo') ?>
@@ -90,7 +94,7 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
 										<?= $ep->__get('descricao') ?>
 									</p>
 								</div>
-								<img src="src/rss/img/heart.svg" alt="like-button">
+								<img class='imagem' src="src/rss/img/heart.svg" alt="like-button">
 							</div>
 							
 							<div class="divisao">
@@ -109,8 +113,16 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
 </html>
 
 <style>
+    
     body {
         background-color: #fff;
+    }
+
+    .imagem{
+        position: absolute;
+        right:0;
+        top: 15%;
+        width: 35px; 
     }
 
     .text {
@@ -170,9 +182,10 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
     }
     
     .channel-info, .episodio {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 38px;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 38px;
+        position: relative;
     }
 
     .conteudo {
