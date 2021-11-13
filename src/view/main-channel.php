@@ -1,9 +1,9 @@
 <?php
-
+/*
 if($data){
 	$episodios = $data->getEpisodios($_SESSION['user']->__get('id'));
-}
-
+}*/
+$episodios = Episodio::getEpisodios($data->__get('id'));
 ?>
 
 <!DOCTYPE html>

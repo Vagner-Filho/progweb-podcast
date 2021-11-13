@@ -28,9 +28,9 @@ if (!$data) {
                 <form method="POST" action="/newEpisode" class="novo-episodio mt-5" enctype="multipart/form-data">
 				<?php include(__DIR__.'/alert.php') ?>
                     <div class='foto'>
-                        <a href=#>
+                        <label for="foto-episodio" class="addPick marginBottom">
                             <div id='foto'class="default-pic"></div>
-                        </a>
+                        </label>
                         <label for="foto-episodio" class="addPick">
 							Adicionar foto
 						</label>
@@ -93,6 +93,7 @@ if (!$data) {
     .addPick {
         text-decoration: underline;
         color: black;
+        
     }
     .addPick:hover {
         cursor: pointer;
@@ -102,6 +103,9 @@ if (!$data) {
         height: 200px;
         background-color: #616161;
         border-radius: 35px;
+    }
+    .marginBottom {
+        margin-bottom: 20px;
     }
     .novo-episodio {
         display: flex;

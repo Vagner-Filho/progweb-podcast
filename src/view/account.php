@@ -72,7 +72,9 @@ if (!$data) {
 
 						<div class="channel-info">
 							<div class="side">
-								<div class="channel-picture"></div>
+								<a href="/mainChannel">
+									<div class="channel-picture"></div>
+								</a>
 		
 								<div class="channel-description">
 								<p><?= $data->descricao ?></p>

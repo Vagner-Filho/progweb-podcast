@@ -38,7 +38,7 @@ class Episodio{
 	/**
 	 * Função que retorna todos os episodios do canal cujo id é passado por parâmetro
 	 */
-	public function getEpisodios($idCanal){
+	static public function getEpisodios($idCanal){
 		Database::createSchema();
         $conexao = Database::getInstance();
 		$episodios = array();

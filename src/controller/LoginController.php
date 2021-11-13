@@ -3,6 +3,7 @@
 require 'src/model/Usuario.php';
 require 'src/model/Database.php';
 require 'src/model/Episodio.php';
+
 require 'Controller.php';
 
 define('BASEPATH', 'src/');
@@ -113,8 +114,8 @@ class LoginController extends Controller  {
         {
             header('Location: /login?mensagem=Você precisa se identificar primeiro');    
             return;
-        }
-        $this->view('main-channel');        
+        }      
+        $this->view('main-channel', $this->loggedUser); 
     }
     
     public function favorites() 
@@ -193,10 +194,11 @@ class LoginController extends Controller  {
 		$episodio = new Episodio($infos['titulo'], $infos['descricao'], $_SESSION['user'], $novoNomeAudio, $novoNomeFoto);
 
 		$episodio->salvar();
+        
 		//$idCanal = $episodio->__get("canal")->__get("id");
 		//$episodio->getEpisodios($_SESSION['user']->id);
-		//header("Location: /mainChannel?id=${$idCanal}");
-		$this->view("main-channel", $episodio);
+		header("Location: /mainChannel");
+		//$this->view("main-channel", $this->loggedUser);
 		
 	}
 
