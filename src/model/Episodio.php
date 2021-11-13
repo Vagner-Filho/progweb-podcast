@@ -4,6 +4,7 @@
  * Classe responsável por reprensentar os dados de um episódio de podcast
  */
 class Episodio{ 
+	private $id;
 	private $titulo;
 	private $descricao;
 	private $canal;
@@ -53,11 +54,38 @@ class Episodio{
 			$canal = Usuario::buscarUsuarioPorId($value['canal']);
 
 			$episodio = new Episodio($value['titulo'], $value['descricao'], $canal, $value['arquivoaudio'], $value['foto']);
+			$episodio->id = $value['id'];
 			
 			array_push($episodios, $episodio);
 		}
 		return $episodios;
 	}
+
+	/**
+	 * Função que busca um episodio pelo seu id e retorna um objeto Episodio ou null caso não exista um episodio com o id passado
+	 */
+	static public function getEpisodio($id)
+    {	
+		Database::createSchema();
+        $conexao = Database::getInstance();
+		$stm = $conexao->prepare('select * from episodios where id = :id');
+        $stm->bindParam(':id', $id);
+
+        $stm->execute();
+        $resultado = $stm->fetch();
+
+        if ($resultado) {
+			
+			$canal = Usuario::buscarUsuarioPorId($resultado['canal']);
+
+            $episodio = new Episodio($resultado['titulo'], $resultado['descricao'], $canal,$resultado['arquivoaudio'], $resultado['foto']);
+			$episodio->id = $resultado['id'];
+            
+            return $episodio;
+        } else {
+            return NULL;
+        }
+    }
  
 	/**
 	 * Função que salvar um episódio no banco de dados

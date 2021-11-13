@@ -1,10 +1,6 @@
 <?php
-/*
-if($data){
-	$episodios = $data->getEpisodios($_SESSION['user']->__get('id'));
-}*/
-$episodios = Episodio::getEpisodios($data->__get('id'));
-
+    $episodioAtual = Episodio::getEpisodio($_GET['id']);
+    $episodios = Episodio::getEpisodios($data->__get('id'));
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +11,7 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<link rel="stylesheet" href="src/utils/css/bootstrap.css">
-    <script src="src/utils/js/bootstrap.bundle.js" async></script>
+    <script src="src/utils/jscript/bootstrap.bundle.js" async></script>
     <script src="src/jscript/components/sideMenu.js"></script>
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,59 +25,46 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
 	<div class="container-fluid mt-5">
         <div class="row">
             <section>
-                <div class="col-10 offset-1">
-                    <div class="ms-4">
-                        <div class="channel-info">
-                            <div>
-                                <div class="icon"></div>
+                <div class="wrapper">
+                    <article class="card-custom">
+                        <div class="icon"></div>
+                        <div class="player">
+                            <div class="titulo">
+                                <p><?= $episodioAtual->titulo ?></p>
                             </div>
-                            <div class="side">
-                                <div class="channel-title">
-                                    <p>
-                                        <?= $data->nomeCanal ?>
-                                    </p>
-                                    <!--<p class="text">
-                                        MTG
-                                    </p>-->
-                                </div>
+                            <div class="button">
+                                <button><img src="src/rss/img/play-svgrepo-com.svg" alt="">
+                                Play
+                                </button>
                             </div>
                         </div>
+                    </article>
+                </div>
+            </section>
+            <section>
+                <div class="col-10 offset-1">
+                    <div class="ms-4">
+                        <p><strong>Descrição:</strong> <?= $episodioAtual->descricao ?></p>
                     </div>
                 </div>
             </section>
             <section>
                 <div class="col-10 offset-1">
                     <div class="ms-4">
-                        <div class="seguir">
-                            <button>Seguir</button>
+                        <div class="main-head">
+                            <div class="head-text text-change">
+                                <p>
+                                    Mais Podcasts
+                                </p>
+                            </div>
+                            <div class="line"></div>
                         </div>
-                        <div class="descricao">
-                            <p><?= $data->descricao ?></p>
-                        </div>
-                        <div class="tags">
-                            <button class="tag"><?= $data->genero ?></button>
-                            <!--<button class="tag" style="width: 150px";>Entretenimento</button>
-                            <button class="tag">Humor</button>-->
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section>
-                <div class="col-10 offset-1">
-
                     
-                    <div class="ms-4">
-                        <div class=ordenacao>
-                            <p>Todos os episódios</p>
-                        </div>
-                        
-                    </div>
-
-                    <?php foreach ($episodios as $ep) { ?>
-                        
+                    <?php foreach ($episodios as $ep) { if ($ep->__get('id') != $episodioAtual->__get('id')) {?>
+                            
                         <div class="ms-4">
                             <div class="episodio">
-                                <a href="/player?id=<?= $ep->__get('id')?>">
+                                <a href="/player?id=<?= $ep->__get('id') ?>">
                                     <div>
                                         <?php echo "<img src='" . BASEPATH . "uploads/" . $ep->__get('foto') . "' class='icon-conteudo'/>" ?>
                                     </div>
@@ -101,10 +84,7 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
                                 <div class="line"></div>
                             </div>
                         </div>
-                    <?php } ?>
-
-                    
-                    
+                    <?php } } ?>
                 </div>
             </section>
         </div>
@@ -113,7 +93,6 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
 </html>
 
 <style>
-    
     body {
         background-color: #fff;
     }
@@ -139,8 +118,14 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
     }
 
     .main-head .head-text {
-        font-size: 1.8rem;
+        font-size: 1rem;
         padding-right: 10px;
+        color: #000;
+        padding-top: 10px;
+    }
+
+    .text-change {
+        min-width: 120px;
     }
 
     .main-head, .head {
@@ -160,7 +145,7 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
         border: 1px solid #3BB4B4
     }
 
-    .subcard, .subcard-small, .icon, .icon-conteudo{
+    .subcard, .subcard-small, .icon-conteudo{
         width: 232px;
         height: 232px;
         background-color: #616161;
@@ -169,16 +154,25 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
     }
 
     .icon {
-        border-radius: 35px;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-        margin-bottom: 5px;
+        width: 700px;
+        height: 375px;
+        background-color: #616161;
+        border-radius: 35px 35px 0px 0px;
+        margin: auto;
+    }
+    
+    .player {
+        width: 700px;
+        height: 175px;
+        background-color: #000;
+        border-radius: 0px 0px 35px 35px;
+        margin: auto;
     }
 
     .icon-conteudo{
         width: 159px;
         height: 159px;
         border-radius: 100px;
-
     }
     
     .channel-info, .episodio {
@@ -197,69 +191,55 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
         color: #3BB4B4;
     }
 
-    .ordenacao {
-        font-size: 22px;
-        color: #000;
-        margin-bottom: 40px;
-    }
-
     .channel-title{
 		font-size: 40px;
 		margin-top: 15px;
 		margin-bottom: 120px;
 	}
 
-    .side{
-        margin-left: 1em;
-	}
-
-    .seguir button {
-        height: 40px;
-        width: 120px;
-        margin: 7px, 7px, 7px, 0px;
-        background: #c4c4c4;
-        border: 1px solid #c4c4c4;
-        border-radius: 10px;
-        color: #000;
-        font-weight: bold;
-        margin-bottom: 38px;
-    }
-
-    .seguir button:hover {
-        color: #fff;
-        background: #3b3b3b;
-    }
-
-    .descricao {
-        margin-bottom: 38px;
-    }
-
-    .tags {
-        margin-bottom: 38px;
-    }
-
-    .tags button {
-        height: 30px;
-        width: 80px;
-        margin: 7px, 7px, 7px, 0px;
-        background: #e2e2e2;
-        border: 1px solid #e2e2e2;
-        border-radius: 30px;
-        color: #000;
-        font-weight: bold;
-        margin-right: 50px;
-        margin-bottom: 10px;
-    }
-
-    .line {
-        height: 1px;
-        width: 100%;
-        border: 1px solid #3BB4B4;
-    }
-
     .divisao {
         margin-top: 5%;
         margin-bottom: 5%;
+    }
+
+    .wrapper {
+        max-width: 1202px;
+        margin: auto;
+    }
+
+    .card-custom {
+        margin-bottom: 36px;
+    }
+
+    .button {
+        margin: 0 auto;
+        width: 17%;
+    }
+
+    .button button{
+        height: 40px;
+        width: 120px;
+        background: #c4c4c4;
+        border: 1px solid #c4c4c4;
+        border-radius: 30px;
+        color: #000;
+        font-weight: bold;
+        margin: 0 auto;
+    }
+
+    .button img{
+        height: 20px;
+        width: 20px;
+    }
+
+    .titulo {
+        font-size: 1.5em;
+        padding-top: 45px;
+        margin: 0 auto;
+        width: 64%;
+        color: #fff;
+        display: flex;
+        justify-content: center;
     }
 
     /* width */

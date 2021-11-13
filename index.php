@@ -85,6 +85,11 @@ Route::add('/newEpisode', function() {
 	$controller->saveNewEpisode();
 }, 'post');
 
+Route::add('/player', function() {
+    $controller = new LoginController();
+	$controller->player();
+}, 'get');
+
 Route::add('/statistic', function() {
     $controller = new LoginController();
     $controller->statistic();
