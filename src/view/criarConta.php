@@ -19,10 +19,12 @@
             </header>
             <?php include(__DIR__.'/alert.php') ?>
             <div class="first-line">
-				<div>
-                    <label for="foto-usuario">Insira uma foto de perfil</label>
-                    <input type="file" id="foto-usuario" name="foto-usuario" accept="png, .jpg">
-                </div>
+                <!--<div>
+                    <div>
+                        <label for="foto-usuario">Insira uma foto de perfil</label>
+                        <input type="file" id="foto-usuario" name="foto-usuario" accept="png, .jpg">
+                    </div>
+                </div>-->
                 <div>
                     <label for="nome-usuario">Nome de Usuário</label>
                     <input type="text" id="nome-usuario" name="nome-usuario" required>
@@ -62,6 +64,18 @@
                     <input type="text" id="classificacao" name="classificacao" required>
                 </div>
             </div>
+            <div class='foto'> 
+                    <label for="foto-episodio" class="addPick imagem">
+                        <div id='foto'  class="default-pic"></div>
+                    </label>
+                    <label for="foto-episodio" class="addPick">
+                        Adicionar foto
+                    </label>
+                    <input type="file" name="foto-episodio" id="foto-episodio" class="d-none" accept=".png, .jpg">
+                </div>
+            <div></div>
+            
+            
             <div class="criar">
                 <button id="criar" type="submit">Criar conta</button>
             </div>
@@ -76,6 +90,10 @@
     body {
         font-family: 'Inter', sans-serif;
         font-weight: bolder;
+    }
+
+    .d-none {
+        display: none;
     }
 
     div {
@@ -93,6 +111,36 @@
     div > div:nth-child(1) {
         padding-right: 8%;
         padding-left: 8%;
+    }
+
+    .imagem {
+        height: 200px;
+        border-radius: 35px;
+        margin-bottom: 20px;
+    }
+
+    .foto {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-bottom: -50px;
+    }
+
+    .addPick {
+        text-decoration: underline;
+        color: black;   
+    }
+    
+    .addPick:hover {
+        cursor: pointer;
+    }
+    .default-pic {
+        width: 200px;
+        height: 200px;
+        background-color: #616161;
+        border-radius: 35px;
     }
 
     .nome  {
