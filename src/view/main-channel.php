@@ -37,7 +37,7 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
                             <div class="side">
                                 <div class="channel-title">
                                     <p>
-                                        MATANDO ROBÔS GIGANTES
+                                        <?= $data->nomeCanal ?>
                                     </p>
                                     <p class="text">
                                         MTG
@@ -58,9 +58,9 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
                             <p>Breve descrição.</p>
                         </div>
                         <div class="tags">
-                            <button class="tag">Cultura</button>
-                            <button class="tag" style="width: 150px";>Entretenimento</button>
-                            <button class="tag">Humor</button>
+                            <button class="tag"><?= $data->genero ?></button>
+                            <!--<button class="tag" style="width: 150px";>Entretenimento</button>
+                            <button class="tag">Humor</button>-->
                         </div>
                     </div>
                 </div>
@@ -81,6 +81,7 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
 							<div class="episodio">
 								<div>
 									<?php echo "<img src='" . BASEPATH . "uploads/" . $ep->__get('foto') . "' class='icon-conteudo'/>" ?>
+<<<<<<< HEAD
 								</div>
 								<div class="conteudo">
 									<div class="title">
@@ -90,6 +91,17 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
 										<?= $ep->__get('descricao') ?>
 									</p>
 								</div>
+=======
+								</div>
+								<div class="conteudo">
+									<div class="title">
+										<?= $ep->__get('titulo') ?>
+									</div>
+									<p>
+										<?= $ep->__get('descricao') ?>
+									</p>
+								</div>
+>>>>>>> teste
 								<img src="src/rss/img/heart.svg" alt="like-button">
 							</div>
 							
