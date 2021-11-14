@@ -10,8 +10,8 @@ class searchBar extends HTMLElement {
 
         </head>
         <div class="barra-pesquisa">
-            <input type="text" placeholder="Pesquisar" />
-            <button type="submit"> Buscar 
+            <input id="search-input" type="text" placeholder="Pesquisar"/>
+            <button onclick="searchEpisode()"> Buscar 
                 <img src="../searchBar/searchItem.svg">
             </button>
         </div>
@@ -49,7 +49,7 @@ class searchBar extends HTMLElement {
         }
       
         .barra-pesquisa:focus-within {
-          border: 2px solid  #3BB4B4 !important;
+          border: 1px solid  #3BB4B4 !important;
           background-color: rgb(224, 222, 222);
         }
       
@@ -91,8 +91,25 @@ class searchBar extends HTMLElement {
         }
         `;
 
+        const script = document.createElement('script');
+        script.textContent = `
+          function searchEpisode() {
+            const shadow = document.getElementsByTagName('search-bar')
+            const input = shadow[0].shadowRoot.querySelector('#search-input').value
+            console.log(input)
+            if (input) {
+              const episodesFilter = episodesArray.filter(episode => episode.nome.includes(input))
+              return episodesFilter
+            } else {
+              const episodesFilter = espisodesArray
+              return episodesFilter
+            }
+          }
+        `
+
         shadow.appendChild(barMarkUp);
         shadow.appendChild(style);
+        shadow.appendChild(script);
     }
 }
 
