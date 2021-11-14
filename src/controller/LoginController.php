@@ -185,7 +185,10 @@ class LoginController extends Controller  {
 			$extensaoFoto = strtolower(substr($_FILES['foto-episodio']['name'], -4));
 			$novoNomeFoto = md5(time()).$extensaoFoto;
 			$diretorio = BASEPATH . "uploads/";
-
+            
+            if ($_FILES['foto-episodio']['name'] == '') {
+                $novoNomeFoto = 'blank-profile-picture-973460__480.png';
+            }
 			move_uploaded_file($_FILES['foto-episodio']['tmp_name'], $diretorio.$novoNomeFoto);
 
 			$extensaoAudio = strtolower(substr($_FILES['audio-file']['name'], -4));
@@ -194,6 +197,20 @@ class LoginController extends Controller  {
 			move_uploaded_file($_FILES['audio-file']['tmp_name'], $diretorio.$novoNomeAudio);
 
 		}
+        if ($_FILES['audio-file'] == null) {
+            if ($_FILES['foto-episodio']['type'] == '' && $_FILES['foto-episodio']['name'] != '') {
+                header('location: /newEpisode?mensagem=Sua foto e audio excederam o tamanho permitido!');
+                return;
+            }
+            header('location: /newEpisode?mensagem=Seu áudio excedeu o tamanho permitido!');
+            return;
+        }
+
+        if ($_FILES['foto-episodio']['type'] == '' && $_FILES['foto-episodio']['name'] != '') {
+            header('location: /newEpisode?mensagem=Sua foto excedeu o tamanho permitido!');
+            return;
+        }
+
 
 		$infos = array(
 			'titulo' => $_POST['titulo-episodio'],
