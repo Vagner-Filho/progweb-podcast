@@ -26,7 +26,7 @@ if (!$data) {
         <div class="row">
             <div class="col-xxl-4 offset-xxl-4 col-12">
                 <form method="POST" action="/newEpisode" class="novo-episodio mt-5" enctype="multipart/form-data">
-				<?php include(__DIR__.'/alert.php') ?>
+				<div class='alert'><?php include(__DIR__.'/alert.php') ?></div>
                     <div class='foto'>
                         <label for="foto-episodio" class="addPick marginBottom">
                             <div id='foto'class="default-pic"></div>
@@ -58,6 +58,11 @@ if (!$data) {
 </html>
 
 <style>
+    .alerta {
+        margin-left: -15px;
+        height: 60px;
+        padding-top: 10px;
+    }
     body, input, textarea, button {
         font-family: 'Inter', sans-serif;
         font-weight: bolder;
@@ -146,6 +151,15 @@ if (!$data) {
         border: 0px;
         margin: auto;
         line-height: 30px;
+    }
+
+    @media (max-width: 595px) {
+        
+        .alerta {
+            margin-left: -15px;
+            width: 100%;
+            height: 60px;
+            padding-top: 10px;
     }
     
 </style>

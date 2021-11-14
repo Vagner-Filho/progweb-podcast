@@ -69,7 +69,7 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
             <section>
                 <div class="col-10 offset-1">
 
-				
+                    
                     <div class="ms-4">
                         <div class=ordenacao>
                             <p>Todos os episódios</p>
@@ -77,31 +77,31 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
                         
                     </div>
 
-					<?php foreach ($episodios as $ep) { ?>
+                    <?php foreach ($episodios as $ep) { ?>
                         
-						<div class="ms-4">
-							<div class="episodio">
+                        <div class="ms-4">
+                            <div class="episodio">
                                 <a href="/player?id=<?= $ep->__get('id')?>">
                                     <div>
                                         <?php echo "<img src='" . BASEPATH . "uploads/" . $ep->__get('foto') . "' class='icon-conteudo'/>" ?>
                                     </div>
                                 </a>
-								<div class="conteudo">
-									<div class="title">
-										<?= $ep->__get('titulo') ?>
-									</div>
-									<p>
-										<?= $ep->__get('descricao') ?>
-									</p>
-								</div>
-								<img class='imagem' src="src/rss/img/heart.svg" alt="like-button">
-							</div>
-							
-							<div class="divisao">
-								<div class="line"></div>
-							</div>
-						</div>
-					<?php } ?>
+                                <div class="conteudo">
+                                    <div class="title">
+                                        <?= $ep->__get('titulo') ?>
+                                    </div>
+                                    <p>
+                                        <?= $ep->__get('descricao') ?>
+                                    </p>
+                                </div>
+                                <img class='imagem' src="src/rss/img/heart.svg" alt="like-button">
+                            </div>
+                            
+                            <div class="divisao">
+                                <div class="line"></div>
+                            </div>
+                        </div>
+                    <?php } ?>
 
                     
                     
