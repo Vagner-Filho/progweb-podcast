@@ -61,5 +61,17 @@ final class Database {
 			PRIMARY KEY (id)
 		);");
     }
+
+    public static function createFavoritos(): void {
+        $db = self::getInstance();
+
+        $db->exec("CREATE TABLE IF NOT EXISTS favoritos (
+            usuario_id INT NOT NULL,
+            episodio_id INT NOT NULL,
+            PRIMARY KEY (usuario_id, episodio_id),
+            FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+            FOREIGN KEY (episodio_id) REFERENCES episodios(id) ON DELETE CASCADE);");
+            
+    }
 }
 //FOREIGN KEY (canal) REFERENCES usuarios(id)

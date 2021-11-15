@@ -59,49 +59,85 @@
                             </div>
                             <div class="line"></div>
                         </div>
-                    
-                    <?php foreach ($episodios as $ep) { if ($ep->__get('id') != $episodioAtual->__get('id')) {?>
-                            
-                        <div class="ms-4">
-                            <div class="episodio">
-                                <a href="/player?id=<?= $ep->__get('id') ?>">
-                                    <div>
-                                        <?php echo "<img src='" . BASEPATH . "uploads/" . $ep->__get('foto') . "' class='icon-conteudo'/>" ?>
+                        <?php foreach ($episodios as $ep) { if ($ep->__get('id') != $episodioAtual->__get('id')) {?>
+                                    <input type="hidden" id='idEpisodio' name='idEpisodio' value='<?= $ep->__get('id') ?>'>
+                                    <div class="ms-4">
+                                        <div class="episodio">
+                                            <a href="/player?id=<?= $ep->__get('id') ?>">
+                                                <div>
+                                                    <?php echo "<img src='" . BASEPATH . "uploads/" . $ep->__get('foto') . "' class='icon-conteudo'/>" ?>
+                                                </div>
+                                            </a>
+                                            <div class="conteudo">
+                                                <div class="title">
+                                                    <?= $ep->__get('titulo') ?>
+                                                </div>
+                                                <p>
+                                                    <?= $ep->__get('descricao') ?>
+                                                </p>
+                                            </div>
+                                            <button type='submit' class='favorito'><img id='imagem' class='imagem' src="src/rss/img/heart.svg" alt="like-button" onclick='favoritar(<?= $ep->__get("id") ?>)'></button>
+                                        </div>
+                                        
+                                        <div class="divisao">
+                                            <div class="line"></div>
+                                        </div>
                                     </div>
-                                </a>
-                                <div class="conteudo">
-                                    <div class="title">
-                                        <?= $ep->__get('titulo') ?>
-                                    </div>
-                                    <p>
-                                        <?= $ep->__get('descricao') ?>
-                                    </p>
-                                </div>
-                                <img class='imagem' src="src/rss/img/heart.svg" alt="like-button">
-                            </div>
-                            
-                            <div class="divisao">
-                                <div class="line"></div>
-                            </div>
-                        </div>
-                    <?php } } ?>
+                        <?php } } ?>
+                
                 </div>
             </section>
         </div>
     </div>
 </body>
 </html>
+<script>
+    function favoritar(episodioId) {
+        var url = "http://localhost/cadastrarFavorito?episodioId="+episodioId
+
+        var request = new XMLHttpRequest()
+        request.open("GET", url)
+        //request.setRequestHeader("Accept", "application/json");
+        request.setRequestHeader("Content-Type", "application/json");
+
+        request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+            console.log(request.status);
+            console.log(request.responseText);
+        }};
+        
+        var data = {
+            "episodioId": episodioId
+        }
+
+        request.send(JSON.stringify(data))
+
+    }
+
+    /*function naoRedirecionar() {
+        event.preventDefault();
+    }*/
+</script>
 
 <style>
     body {
         background-color: #fff;
     }
 
-    .imagem{
+    .favorito {
+        background-color: transparent;
+        border: 0px;
         position: absolute;
         right:0;
         top: 15%;
+        width: 0px; 
+        height: 0px;
+    }
+
+    .imagem {
         width: 35px; 
+        height: 35px;
+        margin-left:-35px;
     }
 
     .text {

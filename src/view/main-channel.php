@@ -94,7 +94,7 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
                                         <?= $ep->__get('descricao') ?>
                                     </p>
                                 </div>
-                                <img class='imagem' src="src/rss/img/heart.svg" alt="like-button">
+                                <button type='submit' class='favorito'><img id='imagem' class='imagem' src="src/rss/img/heart.svg" alt="like-button" onclick='favoritar(<?= $ep->__get("id") ?>)'></button>
                             </div>
                             
                             <div class="divisao">
@@ -112,17 +112,53 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
 </body>
 </html>
 
+<script>
+    function favoritar(episodioId) {
+        var url = "http://localhost/cadastrarFavorito?episodioId="+episodioId
+
+        var request = new XMLHttpRequest()
+        request.open("GET", url)
+        //request.setRequestHeader("Accept", "application/json");
+        request.setRequestHeader("Content-Type", "application/json");
+
+        request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+            console.log(request.status);
+            console.log(request.responseText);
+        }};
+        
+        var data = {
+            "episodioId": episodioId
+        }
+
+        request.send(JSON.stringify(data))
+
+    }
+
+    /*function naoRedirecionar() {
+        event.preventDefault();
+    }*/
+</script>
 <style>
     
     body {
         background-color: #fff;
     }
 
-    .imagem{
+    .favorito {
+        background-color: transparent;
+        border: 0px;
         position: absolute;
         right:0;
         top: 15%;
+        width: 0px; 
+        height: 0px;
+    }
+
+    .imagem {
         width: 35px; 
+        height: 35px;
+        margin-left:-35px;
     }
 
     .text {
