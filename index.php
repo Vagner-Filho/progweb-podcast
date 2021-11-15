@@ -5,6 +5,7 @@ include 'src/libs/Route.php';
 use Steampixel\Route;
 require 'src/controller/LoginController.php';
 
+
 /*Route::add('/login', fn () => $controller->login(), ['post']);
 Route::add('/criarConta', fn () => $controller->criarContaIndex(), ['post']);
 
@@ -88,6 +89,16 @@ Route::add('/newEpisode', function() {
 Route::add('/player', function() {
     $controller = new LoginController();
 	$controller->player();
+}, 'get');
+
+Route::add('/cadastrarFavorito', function() {
+    $controller = new LoginController();
+    $controller->favoritarEpisodioPost();
+}, 'post');
+
+Route::add('/cadastrarFavorito', function() {
+    $controller = new LoginController();
+    $controller->favoritarEpisodioGet();
 }, 'get');
 
 Route::add('/statistic', function() {

@@ -103,5 +103,32 @@ class Episodio{
 		$stm->bindParam(':foto', $this->foto);
 		$stm->execute();
 	}
+
+	public function favoritar($idUsuario) {
+		Database::createFavoritos();
+        $conexao = Database::getInstance();
+
+		$stm = $conexao->prepare('select * from favoritos where usuario_id = :usuario_id and episodio_id = :episodio_id');
+        $stm->bindParam(':usuario_id', $idUsuario);
+		$stm->bindParam(':episodio_id', $this->id);
+
+        $stm->execute();
+        $resultado = $stm->fetch();
+
+        if ($resultado) {
+			$stms = $conexao->prepare('delete from favoritos where usuario_id = :usuario_id and episodio_id = :episodio_id');
+			$stms->bindParam(':usuario_id', $idUsuario);
+			$stms->bindParam(':episodio_id', $this->id);
+
+			$stms->execute();
+        } else {
+            $stm = $conexao->prepare('insert into favoritos(usuario_id, episodio_id) values (:usuario_id, :episodio_id)');
+
+			$stm->bindParam(':usuario_id', $idUsuario);
+			$stm->bindParam(':episodio_id', $this->id);
+
+			$stm->execute();
+        }
+	}
 }
 ?>

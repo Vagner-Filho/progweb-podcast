@@ -1,5 +1,4 @@
 <?php 
-
 require 'src/model/Usuario.php';
 require 'src/model/Database.php';
 require 'src/model/Episodio.php';
@@ -126,6 +125,20 @@ class LoginController extends Controller  {
             return;
         }
         $this->view('favorites', $this->loggedUser);        
+    }
+
+    public function favoritarEpisodioGet() 
+    {
+        $episodio = Episodio::getEpisodio($_GET['episodioId']);
+        $episodio->favoritar($this->loggedUser->id);      
+    }
+
+    public function favoritarEpisodioPost() 
+    {
+        var_dump($POST);
+        die(1);
+        $episodio = Episodio::getEpisodio($_POST['episodioId']);
+        $episodio->favoritar($this->loggedUser->id);  
     }
 
     public function home() 
