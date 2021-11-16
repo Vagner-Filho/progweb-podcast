@@ -59,31 +59,63 @@
                             </div>
                             <div class="line"></div>
                         </div>
-                        <?php foreach ($episodios as $ep) { if ($ep->__get('id') != $episodioAtual->__get('id')) {?>
-                                    <input type="hidden" id='idEpisodio' name='idEpisodio' value='<?= $ep->__get('id') ?>'>
-                                    <div class="ms-4">
-                                        <div class="episodio">
-                                            <a href="/player?id=<?= $ep->__get('id') ?>">
-                                                <div>
-                                                    <?php echo "<img src='" . BASEPATH . "uploads/" . $ep->__get('foto') . "' class='icon-conteudo'/>" ?>
-                                                </div>
-                                            </a>
-                                            <div class="conteudo">
-                                                <div class="title">
-                                                    <?= $ep->__get('titulo') ?>
-                                                </div>
-                                                <p>
-                                                    <?= $ep->__get('descricao') ?>
-                                                </p>
-                                            </div>
-                                            <button type='submit' class='favorito'><img id='imagem' class='imagem' src="src/rss/img/heart.svg" alt="like-button" onclick='favoritar(<?= $ep->__get("id") ?>)'></button>
+                        <?php 
+                        $contador = 0;
+                        foreach ($episodios as $ep) { if ($ep->__get('id') != $episodioAtual->__get('id')) {?>
+
+                            <div class="ms-4">
+                                <div class="episodio">
+                                    <a href="/player?id=<?= $ep->__get('id') ?>">
+                                        <div>
+                                            <?php echo "<img src='" . BASEPATH . "uploads/" . $ep->__get('foto') . "' class='icon-conteudo'/>" ?>
                                         </div>
-                                        
-                                        <div class="divisao">
-                                            <div class="line"></div>
+                                    </a>
+                                    <div class="conteudo">
+                                        <div class="title">
+                                            <?= $ep->__get('titulo') ?>
                                         </div>
+                                        <p>
+                                            <?= $ep->__get('descricao') ?>
+                                        </p>
                                     </div>
-                        <?php } } ?>
+                                    
+                                    <!-- Ambos os corações estão na tela, e logo abaixo ele verifica quem vai aparecer-->
+                                    <button type='submit' class='favorito'><img class='imagem vermelho' src="src/rss/img/coracaoVermelho.png" alt="like-button" onclick='favoritar(<?= $ep->__get("id") ?>, <?= $contador ?>)'></button>
+                                    <button type='submit' class='favorito'><img class='imagem preto' src="src/rss/img/coracaoPreto.png" alt="like-button" onclick='favoritar(<?= $ep->__get("id") ?>, <?= $contador ?>)'></button>
+                   
+                                    <?php 
+
+                                    //Se esse episodio foi favoritado pelo usuario logado, o coração vermelho aparece, se não, aparece o preto
+                                    if (Episodio::epFavoritado($data->__get('id'), $ep->__get("id"))) { ?>
+
+                                        <script>
+                                            var imagem1 = document.getElementsByClassName('vermelho')[<?= $contador ?>]
+                                            var imagem2 = document.getElementsByClassName('preto')[<?= $contador ?>]
+                                            
+                                            imagem1.style.display = 'initial'
+                                            imagem2.style.display = 'none'
+                                        </script>
+
+
+                                    <?php } else { ?> 
+                                    
+                                        <script>
+                                            var imagem1 = document.getElementsByClassName('vermelho')[<?= $contador ?>]
+                                            var imagem2 = document.getElementsByClassName('preto')[<?= $contador ?>]
+                                            
+                                            imagem1.style.display = 'none'
+                                            imagem2.style.display = 'initial'
+                                        </script>
+
+                                    <?php } ?>
+
+                                </div>
+                                
+                                <div class="divisao">
+                                    <div class="line"></div>
+                                </div>
+                            </div>
+                        <?php $contador++;} } ?>
                 
                 </div>
             </section>
@@ -92,7 +124,7 @@
 </body>
 </html>
 <script>
-    function favoritar(episodioId) {
+    function favoritar(episodioId, contador) {
         var url = "http://localhost/cadastrarFavorito?episodioId="+episodioId
 
         var request = new XMLHttpRequest()
@@ -111,9 +143,21 @@
         }
 
         request.send(JSON.stringify(data))
-
+        
+        var imagem1 = document.getElementsByClassName('vermelho')[contador]
+        var imagem2 = document.getElementsByClassName('preto')[contador]
+        
+        if (imagem1.style.display == 'initial')
+        {    
+            imagem1.style.display = 'none'
+            imagem2.style.display = 'initial'
+        } 
+        else 
+        {
+            imagem1.style.display = 'initial'
+            imagem2.style.display = 'none'
+        }
     }
-
     /*function naoRedirecionar() {
         event.preventDefault();
     }*/
