@@ -59,33 +59,8 @@ $episodios = $data->episodiosFavoritos();
                                 <div class='options'>
                                 <!-- Ambos os corações estão na tela, e logo abaixo ele verifica quem vai aparecer-->
                                 <button type='submit' class='favorito'><img class='imagem vermelho' src="src/rss/img/coracaoVermelho.png" alt="like-button" onclick='favoritar(<?= $ep->__get("id") ?>, <?= $contador ?>)'></button>
-                                <button type='submit' class='favorito'><img class='imagem preto' src="src/rss/img/coracaoPreto.png" alt="like-button" onclick='favoritar(<?= $ep->__get("id") ?>, <?= $contador ?>)'></button>
                                 <img class='listar' src="src/rss/img/list.svg" alt="like-button">
-                                <?php 
-
-                                //Se esse episodio foi favoritado pelo usuario logado, o coração vermelho aparece, se não, aparece o preto
-                                if ($ep->epFavoritado($data->__get('id'))) { ?>
-
-                                    <script>
-                                        var imagem1 = document.getElementsByClassName('vermelho')[<?= $contador ?>]
-                                        var imagem2 = document.getElementsByClassName('preto')[<?= $contador ?>]
-                                        
-                                        imagem1.style.display = 'initial'
-                                        imagem2.style.display = 'none'
-                                    </script>
-
-
-                                <?php } else { ?> 
-                                
-                                    <script>
-                                        var imagem1 = document.getElementsByClassName('vermelho')[<?= $contador ?>]
-                                        var imagem2 = document.getElementsByClassName('preto')[<?= $contador ?>]
-                                        
-                                        imagem1.style.display = 'none'
-                                        imagem2.style.display = 'initial'
-                                    </script>
-
-                                <?php } ?>                           
+                                                           
                                 </div>
                             </div>
                     <?php $contador++;}  ?>
@@ -95,10 +70,39 @@ $episodios = $data->episodiosFavoritos();
     
 </body>
 </html>
+<script>
+    function favoritar(episodioId, contador) {
+        
+        var url = "http://localhost/cadastrarFavorito?episodioId="+episodioId
 
+        var request = new XMLHttpRequest()
+        request.open("GET", url)
+        //request.setRequestHeader("Accept", "application/json");
+        request.setRequestHeader("Content-Type", "application/json");
+
+        request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+            console.log(request.status);
+            console.log(request.responseText);
+        }};
+        
+        var data = {
+            "episodioId": episodioId
+        }
+
+        request.send(JSON.stringify(data))
+
+        var divEpisodio = document.getElementsByClassName('podcast-container')[contador]
+        divEpisodio.style.display = 'none'
+    }
+</script>
 <style>
     body {
         background-color: #fff;
+    }
+
+    .preto {
+        display: none;
     }
     
     .favorito {
