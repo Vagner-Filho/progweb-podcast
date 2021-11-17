@@ -96,7 +96,7 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
                                         <?= $ep->__get('descricao') ?>
                                     </p>
                                 </div>
-
+                                <div class='options'>
                                 <!-- Ambos os corações estão na tela, e logo abaixo ele verifica quem vai aparecer-->
                                 <button type='submit' class='favorito'><img class='imagem vermelho' src="src/rss/img/coracaoVermelho.png" alt="like-button" onclick='favoritar(<?= $ep->__get("id") ?>, <?= $contador ?>)'></button>
                                 <button type='submit' class='favorito'><img class='imagem preto' src="src/rss/img/coracaoPreto.png" alt="like-button" onclick='favoritar(<?= $ep->__get("id") ?>, <?= $contador ?>)'></button>
@@ -104,7 +104,7 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
                                 <?php 
 
                                 //Se esse episodio foi favoritado pelo usuario logado, o coração vermelho aparece, se não, aparece o preto
-                                if (Episodio::epFavoritado($data->__get('id'), $ep->__get("id"))) { ?>
+                                if ($ep->epFavoritado($data->__get('id'))) { ?>
 
                                     <script>
                                         var imagem1 = document.getElementsByClassName('vermelho')[<?= $contador ?>]
@@ -126,7 +126,7 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
                                     </script>
 
                                 <?php } ?>                           
-                                
+                                </div>
                             </div>
                             
                             <div class="divisao">
@@ -271,11 +271,15 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
 
     .conteudo {
         margin-left: 37px;
+        max-width: 70%;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 
     .title {
         font-size: 30px;
         color: #3BB4B4;
+
     }
 
     .ordenacao {
@@ -361,5 +365,56 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
     /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover {
         background: #555;
+    }
+
+    @media (max-width: 1076px) {
+        .conteudo {
+            max-width: 65%;
+        }
+    }
+
+    @media (max-width: 976px) {
+        .conteudo {
+            max-width: 60%;
+        }
+    }
+
+    @media (max-width: 876px) {
+        .conteudo {
+            max-width: 55%;
+        }
+    }
+
+    @media (max-width: 776px) {
+        .conteudo {
+            max-width: 50%;
+        }
+    }
+
+    @media (max-width: 676px) {
+        .episodio {
+            flex-direction: column;
+            position: relative;
+        }
+        .episodio a {
+            margin: auto;
+        }
+        .conteudo {
+            padding-left: 0 !important;
+        }
+        .conteudo p {
+            height: 100px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .conteudo .title {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .options {
+            bottom: 0;
+            left: 0;
+        }
     }
 </style>
