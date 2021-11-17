@@ -61,24 +61,27 @@ class LoginController extends Controller  {
                 'nomeUsuario' => $_POST['nome-usuario'],
                 'nomeCanal' => $_POST['nome-canal'],
                 'dataNasc' => $_POST['data-nascimento'],
-                'descricao' => $_POST['descricao-episodio'],
+                'descricao' => $_POST['descricao'],
                 'genero' => $_POST['genero'],
                 'email' => $_POST['email'],
                 'senha' => $_POST['senha'],
-                'classificacao' => $_POST['classificacao']);
+                'classificacao' => $_POST['classificacao']
+            );
             
-            $validos = Usuario::validarDados($infos);    
-
-            if ($validos) 
-            {
+            $validos = Usuario::validarDados($infos);
+            
+            $fotos = Usuario::validarSenhas($_FILES['fotoPerfil'], $_FILES['fotoCanal']);
+            
+            if ($validos) {
+                
                 $dataNasc = new DateTime($infos['dataNasc'], new DateTimezone("America/Campo_Grande"));
                 $dataInscricao = new DateTime("now", new DateTimezone("America/Campo_Grande"));
 
-                $usuario = new Usuario ($infos['nomeUsuario'], $infos['nomeCanal'], $dataNasc,
-                    $infos['descricao'], $infos['genero'], $infos['email'], $infos['senha'], $infos['classificacao'], $dataInscricao);
+                $usuario = new Usuario ($infos['nomeUsuario'], $infos['nomeCanal'], $dataNasc, $infos['descricao'], 
+                $infos['genero'], $infos['email'], $infos['senha'], $infos['classificacao'], $dataInscricao, $fotos['fotoPerfil'], $fotos['fotoCanal']);
                 
                 $usuario->salvar();
-                
+                    
                 header("Location: /login?email=" . $infos['email'] . "&mensagem=Usuário cadastrado com sucesso!");
                 return;
             } else {

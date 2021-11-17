@@ -48,6 +48,8 @@ final class Database {
             senha VARCHAR(150) NOT NULL,
             classificacao VARCHAR(45) NOT NULL,
             data_inscricao DATE NOT NULL,
+            foto_perfil VARCHAR(150),
+            foto_canal VARCHAR(150),
             PRIMARY KEY (id),
             UNIQUE INDEX email_UNIQUE (email ASC));");
 
@@ -56,8 +58,8 @@ final class Database {
 			titulo VARCHAR(100) NOT NULL,
 			descricao VARCHAR(200) NOT NULL,
 			canal INTEGER,
-			arquivoAudio VARCHAR(60),
-			foto VARCHAR(60),
+			arquivoAudio VARCHAR(150),
+			foto VARCHAR(150),
 			PRIMARY KEY (id)
 		);");
     }

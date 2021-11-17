@@ -14,9 +14,11 @@ class Usuario {
     private $senha;
     private $classificacao;
     private $dataInscricao;
+    private $fotoPerfil;
+    private $fotoCanal;
 
-    function __construct(string $nomeUsuario, string $nomeCanal, DateTime $dataNasc,
-    string $descricao, string $genero, string $email, string $senha, string $classificacao, DateTime $dataInscricao) 
+    function __construct(string $nomeUsuario, string $nomeCanal, DateTime $dataNasc, string $descricao, string $genero, 
+        string $email, string $senha, string $classificacao, DateTime $dataInscricao, string $fotoPerfil, string $fotoCanal) 
     {	
         $this->nomeUsuario = $nomeUsuario;
         $this->nomeCanal = $nomeCanal;
@@ -27,6 +29,8 @@ class Usuario {
         $this->senha = hash('sha256', $senha);
         $this->classificacao = $classificacao;
         $this->dataInscricao = $dataInscricao;
+        $this->fotoPerfil = $fotoPerfil;
+        $this->fotoCanal = $fotoCanal;
     }
 
     /**
@@ -73,7 +77,7 @@ class Usuario {
     
             $usuario = new Usuario ($resultado['nome_usuario'], $resultado['nome_canal'], $dataNasc,
                 $resultado['descricao'], $resultado['genero'], $resultado['email'], $resultado['senha'], 
-                $resultado['classificacao'], $dataInscricao);
+                $resultado['classificacao'], $dataInscricao, $resultado['foto_perfil'], $resultado['foto_canal']);
 			$usuario->id = $resultado['id'];
             
             $usuario->senha = $resultado['senha'];
@@ -102,7 +106,7 @@ class Usuario {
     
             $usuario = new Usuario ($resultado['nome_usuario'], $resultado['nome_canal'], $dataNasc,
                 $resultado['descricao'], $resultado['genero'], $resultado['email'], $resultado['senha'], 
-                $resultado['classificacao'], $dataInscricao);
+                $resultado['classificacao'], $dataInscricao, $resultado['foto_perfil'], $resultado['foto_canal']);
 			$usuario->id = $resultado['id'];
             
             $usuario->senha = $resultado['senha'];
@@ -122,10 +126,10 @@ class Usuario {
 
         $stm = $conexao->prepare('insert into usuarios (nome_usuario, 
         nome_canal, data_nasc, descricao, genero, email, senha,
-        classificacao, data_inscricao) 
+        classificacao, data_inscricao, foto_perfil, foto_canal) 
         values 
         (:nome_usuario, :nome_canal, :dataNasc, :descricao, 
-        :genero, :email, :senha, :classificacao, :dataInscricao)');
+        :genero, :email, :senha, :classificacao, :dataInscricao, :foto_perfil, :foto_canal)');
 
         $stm->bindParam(':nome_usuario', $this->nomeUsuario);
         $stm->bindParam(':nome_canal', $this->nomeCanal);
@@ -136,6 +140,8 @@ class Usuario {
         $stm->bindParam(':senha', $this->senha);
         $stm->bindParam(':classificacao', $this->classificacao);
         $stm->bindParam(':dataInscricao',$this->dataInscricao->format('Y-m-d'));
+        $stm->bindParam(':foto_perfil', $this->fotoPerfil);
+        $stm->bindParam(':foto_canal', $this->fotoCanal);
         $stm->execute();
     }
 
@@ -158,6 +164,49 @@ class Usuario {
 		}
 		return $episodios;
 	}
+
+    static public function validarSenhas($fotoPerfil, $fotoCanal) {
+        
+        if(isset($fotoPerfil) && isset($fotoCanal))
+        {    
+            if ($fotoPerfil['type'] == '' && $fotoPerfil['name'] != '') {
+                header('location: /criarConta?mensagem=Sua foto de Perfil excedeu o tamanho permitido!');
+                return;
+            }
+    
+            if ($fotoCanal['type'] == '' && $fotoCanal['name'] != '') {
+                header('location: /criarConta?mensagem=Sua foto do Canal excedeu o tamanho permitido!');
+                return;
+            }
+
+            $diretorio = BASEPATH . "uploads/";
+
+			$extensaoFotoPerfil = strtolower(substr($fotoPerfil['name'], -4));
+			$novoNomeFotoPerfil = md5(time()).$extensaoFotoPerfil;
+
+            $extensaoFotoCanal = strtolower(substr($fotoCanal['name'], -4));
+			$novoNomeFotoCanal = md5(time()+1).$extensaoFotoCanal;
+            
+            if ($fotoPerfil['name'] == '') {
+                $novoNomeFotoPerfil = 'blank-profile-picture-973460__480.png';
+            }
+            if ($fotoCanal['name'] == '') {
+                $novoNomeFotoCanal = 'blank-profile-picture-973460__480.png';
+            }
+
+			move_uploaded_file($fotoPerfil['tmp_name'], $diretorio.$novoNomeFotoPerfil);
+            move_uploaded_file($fotoCanal['tmp_name'], $diretorio.$novoNomeFotoCanal);
+
+        }
+        
+        $nomes = array(
+			'fotoPerfil' => $novoNomeFotoPerfil,
+			'fotoCanal' => $novoNomeFotoCanal
+		);
+
+        return $nomes;
+    }
+
 
 	/**
 	 * Função que valida as informações passadas no formulário de cadastro de novo usuário

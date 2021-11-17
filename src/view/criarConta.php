@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +12,7 @@
 </head>
 <body>
     <section>
-        <form action='/criarConta' name="cadastro" id="form" method="POST">
+        <form action='/criarConta' name="cadastro" id="form" method="POST" enctype="multipart/form-data">
             <header>
                 <div class='nome'>
                     <h1> Criar conta </h1>
@@ -40,8 +41,8 @@
                     <input type="date" id="data-nascimento" name="data-nascimento" min='1900-01-01' required>
                 </div>
                 <div>
-                    <label for="descricao-episodio">Descrição</label>
-                    <textarea id="descricao-episodio" name="descricao-episodio" required></textarea>
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" name="descricao" required></textarea>
                 </div>
             </div>
             <div class='third-line'>
@@ -64,17 +65,27 @@
                     <input type="text" id="classificacao" name="classificacao" required>
                 </div>
             </div>
-            <div class='foto'> 
-                    <label for="foto-episodio" class="addPick imagem">
-                        <div id='foto'  class="default-pic"></div>
-                    </label>
-                    <label for="foto-episodio" class="addPick">
-                        Adicionar foto
-                    </label>
-                    <input type="file" name="foto-episodio" id="foto-episodio" class="d-none" accept=".png, .jpg">
+            <div class='foto'>
+                <div class='fotoDoPerfil'> 
+                        <label for="fotoPerfil" class="addPick imagem">
+                            <div id='foto'  class="default-pic"></div>
+                        </label>
+                        <label for="fotoPerfil" class="addPick">
+                            Adicionar foto de Perfil
+                        </label>
+                        <input type="file" name="fotoPerfil" id="fotoPerfil" class="d-none" accept=".png, .jpg">
                 </div>
-            <div></div>
-            
+                <div  class='fotoDoCanal'>
+                    
+                <label for="fotoCanal" class="addPick imagem">
+                            <div id='foto'  class="default-pic"></div>
+                        </label>
+                        <label for="fotoCanal" class="addPick">
+                            Adicionar foto do Canal
+                        </label>
+                        <input type="file" name="fotoCanal" id="fotoCanal" class="d-none" accept=".png, .jpg">
+                </div>
+            </div>
             
             <div class="criar">
                 <button id="criar" type="submit">Criar conta</button>
@@ -121,11 +132,17 @@
 
     .foto {
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
         width: 100%;
         margin-bottom: -50px;
+    }
+
+    .fotoDoPerfil, .fotoDoCanal {
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .addPick {

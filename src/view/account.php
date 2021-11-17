@@ -29,7 +29,7 @@ if (!$data) {
 				<div class="col-10 offset-1">
 					
 						<div class="profile-picture mt-3">
-							<img src="src/rss/img/profile.jpg" alt="">
+							<?php echo "<img src='" . BASEPATH . "uploads/" . $data->__get('fotoPerfil') . "' class='icon-conteudo'/>" ?>
 						</div>
 
 						<div class="ms-4">
@@ -71,9 +71,9 @@ if (!$data) {
 						<h2 class="head mt-4">Canal</h2>
 
 						<div class="channel-info">
-							<div class="side">
+							<div class="side ">
 								<a href="/mainChannel">
-									<div class="channel-picture"></div>
+									<?php echo "<img src='" . BASEPATH . "uploads/" . $data->__get('fotoCanal') . "' class='icon-conteudo canal'/>" ?>
 								</a>
 		
 								<div class="channel-description">
@@ -82,7 +82,7 @@ if (!$data) {
 		
 							</div>
 		
-							<div class="side">
+							<div class="side lado2">
 								<div class="channel-title">
 								<?= $data->nomeCanal ?>
 								</div>
@@ -139,6 +139,12 @@ if (!$data) {
         margin: auto 10px;	
 	}
 
+	.canal {
+		width: 250px;
+        height: 250px;
+		border-radius: 25px;
+	}
+
 	.info{
 		display: flex;
 		flex-direction: row;
@@ -191,8 +197,13 @@ if (!$data) {
 		color: #2b8585;
 	}
 
-	.side{
+	.lado2 {
+		margin-left: 12%;
 		width: 28%;
+		min-width: 220px;
+	}
+	
+	.side{
 		margin-bottom: 20px;
 	}
 
