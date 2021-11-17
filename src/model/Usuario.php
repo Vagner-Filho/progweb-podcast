@@ -139,6 +139,26 @@ class Usuario {
         $stm->execute();
     }
 
+    
+	public function episodiosFavoritos() {
+		Database::createFavoritos();
+        $conexao = Database::getInstance();
+        $episodios = array();
+
+		$stm = $conexao->prepare('select episodio_id from favoritos where usuario_id = :usuario_id');
+        $stm->bindParam(':usuario_id', $this->id);
+
+        $stm->execute();
+        $resultado = $stm->fetchAll(PDO::FETCH_ASSOC);
+		foreach ($resultado as $value) {
+
+			$episodio = Episodio::getEpisodio($value['episodio_id']);
+			
+			array_push($episodios, $episodio);
+		}
+		return $episodios;
+	}
+
 	/**
 	 * Função que valida as informações passadas no formulário de cadastro de novo usuário
 	 */

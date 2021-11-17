@@ -131,13 +131,13 @@ class Episodio{
         }
 	}
 
-	static public function epFavoritado($idUsuario, $idEpisodio) {
+	public function epFavoritado($idUsuario) {
 		Database::createFavoritos();
         $conexao = Database::getInstance();
 
 		$stm = $conexao->prepare('select * from favoritos where usuario_id = :usuario_id and episodio_id = :episodio_id');
         $stm->bindParam(':usuario_id', $idUsuario);
-		$stm->bindParam(':episodio_id', $idEpisodio);
+		$stm->bindParam(':episodio_id', $this->id);
 
         $stm->execute();
         $resultado = $stm->fetch();

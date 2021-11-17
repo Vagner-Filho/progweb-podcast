@@ -86,7 +86,7 @@
                                     <?php 
 
                                     //Se esse episodio foi favoritado pelo usuario logado, o coração vermelho aparece, se não, aparece o preto
-                                    if (Episodio::epFavoritado($data->__get('id'), $ep->__get("id"))) { ?>
+                                    if ($ep->epFavoritado($data->__get('id'))) { ?>
 
                                         <script>
                                             var imagem1 = document.getElementsByClassName('vermelho')[<?= $contador ?>]
@@ -263,7 +263,10 @@
     }
 
     .conteudo {
-        margin-left: 37px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 70%;
     }
 
     .title {
@@ -341,4 +344,55 @@
     ::-webkit-scrollbar-thumb:hover {
         background: #555;
     }
+
+    
+    @media (max-width: 1076px) {
+        .conteudo {
+            max-width: 65%;
+        }
+    }
+
+    @media (max-width: 976px) {
+        .conteudo {
+            max-width: 60%;
+        }
+    }
+
+    @media (max-width: 876px) {
+        .conteudo {
+            max-width: 55%;
+        }
+    }
+
+    @media (max-width: 776px) {
+        .conteudo {
+            max-width: 50%;
+        }
+    }
+
+    @media (max-width: 676px) {
+        .episodio {
+            flex-direction: column;
+            position: relative;
+        }
+        .episodio a {
+            margin: auto;
+        }
+        .conteudo {
+            padding-left: 0 !important;
+        }
+        .conteudo p {
+            height: 100px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .conteudo .title {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .options {
+            bottom: 0;
+            left: 0;
+        }
 </style>
