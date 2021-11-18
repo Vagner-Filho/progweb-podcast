@@ -14,6 +14,9 @@
     <section>
         <form action='/criarConta' name="cadastro" id="form" method="POST" enctype="multipart/form-data">
             <header>
+                <h1 class='margin'>
+                    <a class='voltar' href='/login'><-</a>
+                </h1>
                 <div class='nome'>
                     <h1> Criar conta </h1>
                 </div>
@@ -68,22 +71,22 @@
             <div class='foto'>
                 <div class='fotoDoPerfil'> 
                         <label for="fotoPerfil" class="addPick imagem">
-                            <div id='foto'  class="default-pic"></div>
+                            <img id='fotoDoPerfil'  class="default-pic">
                         </label>
                         <label for="fotoPerfil" class="addPick">
                             Adicionar foto de Perfil
                         </label>
-                        <input type="file" name="fotoPerfil" id="fotoPerfil" class="d-none" accept=".png, .jpg">
+                        <input type="file" name="fotoPerfil" id="fotoPerfil" class="d-none" accept=".png, .jpg" onchange='previewImagemPerfil()'>
                 </div>
                 <div  class='fotoDoCanal'>
                     
                 <label for="fotoCanal" class="addPick imagem">
-                            <div id='foto'  class="default-pic"></div>
+                            <img id='fotoDoCanal'  class="default-pic">
                         </label>
-                        <label for="fotoCanal" class="addPick">
+                        <label for="foto" class="addPick">
                             Adicionar foto do Canal
                         </label>
-                        <input type="file" name="fotoCanal" id="fotoCanal" class="d-none" accept=".png, .jpg">
+                        <input type="file" name="fotoCanal" id="fotoCanal" class="d-none" accept=".png, .jpg" onchange='previewImagemCanal()'>
                 </div>
             </div>
             
@@ -96,6 +99,44 @@
    
 </body>
 </html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    function previewImagemPerfil() {
+        var imagem = document.getElementById('fotoPerfil').files[0]
+        var preview = document.getElementById('fotoDoPerfil')
+
+        var reader = new FileReader()
+
+        reader.onloadend = function() {
+            preview.src = reader.result
+        }
+
+        if (imagem) {
+            reader.readAsDataURL(imagem)
+        } else {
+            preview.src = ''
+        }
+    }
+
+    function previewImagemCanal() {
+        var imagem = document.getElementById('fotoCanal').files[0]
+        var preview = document.getElementById('fotoDoCanal')
+
+        var reader = new FileReader()
+
+        reader.onloadend = function() {
+            preview.src = reader.result
+        }
+
+        if (imagem) {
+            reader.readAsDataURL(imagem)
+        } else {
+            preview.src = ''
+        }
+    }
+</script>
+
 <style>
 
     body {
@@ -105,6 +146,17 @@
 
     .d-none {
         display: none;
+    }
+
+    .voltar {
+        text-decoration: none;
+        color: #3BB4B4;
+        font-size: 1.83rem;
+        margin-left: 5%;
+    }
+
+    .margin {
+        margin-bottom: -30px;
     }
 
     div {
@@ -253,6 +305,10 @@
         
         body {
             margin: 0% 10%;
+        }
+
+        .voltar {
+            margin-left: 0;
         }
 
         .nome {
