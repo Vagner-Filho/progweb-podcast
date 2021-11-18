@@ -17,7 +17,6 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="src/utils/css/style.css"/>
 
 	<title>Canais</title>
 </head>
@@ -25,22 +24,18 @@
     <side-menu></side-menu>
 	<div class="container-fluid mt-5">
         <div class="row">
-            <section class='seçao1'>
-                <div class="wrapper ">
+            <section>
+                <div class="wrapper">
                     <article class="card-custom">
-                        <div id="player">
-                            <a href='/mainChannel?id=<?= $episodioAtual->canal->__get('id') ?>'><i class="material-icons">equalizer</i> <?= $episodioAtual->canal->__get('nomeCanal') ?></a>
-                            <div class="card">
-                                <div class="card-image">
-                                    <?php echo "<img src='" . BASEPATH . "uploads/" . $episodioAtual->__get('foto') . "'class='fotoEpisodio'/>" ?>
-                                </div>
-                                <div class="card-content">
-                                    <h5> <?= $episodioAtual->__get('titulo') ?></h5>
-                                    <p class="artist"> <?= $episodioAtual->canal->__get('nomeUsuario') ?> </p>
-                                    <audio controls>
-                                        <source src="src/uploads/<?= $episodioAtual->__get('arquivoAudio') ?>">
-                                    </audio>
-                                </div>
+                        <div class="icon"></div>
+                        <div class="player">
+                            <div class="titulo">
+                                <p><?= $episodioAtual->titulo ?></p>
+                            </div>
+                            <div class="button">
+                                <button><img src="src/rss/img/play-svgrepo-com.svg" alt="">
+                                Play
+                                </button>
                             </div>
                         </div>
                     </article>
@@ -169,9 +164,6 @@
 </script>
 
 <style>
-    .fotoEpisodio {
-        height: 450px;
-    }
     body {
         background-color: #fff;
     }
@@ -241,6 +233,22 @@
         flex: 0 0 auto;
     }
 
+    .icon {
+        width: 700px;
+        height: 375px;
+        background-color: #616161;
+        border-radius: 35px 35px 0px 0px;
+        margin: auto;
+    }
+    
+    .player {
+        width: 700px;
+        height: 175px;
+        background-color: #000;
+        border-radius: 0px 0px 35px 35px;
+        margin: auto;
+    }
+
     .icon-conteudo{
         width: 159px;
         height: 159px;
@@ -277,22 +285,45 @@
         margin-bottom: 5%;
     }
 
-    .seçao1 {
-        display:flex;
-        justify-content: center;
-        align-items: center;
-    }
-
     .wrapper {
-        display:flex;
-        justify-content: center;
-        align-items: center;
+        max-width: 1202px;
+        margin: auto;
     }
 
     .card-custom {
         margin-bottom: 36px;
     }
 
+    .button {
+        margin: 0 auto;
+        width: 17%;
+    }
+
+    .button button{
+        height: 40px;
+        width: 120px;
+        background: #c4c4c4;
+        border: 1px solid #c4c4c4;
+        border-radius: 30px;
+        color: #000;
+        font-weight: bold;
+        margin: 0 auto;
+    }
+
+    .button img{
+        height: 20px;
+        width: 20px;
+    }
+
+    .titulo {
+        font-size: 1.5em;
+        padding-top: 45px;
+        margin: 0 auto;
+        width: 64%;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+    }
 
     /* width */
     ::-webkit-scrollbar {

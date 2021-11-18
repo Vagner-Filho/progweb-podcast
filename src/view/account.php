@@ -65,7 +65,7 @@ if (!$data) {
 				</div>
 			</section>
 
-			<section>
+			<section class='seção2'>
 				<div class="col-10 offset-1">
 					<div class="ms-4">
 						<h2 class="head mt-4">Canal</h2>
@@ -229,5 +229,15 @@ if (!$data) {
 		margin-top: 15px;
 		margin-bottom: 120px;
 	}
+
+	@media (max-width: 675px) {
+
+		.channel-info {
+			flex-direction: column;
+		}
+
+		.lado2 {
+			margin-left:0;
+		}
 	
 </style>

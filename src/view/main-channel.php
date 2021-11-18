@@ -33,7 +33,7 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
                     <div class="ms-4">
                         <div class="channel-info">
                             <div>
-                                <div class="icon"></div>
+                                <?php echo "<img src='" . BASEPATH . "uploads/" . $data->__get('fotoCanal') . "' class='fotoCanal'/>" ?>
                             </div>
                             <div class="side">
                                 <div class="channel-title">
@@ -198,6 +198,12 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
         top: 15%;
         width: 0px; 
         height: 0px;
+    }
+
+    .fotoCanal {
+        width: 230px;
+        height: 230px;
+        border-radius: 30px;
     }
 
     .imagem {
