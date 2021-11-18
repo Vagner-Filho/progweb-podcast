@@ -43,7 +43,6 @@ final class Database {
             nome_canal VARCHAR(45) NOT NULL,
             data_nasc DATE NOT NULL,
             descricao VARCHAR(200) NOT NULL,
-            genero VARCHAR(20) NOT NULL,
             email VARCHAR(45) NOT NULL,
             senha VARCHAR(150) NOT NULL,
             classificacao VARCHAR(45) NOT NULL,
@@ -62,6 +61,12 @@ final class Database {
 			foto VARCHAR(150),
 			PRIMARY KEY (id)
 		);");
+
+        $db->exec("CREATE TABLE IF NOT EXISTS generos(
+            email VARCHAR(45) NOT NULL,
+            genero VARCHAR(20) NOT NULL,
+            PRIMARY KEY (email, genero),
+            FOREIGN KEY (email) REFERENCES usuarios(email) ON DELETE CASCADE);");
     }
 
     public static function createFavoritos(): void {

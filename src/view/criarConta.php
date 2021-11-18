@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <title>Criar Conta</title>
 </head>
@@ -19,10 +20,11 @@
                 </h1>
                 <div class='nome'>
                     <h1> Criar conta </h1>
+                    <h2> <a href="/teste"> aaaaaaa</a></h2>
                 </div>
             </header>
             <?php include(__DIR__.'/alert.php') ?>
-            <div class="first-line">
+            <div class="first-line divprincipal">
                 <!--<div>
                     <div>
                         <label for="foto-usuario">Insira uma foto de perfil</label>
@@ -38,7 +40,7 @@
                     <input type="text" id="nome-canal" name="nome-canal" required>
                 </div>
             </div>
-            <div class='second-line'>
+            <div class='second-line divprincipal'>
                 <div>
                     <label for="data-nascimento">Data de Nascimento</label>
                     <input type="date" id="data-nascimento" name="data-nascimento" min='1900-01-01' required>
@@ -48,17 +50,36 @@
                     <textarea id="descricao" name="descricao" required></textarea>
                 </div>
             </div>
-            <div class='third-line'>
+            <div class='third-line divprincipal'>
                 <div>
                     <label for="email">E-mail</label>
                     <input type="email" id="email" name="email" required>
                 </div>
-                <div>
-                    <label for="genero">Gênero</label>
-                    <input list='generos' type="text" id="genero" name="genero" required>
+                <div class='generos'>
+                    <div class='tituloGeneros'>
+                        <legend>Gêneros</legend>
+                    </div>
+                    <div class='nomesGeneros'>
+                        <div>
+                            <input type="checkbox" id="generoEsporte" name="genero[]" value='Esporte'>
+                            <label for="generoEsporte" class= 'genero'>Esporte</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="generoMusical" name="genero[]" value='Musical'>
+                            <label for="generoMusical" class= 'genero'>Musical</label>
+                        </div>
+                        <div>
+                            <input  type="checkbox" id="generoJogos" name="genero[]" value='Jogos'>
+                            <label for="generoJogos" class= 'genero'>Jogos</label>
+                        </div>
+                        <div class='outroGeneroCheckBox'>
+                            <input  type="checkbox" id="generoOutro" >
+                            <label for="generoOutro" class= 'genero'>Outro</label>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class='fourth-line'>
+            <div class='fourth-line divprincipal'>
                 <div>           
                     <label for="senha">Senha</label>
                     <input type="text" id="senha" name="senha" required>
@@ -68,7 +89,7 @@
                     <input type="text" id="classificacao" name="classificacao" required>
                 </div>
             </div>
-            <div class='foto'>
+            <div class='foto divprincipal'>
                 <div class='fotoDoPerfil'> 
                         <label for="fotoPerfil" class="addPick imagem">
                             <img id='fotoDoPerfil'  class="default-pic">
@@ -102,6 +123,25 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
+    var checado = document.getElementById('generoOutro');
+
+    $( "#generoOutro" ).click(function() {
+        if (checado.checked == true)
+        {
+        console.log('aaaaa');
+        $( ".nomesGeneros" ).append( "<input type='text' id='inputOutroGenero' name='genero[]' >" );
+        }
+    });
+
+    $( "form" ).on( "click", "#generoOutro", function() {
+        if (checado.checked == false)
+        {
+        console.log('abbbb');
+        $("#inputOutroGenero").remove();
+        }
+    });
+
+
     function previewImagemPerfil() {
         var imagem = document.getElementById('fotoPerfil').files[0]
         var preview = document.getElementById('fotoDoPerfil')
@@ -144,6 +184,46 @@
         font-weight: bolder;
     }
 
+
+    .outroGeneroCheckBox {
+        margin-bottom:10px;
+    }
+
+    #inputOutroGenero {
+        margin-top:10px;
+    }
+
+
+    .nomesGeneros {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: -10px;
+    }
+
+    .nomesGeneros div {
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        margin: 0;
+        margin-bottom:-15px;
+    }
+
+    .nomesGeneros input {
+        padding: 0;
+        margin: 0;
+    }
+
+    .nomesGeneros label {
+        margin-top: 15px;
+        margin-left: 10px;
+    }
+
+    .tituloGeneros {
+        padding: 0;
+        margin:0 ;
+        margin-bottom: 15px;
+    }
+
     .d-none {
         display: none;
     }
@@ -164,14 +244,14 @@
         margin-bottom: 35px;
     }
 
-    div > div {
+    .divprincipal > div {
         padding-right: 5%;
         width: 100%;
         display: flex;
         flex-direction: column;
     }
 
-    div > div:nth-child(1) {
+    .divprincipal > div:nth-child(1) {
         padding-right: 8%;
         padding-left: 8%;
     }
@@ -232,7 +312,6 @@
         border-color: rgb(214, 211, 211);
         
     }
-
     input:focus-within, textarea:focus-within {
         border: 2px solid  #3BB4B4 !important;
     }
@@ -316,11 +395,23 @@
             justify-content: center;
         }
         
+        .nomesGeneros {
+            margin:10px;
+        }
+
+        .nomesGeneros div {
+            justify-content:center;            
+        }
+
+        .nomesGeneros div input{
+            width: 15px;
+        }
+
         div {
             display: block;
         }
 
-        div > div:nth-child(1) {
+        .divprincipal > div:nth-child(1) {
             padding-right: 0%;
             padding-left: 0%;
         }

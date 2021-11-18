@@ -90,8 +90,11 @@ if (!$data) {
 								<div class="info">
 									<p>Gênero</p>
 									<div class="line"></div>
-									<p><?= $data->genero ?></p>
+									<?php 
+									foreach ($data->generos as $genero) { ?>
+									<p><?=  $genero.'/' ?> </p> <?php } ?>
 								</div>
+
 
 								<div class="info">
 									<p>Classificação</p>
@@ -199,7 +202,7 @@ if (!$data) {
 
 	.lado2 {
 		margin-left: 12%;
-		width: 28%;
+		width: 40%;
 		min-width: 220px;
 	}
 	
@@ -230,7 +233,7 @@ if (!$data) {
 		margin-bottom: 120px;
 	}
 
-	@media (max-width: 675px) {
+	@media (max-width: 775px) {
 
 		.channel-info {
 			flex-direction: column;

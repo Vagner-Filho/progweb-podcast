@@ -1,4 +1,5 @@
 <?php 
+
 require 'src/model/Usuario.php';
 require 'src/model/Database.php';
 require 'src/model/Episodio.php';
@@ -62,15 +63,14 @@ class LoginController extends Controller  {
                 'nomeCanal' => $_POST['nome-canal'],
                 'dataNasc' => $_POST['data-nascimento'],
                 'descricao' => $_POST['descricao'],
-                'genero' => $_POST['genero'],
+                'generos' => $_POST['genero'],
                 'email' => $_POST['email'],
                 'senha' => $_POST['senha'],
                 'classificacao' => $_POST['classificacao']
             );
-            
             $validos = Usuario::validarDados($infos);
             
-            $fotos = Usuario::validarSenhas($_FILES['fotoPerfil'], $_FILES['fotoCanal']);
+            $fotos = Usuario::validarFotos($_FILES['fotoPerfil'], $_FILES['fotoCanal']);
             
             if ($validos) {
                 
@@ -78,9 +78,11 @@ class LoginController extends Controller  {
                 $dataInscricao = new DateTime("now", new DateTimezone("America/Campo_Grande"));
 
                 $usuario = new Usuario ($infos['nomeUsuario'], $infos['nomeCanal'], $dataNasc, $infos['descricao'], 
-                $infos['genero'], $infos['email'], $infos['senha'], $infos['classificacao'], $dataInscricao, $fotos['fotoPerfil'], $fotos['fotoCanal']);
+                $infos['generos'], $infos['email'], $infos['senha'], $infos['classificacao'], $dataInscricao, $fotos['fotoPerfil'], $fotos['fotoCanal']);
                 
                 $usuario->salvar();
+                
+                $usuario->salvarGeneros();
                     
                 header("Location: /login?email=" . $infos['email'] . "&mensagem=Usuário cadastrado com sucesso!");
                 return;
@@ -172,6 +174,11 @@ class LoginController extends Controller  {
             return;
         }
         $this->view('player', $this->loggedUser);        
+    }
+
+    public function teste() 
+    {
+        $this->view('teste', $this->loggedUser);        
     }
 
     public function statistic() 

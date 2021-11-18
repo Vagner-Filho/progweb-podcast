@@ -2,6 +2,7 @@
 error_reporting(E_ERROR | E_PARSE);
 
 include 'src/libs/Route.php';
+
 use Steampixel\Route;
 require 'src/controller/LoginController.php';
 
@@ -34,7 +35,13 @@ Route::add('/' , function() {
 Route::add('/login', function() {
     $controller = new LoginController();
     $controller->loginIndex();
+    
 }, 'get');
+
+Route::add('/teste', function() {
+    $controller = new LoginController();
+    $controller->teste();
+}, ['get', 'post']);
 
 Route::add('/login', function() {
     $controller = new LoginController();

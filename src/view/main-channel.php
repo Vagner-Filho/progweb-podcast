@@ -59,7 +59,10 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
                             <p><?= $data->descricao ?></p>
                         </div>
                         <div class="tags">
-                            <button class="tag"><?= $data->genero ?></button>
+                        <?php foreach ($data->generos as $genero) { ?> 
+                            <button class="tag"><?= $genero ?></button>
+                        <?php } ?>
+                            
                             <!--<button class="tag" style="width: 150px";>Entretenimento</button>
                             <button class="tag">Humor</button>-->
                         </div>
