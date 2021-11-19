@@ -73,25 +73,25 @@ if (!$data) {
 						<div class="channel-info">
 							<div class="side ">
 								<a href="/mainChannel?id=<?= $data->__get('id') ?>">
-									<?php echo "<img src='" . BASEPATH . "uploads/" . $data->__get('fotoCanal') . "' class='icon-conteudo canal'/>" ?>
+									<?php echo "<img src='" . BASEPATH . "uploads/" . $data->canal->__get('fotoCanal') . "' class='icon-conteudo canal'/>" ?>
 								</a>
 		
 								<div class="channel-description">
-								<p><?= $data->descricao ?></p>
+								<p><?= $data->canal->descricao ?></p>
 								</div>
 		
 							</div>
 		
 							<div class="side lado2">
 								<div class="channel-title">
-								<?= $data->nomeCanal ?>
+								<?= $data->canal->nomeCanal ?>
 								</div>
 
 								<div class="info">
 									<p>Gênero</p>
 									<div class="line"></div>
 									<?php 
-									foreach ($data->generos as $genero) { ?>
+									foreach ($data->canal->generos as $genero) { ?>
 									<p><?=  $genero.'/' ?> </p> <?php } ?>
 								</div>
 
@@ -99,7 +99,7 @@ if (!$data) {
 								<div class="info">
 									<p>Classificação</p>
 									<div class="line"></div>
-									<p><?= $data->classificacao ?></p>
+									<p><?= $data->canal->classificacao ?></p>
 								</div>
 
 								<div class="info">
@@ -242,5 +242,5 @@ if (!$data) {
 		.lado2 {
 			margin-left:0;
 		}
-	
+	}
 </style>

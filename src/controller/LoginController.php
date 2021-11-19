@@ -3,6 +3,7 @@
 require 'src/model/Usuario.php';
 require 'src/model/Database.php';
 require 'src/model/Episodio.php';
+require 'src/model/Canal.php';
 
 require 'Controller.php';
 
@@ -77,8 +78,9 @@ class LoginController extends Controller  {
                 $dataNasc = new DateTime($infos['dataNasc'], new DateTimezone("America/Campo_Grande"));
                 $dataInscricao = new DateTime("now", new DateTimezone("America/Campo_Grande"));
 
-                $usuario = new Usuario ($infos['nomeUsuario'], $infos['nomeCanal'], $dataNasc, $infos['descricao'], 
-                $infos['generos'], $infos['email'], $infos['senha'], $infos['classificacao'], $dataInscricao, $fotos['fotoPerfil'], $fotos['fotoCanal']);
+				$canal = new Canal($infos['nomeCanal'], $infos['descricao'], $infos['generos'], $infos['classificacao'], $fotos['fotoCanal']);
+
+                $usuario = new Usuario ($infos['nomeUsuario'], $dataNasc, $infos['email'], $infos['senha'], $dataInscricao, $fotos['fotoPerfil'], $canal);
                 
                 $usuario->salvar();
                 

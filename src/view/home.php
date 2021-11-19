@@ -66,7 +66,7 @@ $canais = Usuario::getAll();
                             <div class="carousel-item active">
                                 <div class="main-card">
                                     <a href="/mainChannel?id=<?=$canais[0]->__get('id')?>">
-                                        <img src="src/uploads/<?= $canais[0]->__get('fotoCanal') ?>" class="main-card d-block w-100" alt="...">
+                                        <img src="src/uploads/<?= $canais[0]->__get('canal')->__get('fotoCanal') ?>" class="main-card d-block w-100" alt="...">
                                     </a>
                                 </div>
                               </div>
@@ -74,7 +74,7 @@ $canais = Usuario::getAll();
                                 <div class="carousel-item">
                                 <div class="main-card">
                                     <a href="/mainChannel?id=<?=$canal->__get('id')?>">
-                                        <img src="src/uploads/<?= $canal->__get('fotoCanal') ?>" class="main-card d-block w-100" alt="...">
+                                        <img src="src/uploads/<?= $canal->__get('canal')->__get('fotoCanal') ?>" class="main-card d-block w-100" alt="...">
                                     </a>
                                 </div>
                                 </div>
