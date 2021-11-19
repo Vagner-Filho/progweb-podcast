@@ -66,6 +66,8 @@ class Usuario {
 
 		foreach ($resultados as $resultado) {
 
+			$generos = Usuario::buscarGeneros($resultado['email']);
+
             $dataNasc = new DateTime($resultado['data_nasc'], new DateTimezone("America/Campo_Grande"));
             $dataInscricao = new DateTime($resultado['data_inscricao'], new DateTimezone("America/Campo_Grande"));
 
@@ -94,6 +96,8 @@ class Usuario {
         $resultado = $stm->fetch();
 
         if ($resultado) {
+
+			$generos = Usuario::buscarGeneros($resultado['email']);
 
             $dataNasc = new DateTime($resultado['data_nasc'], new DateTimezone("America/Campo_Grande"));
             $dataInscricao = new DateTime($resultado['data_inscricao'], new DateTimezone("America/Campo_Grande"));
@@ -124,6 +128,7 @@ class Usuario {
         $resultado = $stm->fetch();
 
         if ($resultado) {
+			$generos = Usuario::buscarGeneros($resultado['email']);
 
             $dataNasc = new DateTime($resultado['data_nasc'], new DateTimezone("America/Campo_Grande"));
             $dataInscricao = new DateTime($resultado['data_inscricao'], new DateTimezone("America/Campo_Grande"));
