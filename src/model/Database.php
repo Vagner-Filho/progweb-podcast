@@ -61,12 +61,6 @@ final class Database {
 			foto VARCHAR(150),
 			PRIMARY KEY (id)
 		);");
-
-        $db->exec("CREATE TABLE IF NOT EXISTS generos(
-            email VARCHAR(45) NOT NULL,
-            genero VARCHAR(20) NOT NULL,
-            PRIMARY KEY (email, genero),
-            FOREIGN KEY (email) REFERENCES usuarios(email) ON DELETE CASCADE);");
     }
 
     public static function createFavoritos(): void {
@@ -78,7 +72,26 @@ final class Database {
             PRIMARY KEY (usuario_id, episodio_id),
             FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
             FOREIGN KEY (episodio_id) REFERENCES episodios(id) ON DELETE CASCADE);");
-            
+    }
+
+    public static function createGeneros(): void {
+        $db = self::getInstance();
+
+        $db->exec("CREATE TABLE IF NOT EXISTS generos(
+            email VARCHAR(45) NOT NULL,
+            genero VARCHAR(20) NOT NULL,
+            PRIMARY KEY (email, genero),
+            FOREIGN KEY (email) REFERENCES usuarios(email) ON DELETE CASCADE);");
+    }
+
+    public static function createCanaisSeguidos(): void {
+        $db = self::getInstance();
+
+        $db->exec("CREATE TABLE IF NOT EXISTS canais_seguidos(
+            usuario_seguidor_id INT NOT NULL,
+            canal_seguido_id INT NOT NULL,
+            FOREIGN KEY (usuario_seguidor_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+            FOREIGN KEY (canal_seguido_id) REFERENCES usuarios(id) ON DELETE CASCADE);");
     }
 }
 //FOREIGN KEY (canal) REFERENCES usuarios(id)

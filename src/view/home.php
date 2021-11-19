@@ -2,6 +2,8 @@
 if (!$data) {
 	header('location: /login?mensagem=Você precisa se identificar primeiro');
 }
+
+$canais = Usuario::getAll();
 ?>
 
 <!DOCTYPE html>
@@ -43,21 +45,40 @@ if (!$data) {
                     <div class="highlights">
                         <div id="carouselExampleControls" class="carousel slide carousel-fade" data-bs-ride="carousel" data-interval="false">
                             <div class="carousel-inner">
-                              <div class="carousel-item active">
+
+                            <!-- <div class="carousel-item active">
                                   <div class="main-card" style="background-color: gray;">
                                   </div>
-                                <!-- <img src="..." class="d-block w-100" alt="..."> -->
+                                <--! <img src="..." class="d-block w-100" alt="..."> -- >
                               </div>
                               <div class="carousel-item">
                                   <div class="main-card" style="background-color: lightgray;">
                                   </div>
-                                <!-- <img src="..." class="d-block w-100" alt="..."> -->
+                                <--! <img src="..." class="d-block w-100" alt="..."> -- >
                               </div>
                               <div class="carousel-item">
                                   <div class="main-card" style="background-color: black;">
                                   </div>
-                                <!-- <img src="..." class="d-block w-100" alt="..."> -->
+                                 <--! <img src="..." class="d-block w-100" alt="..."> -- > 
                               </div>
+                            </div>-->
+
+                            <div class="carousel-item active">
+                                <div class="main-card">
+                                    <a href="/mainChannel?id=<?=$canais[0]->__get('id')?>">
+                                        <img src="src/uploads/<?= $canais[0]->__get('fotoCanal') ?>" class="main-card d-block w-100" alt="...">
+                                    </a>
+                                </div>
+                              </div>
+                            <?php  foreach ($canais as $key => $canal) { if ($canal != $canais[0]) {?>
+                                <div class="carousel-item">
+                                <div class="main-card">
+                                    <a href="/mainChannel?id=<?=$canal->__get('id')?>">
+                                        <img src="src/uploads/<?= $canal->__get('fotoCanal') ?>" class="main-card d-block w-100" alt="...">
+                                    </a>
+                                </div>
+                                </div>
+                            <?php }}?>
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -135,6 +156,11 @@ if (!$data) {
     body {
         background-color: #fff;
         z-index: 1;
+    }
+
+    img{
+        width: 200px;
+        height: 200px;
     }
     .main-head, .head {
         display: flex;

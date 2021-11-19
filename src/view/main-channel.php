@@ -3,7 +3,8 @@
 if($data){
 	$episodios = $data->getEpisodios($_SESSION['user']->__get('id'));
 }*/
-$episodios = Episodio::getEpisodios($data->__get('id'));
+$usuario = Usuario::buscarUsuarioPorId($_GET['id']);
+$episodios = Episodio::getEpisodios($usuario->__get('id'));
 
 ?>
 
@@ -33,12 +34,12 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
                     <div class="ms-4">
                         <div class="channel-info">
                             <div>
-                                <?php echo "<img src='" . BASEPATH . "uploads/" . $data->__get('fotoCanal') . "' class='fotoCanal'/>" ?>
+                                <?php echo "<img src='" . BASEPATH . "uploads/" . $usuario->__get('fotoCanal') . "' class='fotoCanal'/>" ?>
                             </div>
                             <div class="side">
                                 <div class="channel-title">
                                     <p>
-                                        <?= $data->nomeCanal ?>
+                                        <?= $usuario->nomeCanal ?>
                                     </p>
                                     <!--<p class="text">
                                         MTG
@@ -52,14 +53,17 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
             <section>
                 <div class="col-10 offset-1">
                     <div class="ms-4">
+                        <?php if ($usuario->id != $data->id) { ?>
                         <div class="seguir">
-                            <button>Seguir</button>
+                            <button onclick='seguirCanal(<?=$usuario->id?>)'>
+                                <h7 id='Segue' class='seguindo'><?php echo $data->segueCanal($usuario->id) ?></h7></button>
                         </div>
+                        <?php } ?>
                         <div class="descricao">
-                            <p><?= $data->descricao ?></p>
+                            <p><?= $usuario->descricao ?></p>
                         </div>
                         <div class="tags">
-                        <?php foreach ($data->generos as $genero) { ?> 
+                        <?php foreach ($usuario->generos as $genero) { ?> 
                             <button class="tag"><?= $genero ?></button>
                         <?php } ?>
                             
@@ -107,7 +111,7 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
                                 <?php 
 
                                 //Se esse episodio foi favoritado pelo usuario logado, o coração vermelho aparece, se não, aparece o preto
-                                if ($ep->epFavoritado($data->__get('id'))) { ?>
+                                if ($ep->epFavoritado($usuario->__get('id'))) { ?>
 
                                     <script>
                                         var imagem1 = document.getElementsByClassName('vermelho')[<?= $contador ?>]
@@ -180,6 +184,37 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
         {
             imagem1.style.display = 'initial'
             imagem2.style.display = 'none'
+        }
+    }
+
+    function seguirCanal(canal) {
+        var url = "http://localhost/seguirCanal?canalId="+canal
+
+        var request = new XMLHttpRequest()
+        request.open("GET", url)
+        //request.setRequestHeader("Accept", "application/json");
+        request.setRequestHeader("Content-Type", "application/json");
+
+        request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+            console.log(request.status);
+            console.log(request.responseText);
+        }};
+        
+        var data = {
+            "canalId": canal
+        }
+
+        request.send(JSON.stringify(data))
+
+        var botao = document.getElementById('Segue')
+        
+        if (botao.className=='seguindo') {
+            botao.textContent = 'Deixar de Seguir'
+            botao.className='naoSegue'
+        } else {
+            botao.textContent = 'Seguir'
+            botao.className='seguindo'
         }
     }
 
@@ -308,7 +343,7 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
 	}
 
     .seguir button {
-        height: 40px;
+        min-height: 40px;
         width: 120px;
         margin: 7px, 7px, 7px, 0px;
         background: #c4c4c4;
@@ -333,8 +368,8 @@ $episodios = Episodio::getEpisodios($data->__get('id'));
     }
 
     .tags button {
-        height: 30px;
-        width: 80px;
+        height: 35px;
+        min-width: 90px;
         margin: 7px, 7px, 7px, 0px;
         background: #e2e2e2;
         border: 1px solid #e2e2e2;

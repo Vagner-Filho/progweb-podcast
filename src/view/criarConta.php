@@ -128,7 +128,6 @@
     $( "#generoOutro" ).click(function() {
         if (checado.checked == true)
         {
-        console.log('aaaaa');
         $( ".nomesGeneros" ).append( "<input type='text' id='inputOutroGenero' name='genero[]' >" );
         }
     });
@@ -136,7 +135,6 @@
     $( "form" ).on( "click", "#generoOutro", function() {
         if (checado.checked == false)
         {
-        console.log('abbbb');
         $("#inputOutroGenero").remove();
         }
     });

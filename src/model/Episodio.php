@@ -37,6 +37,30 @@ class Episodio{
     }
 
 	/**
+	 * Função que retorna todos os episodios do BD
+	 */
+	static public function getAll(){
+		Database::createSchema();
+        $conexao = Database::getInstance();
+		$episodios = array();
+
+		$stm = $conexao->prepare('select * from episodios');
+		$stm->execute();
+		$resultado = $stm->fetchAll(PDO::FETCH_ASSOC);
+		foreach ($resultado as $value) {
+			
+			$canal = Usuario::buscarUsuarioPorId($value['canal']);
+
+			$episodio = new Episodio($value['titulo'], $value['descricao'], $canal, $value['arquivoaudio'], $value['foto']);
+			$episodio->id = $value['id'];
+			
+			array_push($episodios, $episodio);
+		}
+		return $episodios;
+	}
+
+
+	/**
 	 * Função que retorna todos os episodios do canal cujo id é passado por parâmetro
 	 */
 	static public function getEpisodios($idCanal){
@@ -60,7 +84,7 @@ class Episodio{
 		}
 		return $episodios;
 	}
-
+	
 	/**
 	 * Função que busca um episodio pelo seu id e retorna um objeto Episodio ou null caso não exista um episodio com o id passado
 	 */
@@ -104,6 +128,9 @@ class Episodio{
 		$stm->execute();
 	}
 
+	/**
+	 * Função que favorita e deleta um episodio, da tabela de favoritos
+	 */
 	public function favoritar($idUsuario) {
 		Database::createFavoritos();
         $conexao = Database::getInstance();
@@ -130,7 +157,10 @@ class Episodio{
 			$stm->execute();
         }
 	}
-
+	
+	/**
+	 * Função que retorna os episodios favoritos de um usuario
+	 */
 	public function epFavoritado($idUsuario) {
 		Database::createFavoritos();
         $conexao = Database::getInstance();

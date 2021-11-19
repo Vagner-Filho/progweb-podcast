@@ -58,6 +58,38 @@ class Usuario {
         return $this->email === $email && $this->senha === hash('sha256', $senha);
     }
 
+    
+	/**
+	 * Função que busca todos os usuarios do BD
+	 */
+    static public function getAll()
+    {	
+		Database::createSchema();
+        $conexao = Database::getInstance();
+
+        $stm = $conexao->prepare('SELECT * FROM Usuarios');
+        $usuarios = array();
+
+        $stm->execute();
+        $resultados = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+		foreach ($resultados as $resultado) {
+            $generos = Usuario::buscarGeneros($resultado['email']);
+
+            $dataNasc = new DateTime($resultado['data_nasc'], new DateTimezone("America/Campo_Grande"));
+            $dataInscricao = new DateTime($resultado['data_inscricao'], new DateTimezone("America/Campo_Grande"));
+    
+            $usuario = new Usuario ($resultado['nome_usuario'], $resultado['nome_canal'], $dataNasc,
+                $resultado['descricao'], $generos, $resultado['email'], $resultado['senha'], 
+                $resultado['classificacao'], $dataInscricao, $resultado['foto_perfil'], $resultado['foto_canal']);
+			$usuario->id = $resultado['id'];
+            $usuario->senha = $resultado['senha'];
+
+            array_push($usuarios, $usuario);
+		}
+		return $usuarios;
+    }
+
 	/**
 	 * Função que busca um usuário pelo seu email e retorna um objeto usuário ou null caso não exista um usuário com o id passado
 	 */
@@ -149,9 +181,13 @@ class Usuario {
         $stm->execute();
     }
 
+    
+	/**
+	 * Função que salva os generos do usuario na tabela generos
+	 */
     public function salvarGeneros()
     {
-        Database::createSchema();
+        Database::createGeneros();
         $conexao = Database::getInstance();
 
 
@@ -165,7 +201,9 @@ class Usuario {
         }
     }
 
-    
+    /**
+	 * Função que busca os generos do usuario, e retorna um array com eles
+	 */
 	static public function buscarGeneros($email) {
 		Database::createFavoritos();
         $conexao = Database::getInstance();
@@ -185,6 +223,63 @@ class Usuario {
 		return $generos;
 	}
     
+    /**
+	 * Função que verifica se o canal já é seguido pelo usuario logado, se sim, deixa de seguir
+	 */
+    public function seguirCanal($canalSeguido) {
+        
+		Database::createCanaisSeguidos();
+        $conexao = Database::getInstance();
+
+		$stm = $conexao->prepare('select * from canais_seguidos where usuario_seguidor_id = :usuario_seguidor_id and canal_seguido_id = :canal_seguido_id');
+        $stm->bindParam(':usuario_seguidor_id', $this->id);
+		$stm->bindParam(':canal_seguido_id', $canalSeguido);
+
+        $stm->execute();
+        $resultado = $stm->fetch();
+        
+        if ($resultado) {
+            
+			$stm = $conexao->prepare('delete from canais_seguidos where usuario_seguidor_id = :usuario_seguidor_id and canal_seguido_id = :canal_seguido_id');
+			$stm->bindParam(':usuario_seguidor_id', $this->id);
+		    $stm->bindParam(':canal_seguido_id', $canalSeguido);
+
+			$stm->execute();
+
+        } else {
+            $stm = $conexao->prepare('insert into canais_seguidos values (:usuario_seguidor_id, :canal_seguido_id)');
+			$stm->bindParam(':usuario_seguidor_id', $this->id);
+		    $stm->bindParam(':canal_seguido_id', $canalSeguido);
+
+			$stm->execute();
+        }
+	}
+
+    /**
+	 * Função que verifica se o canal já é seguido pelo usuario logado, se sim, retorna um string
+	 */
+    public function segueCanal($canalSeguidoId) {
+        Database::createCanaisSeguidos();
+        $conexao = Database::getInstance();
+
+        $stm = $conexao->prepare('select * from canais_seguidos where usuario_seguidor_id = :usuario_seguidor_id and canal_seguido_id = :canal_seguido_id');
+        $stm->bindParam(':usuario_seguidor_id', $this->id);
+		$stm->bindParam(':canal_seguido_id', $canalSeguidoId);
+
+        $stm->execute();
+        $resultado = $stm->fetch();
+
+        if ($resultado) {
+            return 'Deixar de Seguir';
+
+        } else {
+            return 'Seguir';
+        }
+    }
+
+    /**
+	 * Função que retorna todos os episodios salvos como favoritos de um usuario
+	 */
 	public function episodiosFavoritos() {
 		Database::createFavoritos();
         $conexao = Database::getInstance();
@@ -204,6 +299,10 @@ class Usuario {
 		return $episodios;
 	}
 
+    
+	/**
+	 * Função que valida as Fotos passadas no formulário de cadastro de novo usuário, e envia elas para a pasta uploads
+	 */
     static public function validarFotos($fotoPerfil, $fotoCanal) {
         
         if(isset($fotoPerfil) && isset($fotoCanal))

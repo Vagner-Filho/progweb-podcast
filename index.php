@@ -35,18 +35,17 @@ Route::add('/' , function() {
 Route::add('/login', function() {
     $controller = new LoginController();
     $controller->loginIndex();
-    
 }, 'get');
-
-Route::add('/teste', function() {
-    $controller = new LoginController();
-    $controller->teste();
-}, ['get', 'post']);
 
 Route::add('/login', function() {
     $controller = new LoginController();
     $controller->login();
 }, 'post');
+
+Route::add('/teste', function() {
+    $controller = new LoginController();
+    $controller->teste();
+}, ['get', 'post']);
 
 Route::add('/criarConta', function() {
     $controller = new LoginController();
@@ -100,12 +99,12 @@ Route::add('/player', function() {
 
 Route::add('/cadastrarFavorito', function() {
     $controller = new LoginController();
-    $controller->favoritarEpisodioPost();
-}, 'post');
+    $controller->favoritarEpisodio();
+}, 'get');
 
-Route::add('/cadastrarFavorito', function() {
+Route::add('/seguirCanal', function() {
     $controller = new LoginController();
-    $controller->favoritarEpisodioGet();
+    $controller->seguirCanal();
 }, 'get');
 
 Route::add('/statistic', function() {

@@ -72,7 +72,7 @@ if (!$data) {
 
 						<div class="channel-info">
 							<div class="side ">
-								<a href="/mainChannel">
+								<a href="/mainChannel?id=<?= $data->__get('id') ?>">
 									<?php echo "<img src='" . BASEPATH . "uploads/" . $data->__get('fotoCanal') . "' class='icon-conteudo canal'/>" ?>
 								</a>
 		

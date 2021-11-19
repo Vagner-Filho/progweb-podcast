@@ -132,18 +132,16 @@ class LoginController extends Controller  {
         $this->view('favorites', $this->loggedUser);        
     }
 
-    public function favoritarEpisodioGet() 
+    public function favoritarEpisodio() 
     {
         $episodio = Episodio::getEpisodio($_GET['episodioId']);
         $episodio->favoritar($this->loggedUser->id);      
     }
 
-    public function favoritarEpisodioPost() 
+    public function seguirCanal() 
     {
-        var_dump($POST);
-        die(1);
-        $episodio = Episodio::getEpisodio($_POST['episodioId']);
-        $episodio->favoritar($this->loggedUser->id);  
+        
+        $this->loggedUser->seguirCanal($_GET['canalId']); 
     }
 
     public function home() 
@@ -247,7 +245,7 @@ class LoginController extends Controller  {
         
 		//$idCanal = $episodio->__get("canal")->__get("id");
 		//$episodio->getEpisodios($_SESSION['user']->id);
-		header("Location: /mainChannel");
+		header("Location: /mainChannel?id=".$this->loggedUser->id);
 		//$this->view("main-channel", $this->loggedUser);
 		
 	}
