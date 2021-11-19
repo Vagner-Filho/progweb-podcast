@@ -3,9 +3,9 @@ if (!$data) {
 	header('location: /login?mensagem=Você precisa se identificar primeiro');
 }
 
-$canais = Usuario::getAll();
+$canais = Canal::getAll();
 $canais_seguidos = $data->getCanaisSeguidos();
-$generos = $data->getGeneros();
+$generos = Canal::getGeneros();
 ?>
 
 <!DOCTYPE html>

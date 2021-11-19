@@ -6,31 +6,21 @@
 class Usuario {
 	private $id;
     private $nomeUsuario;
-    private $nomeCanal;
     private $dataNasc;
-    private $descricao;
-    private $generos = array();
     private $email;
     private $senha;
-    private $classificacao;
     private $dataInscricao;
     private $fotoPerfil;
-    private $fotoCanal;
 
-    function __construct(string $nomeUsuario, string $nomeCanal, DateTime $dataNasc, string $descricao, $generos, 
-        string $email, string $senha, string $classificacao, DateTime $dataInscricao, string $fotoPerfil, string $fotoCanal) 
+    function __construct(string $nomeUsuario, DateTime $dataNasc,
+        string $email, string $senha, DateTime $dataInscricao, string $fotoPerfil) 
     {	
         $this->nomeUsuario = $nomeUsuario;
-        $this->nomeCanal = $nomeCanal;
         $this->dataNasc = $dataNasc;
-        $this->descricao = $descricao;
-        $this->generos = $generos;
         $this->email = $email;
         $this->senha = hash('sha256', $senha);
-        $this->classificacao = $classificacao;
         $this->dataInscricao = $dataInscricao;
         $this->fotoPerfil = $fotoPerfil;
-        $this->fotoCanal = $fotoCanal;
     }
 
     /**
@@ -74,16 +64,13 @@ class Usuario {
         $resultados = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 		foreach ($resultados as $resultado) {
-            $generos = Usuario::buscarGeneros($resultado['email']);
 
             $dataNasc = new DateTime($resultado['data_nasc'], new DateTimezone("America/Campo_Grande"));
             $dataInscricao = new DateTime($resultado['data_inscricao'], new DateTimezone("America/Campo_Grande"));
     
-            $usuario = new Usuario ($resultado['nome_usuario'], $resultado['nome_canal'], $dataNasc,
-                $resultado['descricao'], $generos, $resultado['email'], $resultado['senha'], 
-                $resultado['classificacao'], $dataInscricao, $resultado['foto_perfil'], $resultado['foto_canal']);
+            $usuario = new Usuario ($resultado['nome_usuario'], $dataNasc, $resultado['email'], $resultado['senha'], $dataInscricao, $resultado['foto_perfil']);
 			$usuario->id = $resultado['id'];
-            $usuario->senha = $resultado['senha'];
+			$usuario->senha = $resultado['senha'];
 
             array_push($usuarios, $usuario);
 		}
@@ -104,14 +91,11 @@ class Usuario {
         $resultado = $stm->fetch();
 
         if ($resultado) {
-            $generos = Usuario::buscarGeneros($email);
 
             $dataNasc = new DateTime($resultado['data_nasc'], new DateTimezone("America/Campo_Grande"));
             $dataInscricao = new DateTime($resultado['data_inscricao'], new DateTimezone("America/Campo_Grande"));
     
-            $usuario = new Usuario ($resultado['nome_usuario'], $resultado['nome_canal'], $dataNasc,
-                $resultado['descricao'], $generos, $resultado['email'], $resultado['senha'], 
-                $resultado['classificacao'], $dataInscricao, $resultado['foto_perfil'], $resultado['foto_canal']);
+            $usuario = new Usuario ($resultado['nome_usuario'], $dataNasc, $resultado['email'], $resultado['senha'], $dataInscricao, $resultado['foto_perfil']);
 			$usuario->id = $resultado['id'];
             $usuario->senha = $resultado['senha'];
 
@@ -136,14 +120,10 @@ class Usuario {
 
         if ($resultado) {
 
-            $generos = Usuario::buscarGeneros($resultado['email']);
-
             $dataNasc = new DateTime($resultado['data_nasc'], new DateTimezone("America/Campo_Grande"));
             $dataInscricao = new DateTime($resultado['data_inscricao'], new DateTimezone("America/Campo_Grande"));
     
-            $usuario = new Usuario ($resultado['nome_usuario'], $resultado['nome_canal'], $dataNasc,
-                $resultado['descricao'], $generos, $resultado['email'], $resultado['senha'], 
-                $resultado['classificacao'], $dataInscricao, $resultado['foto_perfil'], $resultado['foto_canal']);
+            $usuario = new Usuario ($resultado['nome_usuario'], $dataNasc, $resultado['email'], $resultado['senha'], $dataInscricao, $resultado['foto_perfil']);
 			$usuario->id = $resultado['id'];
             $usuario->senha = $resultado['senha'];
 
@@ -153,24 +133,6 @@ class Usuario {
         }
     }
 
-	public function buscarCanalPorGenero($genero){
-		Database::createFavoritos();
-        $conexao = Database::getInstance();
-        $canais = array();
-
-		$stm = $conexao->prepare('select email from generos where genero = :genero');
-        $stm->bindParam(':genero', $genero);
-
-        $stm->execute();
-        $resultado = $stm->fetchAll(PDO::FETCH_ASSOC);
-
-		foreach ($resultado as $value) {
-
-			array_push($canais, $value['email']);
-		}
-
-		return $canais;
-	}
 
 	/**
 	 * Função que salva um usuário no banco de dados
@@ -180,85 +142,21 @@ class Usuario {
         Database::createSchema();
         $conexao = Database::getInstance();
 
-        $stm = $conexao->prepare('insert into usuarios (nome_usuario, 
-        nome_canal, data_nasc, descricao, email, senha,
-        classificacao, data_inscricao, foto_perfil, foto_canal) 
+        $stm = $conexao->prepare('insert into usuarios (nome_usuario, data_nasc, email, senha, data_inscricao, foto_perfil) 
         values 
-        (:nome_usuario, :nome_canal, :dataNasc, :descricao, :email, :senha, 
-        :classificacao, :dataInscricao, :foto_perfil, :foto_canal)');
+        (:nome_usuario, :dataNasc, :email, :senha, :dataInscricao, :foto_perfil)');
 
         $stm->bindParam(':nome_usuario', $this->nomeUsuario);
-        $stm->bindParam(':nome_canal', $this->nomeCanal);
         $stm->bindParam(':dataNasc', $this->dataNasc->format('Y-m-d'));
-        $stm->bindParam(':descricao', $this->descricao);
         $stm->bindParam(':email', $this->email);
         $stm->bindParam(':senha', $this->senha);
-        $stm->bindParam(':classificacao', $this->classificacao);
         $stm->bindParam(':dataInscricao',$this->dataInscricao->format('Y-m-d'));
         $stm->bindParam(':foto_perfil', $this->fotoPerfil);
-        $stm->bindParam(':foto_canal', $this->fotoCanal);
         $stm->execute();
     }
 
     
-	/**
-	 * Função que salva os generos do usuario na tabela generos
-	 */
-    public function salvarGeneros()
-    {
-        Database::createGeneros();
-        $conexao = Database::getInstance();
-
-
-        foreach ($this->generos as $genero) {
-            $stm = $conexao->prepare('insert into generos values (:email, :genero)');
-
-            $stm->bindParam(':email', $this->email);
-            $stm->bindParam(':genero', $genero);
-
-            $stm->execute();
-        }
-    }
-
-    /**
-	 * Função que busca os generos do usuario, e retorna um array com eles
-	 */
-	static public function buscarGeneros($email) {
-		Database::createFavoritos();
-        $conexao = Database::getInstance();
-        $generos = array();
-
-		$stm = $conexao->prepare('select genero from generos where email = :email');
-        $stm->bindParam(':email', $email);
-
-        $stm->execute();
-        $resultado = $stm->fetchAll(PDO::FETCH_ASSOC);
-
-		foreach ($resultado as $value) {
-
-			array_push($generos, $value['genero']);
-		}
-
-		return $generos;
-	}
-
-	public function getGeneros(){
-		Database::createFavoritos();
-        $conexao = Database::getInstance();
-        $generos = array();
-
-		$stm = $conexao->query('select * from generos');
-    
-        $resultado = $stm->fetchAll(PDO::FETCH_ASSOC);
-
-		foreach ($resultado as $value) {
-
-			array_push($generos, $value['genero']);
-		}
-
-		return $generos;
-	}
-    
+	
     /**
 	 * Função que verifica se o canal já é seguido pelo usuario logado, se sim, deixa de seguir
 	 */
@@ -401,6 +299,41 @@ class Usuario {
 		);
 
         return $nomes;
+    }
+
+	static public function validarFoto($foto) {
+        
+        if(isset($foto))
+        {    
+            if ($foto['type'] == '' && $foto['name'] != '') {
+                header('location: /criarConta?mensagem=Sua foto excedeu o tamanho permitido!');
+                return;
+            }
+
+
+            $diretorio = BASEPATH . "uploads/";
+
+			$extensaoFoto = strtolower(substr($foto['name'], -4));
+			$novoNomeFoto = md5(time()).$extensaoFoto;
+
+            /*$extensaoFotoCanal = strtolower(substr($fotoCanal['name'], -4));
+			$novoNomeFotoCanal = md5(time()+1).$extensaoFotoCanal;*/
+            
+            if ($foto['name'] == '') {
+                $novoNomeFoto = 'blank-profile-picture-973460__480.png';
+            }
+        
+
+			move_uploaded_file($foto['tmp_name'], $diretorio.$novoNomeFoto);
+
+        }
+        
+        /*$nomes = array(
+			'fotoPerfil' => $novoNomeFotoPerfil,
+			'fotoCanal' => $novoNomeFotoCanal
+		);*/
+
+        return $novoNomeFoto;
     }
 
 

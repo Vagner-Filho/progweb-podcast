@@ -57,6 +57,16 @@ Route::add('/criarConta', function() {
     $controller->criarConta();
 }, 'post');
 
+Route::add('/criarCanal', function() {
+    $controller = new LoginController();
+    $controller->criarCanalIndex();
+}, 'get');
+
+Route::add('/criarCanal', function() {
+    $controller = new LoginController();
+    $controller->criarCanal();
+}, 'post');
+
 Route::add('/home', function() {
     $controller = new LoginController();
     $controller->home();

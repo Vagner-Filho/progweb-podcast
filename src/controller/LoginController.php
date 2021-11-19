@@ -3,6 +3,7 @@
 require 'src/model/Usuario.php';
 require 'src/model/Database.php';
 require 'src/model/Episodio.php';
+require 'src/model/Canal.php';
 
 require 'Controller.php';
 
@@ -70,19 +71,16 @@ class LoginController extends Controller  {
             );
             $validos = Usuario::validarDados($infos);
             
-            $fotos = Usuario::validarFotos($_FILES['fotoPerfil'], $_FILES['fotoCanal']);
+            $foto = Usuario::validarFoto($_FILES['fotoPerfil']);
             
             if ($validos) {
                 
                 $dataNasc = new DateTime($infos['dataNasc'], new DateTimezone("America/Campo_Grande"));
                 $dataInscricao = new DateTime("now", new DateTimezone("America/Campo_Grande"));
 
-                $usuario = new Usuario ($infos['nomeUsuario'], $infos['nomeCanal'], $dataNasc, $infos['descricao'], 
-                $infos['generos'], $infos['email'], $infos['senha'], $infos['classificacao'], $dataInscricao, $fotos['fotoPerfil'], $fotos['fotoCanal']);
+                $usuario = new Usuario ($infos['nomeUsuario'], $dataNasc, $infos['email'], $infos['senha'], $dataInscricao, $foto['fotoPerfil']);
                 
                 $usuario->salvar();
-                
-                $usuario->salvarGeneros();
                     
                 header("Location: /login?email=" . $infos['email'] . "&mensagem=Usuário cadastrado com sucesso!");
                 return;
@@ -90,6 +88,38 @@ class LoginController extends Controller  {
                 return;
             }
     }
+
+	public function criarCanalIndex() 
+    {
+        $this->view('criarCanal');
+    }
+
+	public function criarCanal(){
+		
+		$infos = array(
+			'nomeCanal' => $_POST['nome-canal'],
+			'descricao' => $_POST['descricao'],
+			'generos' => $_POST['genero'],
+			'classificacao' => $_POST['classificacao']
+		);
+		$validos = Usuario::validarDados($infos);
+		$foto = Usuario::validarFoto($_FILES['fotoCanal']);
+
+		if ($validos) {
+
+			$canal = new Canal ($infos['nomeCanal'], $infos['descricao'], 
+			$infos['generos'], $infos['classificacao'], $foto, $this->loggedUser);
+			
+			$canal->salvar();
+			
+			$canal->salvarGeneros();
+				
+			//header("Location: /login?email=" . $infos['email'] . "&mensagem=Usuário cadastrado com sucesso!");
+			return;
+		} else {
+			return;
+		}
+	}
 
     
     public function account() 
@@ -151,6 +181,9 @@ class LoginController extends Controller  {
             header('Location: /login?mensagem=Você precisa se identificar primeiro');    
             return;
         }
+		Database::createCanaisSeguidos();
+		Database::createFavoritos();
+		Database::createGeneros();
         $this->view('home', $this->loggedUser);        
     }
 

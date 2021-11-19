@@ -38,28 +38,35 @@ final class Database {
     public static function createSchema(): void {
         $db = self::getInstance();
         $db->exec("CREATE TABLE IF NOT EXISTS usuarios (
-            id INT NOT NULL AUTO_INCREMENT,
+            idUsuario INTEGER NOT NULL AUTO_INCREMENT,
             nome_usuario VARCHAR(60) NOT NULL,
-            nome_canal VARCHAR(45) NOT NULL,
             data_nasc DATE NOT NULL,
-            descricao VARCHAR(200) NOT NULL,
             email VARCHAR(45) NOT NULL,
             senha VARCHAR(150) NOT NULL,
-            classificacao VARCHAR(45) NOT NULL,
             data_inscricao DATE NOT NULL,
             foto_perfil VARCHAR(150),
-            foto_canal VARCHAR(150),
-            PRIMARY KEY (id),
+            PRIMARY KEY (idUsuario),
             UNIQUE INDEX email_UNIQUE (email ASC));");
 
 		$db->exec("CREATE TABLE IF NOT EXISTS episodios(
-			id INTEGER NOT NULL AUTO_INCREMENT,
+			idEpisodio INTEGER NOT NULL AUTO_INCREMENT,
 			titulo VARCHAR(100) NOT NULL,
 			descricao VARCHAR(200) NOT NULL,
 			canal INTEGER,
 			arquivoAudio VARCHAR(150),
 			foto VARCHAR(150),
-			PRIMARY KEY (id)
+			PRIMARY KEY (idEpisodio)
+		);");
+
+		$db->exec("CREATE TABLE IF NOT EXISTS canais(
+			idCanal INTEGER NOT NULL AUTO_INCREMENT,
+			nome_canal VARCHAR(100) NOT NULL,
+			descricao VARCHAR(200) NOT NULL,
+			classificacao VARCHAR(50),
+			foto VARCHAR(150),
+			idUsuario INTEGER,
+			PRIMARY KEY (idCanal),
+			FOREIGN KEY (idUsuario) REFERENCES usuarios(idUsuario) ON DELETE CASCADE
 		);");
     }
 
@@ -70,18 +77,18 @@ final class Database {
             usuario_id INT NOT NULL,
             episodio_id INT NOT NULL,
             PRIMARY KEY (usuario_id, episodio_id),
-            FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
-            FOREIGN KEY (episodio_id) REFERENCES episodios(id) ON DELETE CASCADE);");
+            FOREIGN KEY (usuario_id) REFERENCES usuarios(idUsuario) ON DELETE CASCADE,
+            FOREIGN KEY (episodio_id) REFERENCES episodios(idEpisodio) ON DELETE CASCADE);");
     }
 
     public static function createGeneros(): void {
         $db = self::getInstance();
 
         $db->exec("CREATE TABLE IF NOT EXISTS generos(
-            email VARCHAR(45) NOT NULL,
+            idCanal INTEGER NOT NULL,
             genero VARCHAR(20) NOT NULL,
-            PRIMARY KEY (email, genero),
-            FOREIGN KEY (email) REFERENCES usuarios(email) ON DELETE CASCADE);");
+            PRIMARY KEY (idCanal, genero),
+            FOREIGN KEY (idCanal) REFERENCES canais(idCanal) ON DELETE CASCADE);");
     }
 
     public static function createCanaisSeguidos(): void {
@@ -90,8 +97,7 @@ final class Database {
         $db->exec("CREATE TABLE IF NOT EXISTS canais_seguidos(
             usuario_seguidor_id INT NOT NULL,
             canal_seguido_id INT NOT NULL,
-            FOREIGN KEY (usuario_seguidor_id) REFERENCES usuarios(id) ON DELETE CASCADE,
-            FOREIGN KEY (canal_seguido_id) REFERENCES usuarios(id) ON DELETE CASCADE);");
+            FOREIGN KEY (usuario_seguidor_id) REFERENCES usuarios(idUsuario) ON DELETE CASCADE,
+            FOREIGN KEY (canal_seguido_id) REFERENCES usuarios(idUsuario) ON DELETE CASCADE);");
     }
 }
-//FOREIGN KEY (canal) REFERENCES usuarios(id)

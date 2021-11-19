@@ -13,30 +13,28 @@
 </head>
 <body>
     <section>
-        <form action='/criarConta' name="cadastro" id="form" method="POST" enctype="multipart/form-data">
+        <form action='/criarCanal' name="cadastro" id="form" method="POST" enctype="multipart/form-data">
             <header>
                 <h1 class='margin'>
                     <a class='voltar' href='/login'><-</a>
                 </h1>
                 <div class='nome'>
-                    <h1> Criar conta </h1>
+                    <h1> Criar canal </h1>
                 </div>
             </header>
             <?php include(__DIR__.'/alert.php') ?>
-
 			<div class='foto divprincipal'>
-                <div class='fotoDoPerfil'> 
-                        <label for="fotoPerfil" class="addPick imagem">
-                            <img id='fotoDoPerfil'  class="default-pic">
-                        </label>
-                        <label for="fotoPerfil" class="addPick">
-                            Adicionar foto de Perfil
-                        </label>
-                        <input type="file" name="fotoPerfil" id="fotoPerfil" class="d-none" accept=".png, .jpg" onchange='previewImagemPerfil()'>
+                <div  class='fotoDoCanal'>
+                    
+					<label for="fotoCanal" class="addPick imagem">
+						<img id='fotoDoCanal'  class="default-pic">
+					</label>
+					<label for="foto" class="addPick">
+						Adicionar foto do Canal
+					</label>
+					<input type="file" name="fotoCanal" id="fotoCanal" class="d-none" accept=".png, .jpg" onchange='previewImagemCanal()'>
                 </div>
-
             </div>
-			
             <div class="first-line divprincipal">
                 <!--<div>
                     <div>
@@ -45,34 +43,51 @@
                     </div>
                 </div>-->
                 <div>
-                    <label for="nome-usuario">Nome de Usuário</label>
-                    <input type="text" id="nome-usuario" name="nome-usuario" required>
+                    <label for="nome-canal">Nome do Canal</label>
+                    <input type="text" id="nome-canal" name="nome-canal" required>
                 </div>
             </div>
             <div class='second-line divprincipal'>
                 <div>
-                    <label for="data-nascimento">Data de Nascimento</label>
-                    <input type="date" id="data-nascimento" name="data-nascimento" min='1900-01-01' required>
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" name="descricao" required></textarea>
                 </div>
             </div>
             <div class='third-line divprincipal'>
-                <div>
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" required>
+                <div class='generos'>
+                    <div class='tituloGeneros'>
+                        <legend>Gêneros</legend>
+                    </div>
+                    <div class='nomesGeneros'>
+                        <div>
+                            <input type="checkbox" id="generoEsporte" name="genero[]" value='Esporte'>
+                            <label for="generoEsporte" class= 'genero'>Esporte</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="generoMusical" name="genero[]" value='Musical'>
+                            <label for="generoMusical" class= 'genero'>Musical</label>
+                        </div>
+                        <div>
+                            <input  type="checkbox" id="generoJogos" name="genero[]" value='Jogos'>
+                            <label for="generoJogos" class= 'genero'>Jogos</label>
+                        </div>
+                        <div class='outroGeneroCheckBox'>
+                            <input  type="checkbox" id="generoOutro" >
+                            <label for="generoOutro" class= 'genero'>Outro</label>
+                        </div>
+                    </div>
                 </div>
-               
             </div>
             <div class='fourth-line divprincipal'>
-                <div>           
-                    <label for="senha">Senha</label>
-                    <input type="text" id="senha" name="senha" required>
+                <div>
+                    <label for="classificacao">Classificação</label>
+                    <input type="text" id="classificacao" name="classificacao" required>
                 </div>
             </div>
             
-		
             
             <div class="criar">
-                <button id="criar" type="submit">Criar conta</button>
+                <button id="criar" type="submit">Criar canal</button>
             </div>
         </form>
     </section>
@@ -204,7 +219,7 @@
 
     .divprincipal > div {
         padding-right: 5%;
-        width: 70%;
+        width: 100%;
         display: flex;
         flex-direction: column;
     }
