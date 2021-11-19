@@ -56,7 +56,9 @@ $episodios = Episodio::getEpisodios($usuario->__get('id'));
                         <?php if ($usuario->id != $data->id) { ?>
                         <div class="seguir">
                             <button onclick='seguirCanal(<?=$usuario->id?>)'>
-                                <h7 id='Segue' class='seguindo'><?php echo $data->segueCanal($usuario->id) ?></h7></button>
+                                <h7 id='Segue' class='<?php if ($data->segueCanal($usuario->id)=='Deixar de Seguir') { ?>naoSegue<?php } else { ?>seguindo<?php } ?>'>
+                                    
+                                <?php echo $data->segueCanal($usuario->id) ?></h7></button>
                         </div>
                         <?php } ?>
                         <div class="descricao">
@@ -208,7 +210,7 @@ $episodios = Episodio::getEpisodios($usuario->__get('id'));
         request.send(JSON.stringify(data))
 
         var botao = document.getElementById('Segue')
-        
+        console.log(botao)
         if (botao.className=='seguindo') {
             botao.textContent = 'Deixar de Seguir'
             botao.className='naoSegue'
