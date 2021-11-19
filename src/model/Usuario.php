@@ -154,9 +154,9 @@ class Usuario {
         Database::createSchema();
         $conexao = Database::getInstance();
 
-        $stm = $conexao->prepare('insert into usuarios (nome_usuario, data_nasc, email, senha, data_inscricao, foto_perfil) 
+        $stm = $conexao->prepare('insert into usuarios (nome_usuario, nome_canal, data_nasc, descricao, email, senha, classificacao, data_inscricao, foto_perfil, foto_canal) 
         values 
-        (:nome_usuario, :dataNasc, :email, :senha, :dataInscricao, :foto_perfil)');
+        (:nome_usuario, :nome_canal, :dataNasc, :descricao, :email, :senha, :classificacao, :dataInscricao, :foto_perfil, :foto_canal)');
 
         $stm->bindParam(':nome_usuario', $this->nomeUsuario);
         $stm->bindParam(':nome_canal', $this->canal->__get("nomeCanal"));
