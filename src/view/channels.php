@@ -42,7 +42,7 @@ $generos = $data->getGeneros();
 					<div class="subcards-container">
 						<?php foreach ($canais as $canal) { ?>
                         	<a href="/mainChannel?id=<?= $canal->__get('id')?>">
-								<?php echo "<img src='" . BASEPATH . "uploads/" . $canal->__get('fotoCanal') . "' class='subcard' />"  ?>
+								<?php echo "<img src='" . BASEPATH . "uploads/" . $canal->__get('canal')->__get('fotoCanal') . "' class='subcard' />"  ?>
 							</a>
 						<?php } ?>
                     </div>
@@ -63,7 +63,7 @@ $generos = $data->getGeneros();
 							}
 							foreach ($canais_seguidos as $canal_seguido) { ?>
 							<a href="/mainChannel?id=<?= $canal_seguido->__get('id')?>">
-								<?php echo "<img src='" . BASEPATH . "uploads/" . $canal_seguido->__get('fotoCanal') . "' class='subcard-small' />"  ?>
+								<?php echo "<img src='" . BASEPATH . "uploads/" . $canal_seguido->canal->__get('fotoCanal') . "' class='subcard-small' />"  ?>
 							</a>
 						<?php } ?>
                     </div>
@@ -82,11 +82,12 @@ $generos = $data->getGeneros();
 						</div>
 
 						<div class="subcards-container">
-							<?php foreach ($canais as $canal) { 
-								if(in_array($value, $canal->__get('generos'), false)){	
+							<?php foreach ($canais as $canal) {
+								$g = $canal->__get('canal')->__get('generos');
+								if(in_array($value, $g, false)){	
 							?>
 								<a href="/mainChannel?id=<?= $canal->__get('id')?>">
-									<?php echo "<img src='" . BASEPATH . "uploads/" . $canal->__get('fotoCanal') . "' class='subcard-small' />"  ?>
+									<?php echo "<img src='" . BASEPATH . "uploads/" . $canal->__get("canal")->__get('fotoCanal') . "' class='subcard-small' />"  ?>
 								</a>
 							<?php } } ?>
 

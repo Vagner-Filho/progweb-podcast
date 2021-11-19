@@ -6,31 +6,22 @@
 class Usuario {
 	private $id;
     private $nomeUsuario;
-    private $nomeCanal;
     private $dataNasc;
-    private $descricao;
-    private $generos = array();
     private $email;
     private $senha;
-    private $classificacao;
     private $dataInscricao;
     private $fotoPerfil;
-    private $fotoCanal;
+	private $canal;
 
-    function __construct(string $nomeUsuario, string $nomeCanal, DateTime $dataNasc, string $descricao, $generos, 
-        string $email, string $senha, string $classificacao, DateTime $dataInscricao, string $fotoPerfil, string $fotoCanal) 
+    function __construct(string $nomeUsuario, DateTime $dataNasc, string $email, string $senha, DateTime $dataInscricao, string $fotoPerfil, Canal $canal) 
     {	
         $this->nomeUsuario = $nomeUsuario;
-        $this->nomeCanal = $nomeCanal;
         $this->dataNasc = $dataNasc;
-        $this->descricao = $descricao;
-        $this->generos = $generos;
         $this->email = $email;
         $this->senha = hash('sha256', $senha);
-        $this->classificacao = $classificacao;
         $this->dataInscricao = $dataInscricao;
         $this->fotoPerfil = $fotoPerfil;
-        $this->fotoCanal = $fotoCanal;
+		$this->canal = $canal;
     }
 
     /**
@@ -78,10 +69,10 @@ class Usuario {
 
             $dataNasc = new DateTime($resultado['data_nasc'], new DateTimezone("America/Campo_Grande"));
             $dataInscricao = new DateTime($resultado['data_inscricao'], new DateTimezone("America/Campo_Grande"));
+
+			$canal = new Canal($resultado['nome_canal'], $resultado['descricao'], $generos, $resultado['classificacao'], $resultado['foto_canal']);
     
-            $usuario = new Usuario ($resultado['nome_usuario'], $resultado['nome_canal'], $dataNasc,
-                $resultado['descricao'], $generos, $resultado['email'], $resultado['senha'], 
-                $resultado['classificacao'], $dataInscricao, $resultado['foto_perfil'], $resultado['foto_canal']);
+            $usuario = new Usuario ($resultado['nome_usuario'], $dataNasc, $resultado['email'], $resultado['senha'], $dataInscricao, $resultado['foto_perfil'], $canal);
 			$usuario->id = $resultado['id'];
             $usuario->senha = $resultado['senha'];
 
@@ -109,9 +100,9 @@ class Usuario {
             $dataNasc = new DateTime($resultado['data_nasc'], new DateTimezone("America/Campo_Grande"));
             $dataInscricao = new DateTime($resultado['data_inscricao'], new DateTimezone("America/Campo_Grande"));
     
-            $usuario = new Usuario ($resultado['nome_usuario'], $resultado['nome_canal'], $dataNasc,
-                $resultado['descricao'], $generos, $resultado['email'], $resultado['senha'], 
-                $resultado['classificacao'], $dataInscricao, $resultado['foto_perfil'], $resultado['foto_canal']);
+            $canal = new Canal($resultado['nome_canal'], $resultado['descricao'], $generos, $resultado['classificacao'], $resultado['foto_canal']);
+    
+            $usuario = new Usuario ($resultado['nome_usuario'], $dataNasc, $resultado['email'], $resultado['senha'], $dataInscricao, $resultado['foto_perfil'], $canal);
 			$usuario->id = $resultado['id'];
             $usuario->senha = $resultado['senha'];
 
@@ -141,9 +132,9 @@ class Usuario {
             $dataNasc = new DateTime($resultado['data_nasc'], new DateTimezone("America/Campo_Grande"));
             $dataInscricao = new DateTime($resultado['data_inscricao'], new DateTimezone("America/Campo_Grande"));
     
-            $usuario = new Usuario ($resultado['nome_usuario'], $resultado['nome_canal'], $dataNasc,
-                $resultado['descricao'], $generos, $resultado['email'], $resultado['senha'], 
-                $resultado['classificacao'], $dataInscricao, $resultado['foto_perfil'], $resultado['foto_canal']);
+            $canal = new Canal($resultado['nome_canal'], $resultado['descricao'], $generos, $resultado['classificacao'], $resultado['foto_canal']);
+    
+            $usuario = new Usuario ($resultado['nome_usuario'], $dataNasc, $resultado['email'], $resultado['senha'], $dataInscricao, $resultado['foto_perfil'], $canal);
 			$usuario->id = $resultado['id'];
             $usuario->senha = $resultado['senha'];
 
@@ -188,15 +179,15 @@ class Usuario {
         :classificacao, :dataInscricao, :foto_perfil, :foto_canal)');
 
         $stm->bindParam(':nome_usuario', $this->nomeUsuario);
-        $stm->bindParam(':nome_canal', $this->nomeCanal);
+        $stm->bindParam(':nome_canal', $this->canal->__get("nomeCanal"));
         $stm->bindParam(':dataNasc', $this->dataNasc->format('Y-m-d'));
-        $stm->bindParam(':descricao', $this->descricao);
+        $stm->bindParam(':descricao', $this->canal->__get("descricao"));
         $stm->bindParam(':email', $this->email);
         $stm->bindParam(':senha', $this->senha);
-        $stm->bindParam(':classificacao', $this->classificacao);
+        $stm->bindParam(':classificacao', $this->canal->__get("classificacao"));
         $stm->bindParam(':dataInscricao',$this->dataInscricao->format('Y-m-d'));
         $stm->bindParam(':foto_perfil', $this->fotoPerfil);
-        $stm->bindParam(':foto_canal', $this->fotoCanal);
+        $stm->bindParam(':foto_canal', $this->canal->__get("fotoCanal"));
         $stm->execute();
     }
 
@@ -210,7 +201,7 @@ class Usuario {
         $conexao = Database::getInstance();
 
 
-        foreach ($this->generos as $genero) {
+        foreach ($this->canal->__get("generos") as $genero) {
             $stm = $conexao->prepare('insert into generos values (:email, :genero)');
 
             $stm->bindParam(':email', $this->email);
@@ -295,7 +286,7 @@ class Usuario {
 	 * Retorna todos os canais seguidos por determinado usuário
 	 */
 	public function getCanaisSeguidos(){
-		Database::createFavoritos();
+		Database::createCanaisSeguidos();
         $conexao = Database::getInstance();
         $canais_seguidos = array();
 
