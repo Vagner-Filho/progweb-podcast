@@ -153,6 +153,25 @@ class Usuario {
         }
     }
 
+	public function buscarCanalPorGenero($genero){
+		Database::createFavoritos();
+        $conexao = Database::getInstance();
+        $canais = array();
+
+		$stm = $conexao->prepare('select email from generos where genero = :genero');
+        $stm->bindParam(':genero', $genero);
+
+        $stm->execute();
+        $resultado = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+		foreach ($resultado as $value) {
+
+			array_push($canais, $value['email']);
+		}
+
+		return $canais;
+	}
+
 	/**
 	 * Função que salva um usuário no banco de dados
 	 */
@@ -222,6 +241,23 @@ class Usuario {
 
 		return $generos;
 	}
+
+	public function getGeneros(){
+		Database::createFavoritos();
+        $conexao = Database::getInstance();
+        $generos = array();
+
+		$stm = $conexao->query('select * from generos');
+    
+        $resultado = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+		foreach ($resultado as $value) {
+
+			array_push($generos, $value['genero']);
+		}
+
+		return $generos;
+	}
     
     /**
 	 * Função que verifica se o canal já é seguido pelo usuario logado, se sim, deixa de seguir
@@ -253,6 +289,28 @@ class Usuario {
 
 			$stm->execute();
         }
+	}
+
+	/**
+	 * Retorna todos os canais seguidos por determinado usuário
+	 */
+	public function getCanaisSeguidos(){
+		Database::createFavoritos();
+        $conexao = Database::getInstance();
+        $canais_seguidos = array();
+
+		$stm = $conexao->prepare('select canal_seguido_id from canais_seguidos where usuario_seguidor_id = :usuario_id');
+        $stm->bindParam(':usuario_id', $this->id);
+
+        $stm->execute();
+        $resultado = $stm->fetchAll(PDO::FETCH_ASSOC);
+		foreach ($resultado as $value) {
+
+			$canal = Usuario::buscarUsuarioPorId($value['canal_seguido_id']);
+			
+			array_push($canais_seguidos, $canal);
+		}
+		return $canais_seguidos;
 	}
 
     /**

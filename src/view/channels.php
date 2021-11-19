@@ -2,6 +2,10 @@
 if (!$data) {
 	header('location: /login?mensagem=Você precisa se identificar primeiro');
 }
+
+$canais = Usuario::getAll();
+$canais_seguidos = $data->getCanaisSeguidos();
+$generos = $data->getGeneros();
 ?>
 
 <!DOCTYPE html>
@@ -36,17 +40,11 @@ if (!$data) {
                         <div class="line"></div>
                     </div>
 					<div class="subcards-container">
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
+						<?php foreach ($canais as $canal) { ?>
+                        	<a href="/mainChannel?id=<?= $canal->__get('id')?>">
+								<?php echo "<img src='" . BASEPATH . "uploads/" . $canal->__get('fotoCanal') . "' class='subcard' />"  ?>
+							</a>
+						<?php } ?>
                     </div>
                 </div>
 			</section>
@@ -55,71 +53,46 @@ if (!$data) {
                 <div class="col-10 offset-1">
                     <div class="head">
                         <div class="head-text">
-                            Inscrições
+                            Seguindo
                         </div>
                         <div class="line"></div>
                     </div>
 					<div class="subcards-container">
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
+						<?php if(count($canais_seguidos) == 0){
+								echo "Você não segue nenhum canal ainda.";
+							}
+							foreach ($canais_seguidos as $canal_seguido) { ?>
+							<a href="/mainChannel?id=<?= $canal_seguido->__get('id')?>">
+								<?php echo "<img src='" . BASEPATH . "uploads/" . $canal_seguido->__get('fotoCanal') . "' class='subcard-small' />"  ?>
+							</a>
+						<?php } ?>
                     </div>
                 </div>
 			</section>
 
 			<section>
                 <div class="col-10 offset-1">
-                    <div class="head">
-                        <div class="head-text text-change">
-                            Para você
-                        </div>
-                        <div class="line"></div>
-                    </div>
-					<div class="subcards-container">
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                    </div>
-                </div>
-			</section>
+					<?php foreach ($generos as  $value) { ?>
+						
+						<div class="head">
+							<div class="head-text">
+								<?= $value ?>
+							</div>
+							<div class="line"></div>
+						</div>
 
-			<section>
-                <div class="col-10 offset-1">
-                    <div class="head">
-                        <div class="head-text">
-                            Tecnologia
-                        </div>
-                        <div class="line"></div>
-                    </div>
-					<div class="subcards-container">
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                        <div class="subcard-small"></div>
-                    </div>
+						<div class="subcards-container">
+							<?php foreach ($canais as $canal) { 
+								if(in_array($value, $canal->__get('generos'), false)){	
+							?>
+								<a href="/mainChannel?id=<?= $canal->__get('id')?>">
+									<?php echo "<img src='" . BASEPATH . "uploads/" . $canal->__get('fotoCanal') . "' class='subcard-small' />"  ?>
+								</a>
+							<?php } } ?>
+
+						</div>
+
+					<?php } ?>
                 </div>
 			</section>
         </div>
@@ -166,7 +139,6 @@ if (!$data) {
         flex-direction: row;
         flex-wrap: nowrap;
         overflow-x: auto;
-        justify-content: space-between;
         width: 100%;
     }
     .subcard, .subcard-small{

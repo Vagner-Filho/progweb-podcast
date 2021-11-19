@@ -42,27 +42,27 @@ $episodios = $data->episodiosFavoritos();
                     foreach ($episodios as $ep) { ?>
                         
                             
-                            <div class="podcast-container">
-                                <a class='foto' href="/player?id=<?= $ep->__get('id')?>">
-                                    <div>
-                                        <?php echo "<img src='" . BASEPATH . "uploads/" . $ep->__get('foto') . "' class='icon-conteudo'/>" ?>
-                                    </div>
-                                </a>
-                                <div class="podcast-info">
-                                    <div class="head">
-                                        <?= $ep->__get('titulo') ?>
-                                    </div>
-                                    <p>
-                                        <?= $ep->__get('descricao') ?>
-                                    </p>
-                                </div>
-                                <div class='options'>
-                                <!-- Ambos os corações estão na tela, e logo abaixo ele verifica quem vai aparecer-->
-                                <button type='submit' class='favorito'><img class='imagem vermelho' src="src/rss/img/coracaoVermelho.png" alt="like-button" onclick='favoritar(<?= $ep->__get("id") ?>, <?= $contador ?>)'></button>
-                                <img class='listar' src="src/rss/img/list.svg" alt="like-button">
-                                                           
-                                </div>
-                            </div>
+						<div class="podcast-container">
+							<a class='foto' href="/player?id=<?= $ep->__get('id')?>">
+								<div>
+									<?php echo "<img src='" . BASEPATH . "uploads/" . $ep->__get('foto') . "' class='icon-conteudo'/>" ?>
+								</div>
+							</a>
+							<div class="podcast-info">
+								<div class="head">
+									<?= $ep->__get('titulo') ?>
+								</div>
+								<p>
+									<?= $ep->__get('descricao') ?>
+								</p>
+							</div>
+							<div class='options'>
+							<!-- Ambos os corações estão na tela, e logo abaixo ele verifica quem vai aparecer-->
+							<button type='submit' class='favorito'><img class='imagem vermelho' src="src/rss/img/coracaoVermelho.png" alt="like-button" onclick='favoritar(<?= $ep->__get("id") ?>, <?= $contador ?>)'></button>
+							<img class='listar' src="src/rss/img/list.svg" alt="like-button">
+														
+							</div>
+						</div>
                     <?php $contador++;}  ?>
             </div>
         </div>
@@ -259,10 +259,6 @@ $episodios = $data->episodiosFavoritos();
             justify-content: center;
             align-items: center;
         }
-        .listar {    
-        }
-        .imagem {
-
-        }
+        
     }
 </style>
