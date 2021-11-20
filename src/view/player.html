@@ -27,11 +27,13 @@
                             <div class="titulo">
                                 <p>Loki – o final da 1ª temporada! | MRG 562</p>
                             </div>
-                            <div class="button">
-                                <button><img src="/src/rss/img/play-svgrepo-com.svg" alt="">
+                                <!-- <button onclick="play()"><img src="/src/rss/img/play-svgrepo-com.svg" alt="">
                                 Play
-                                </button>
-                            </div>
+                                </button> -->
+                            <audio controls>
+                                <source src="" type="audio/ogg">
+                                <source src="" type="audio/mpeg">
+                            </audio>
                         </div>
                     </article>
                 </div>
@@ -98,6 +100,12 @@
 </body>
 </html>
 
+<script>
+    function play() {
+        return 2 + 2
+    }
+</script>
+
 <style>
     body {
         background-color: #fff;
@@ -161,6 +169,7 @@
         background-color: #000;
         border-radius: 0px 0px 35px 35px;
         margin: auto;
+        text-align: center;
     }
 
     .icon-conteudo{

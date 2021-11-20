@@ -20,6 +20,7 @@
     <side-menu></side-menu>
 	<div class="container-fluid mt-5">
         <div class="row">
+            <!-- <search-bar items='["one", "two", "three"]' class="mt-5"></search-bar> -->
             <search-bar class="mt-5"></search-bar>
             <section>
                 <div class="col-10 offset-1">
@@ -120,6 +121,35 @@
     </div>
 </body>
 </html>
+
+<script>
+    const rawData = [
+        {
+            titulo: 'titulo do ep',
+            descricao: 'descricao do ep',
+        },
+        {
+            titulo: 'outro titulo',
+            descricao: 'descricao do ep',
+        },
+        {
+            titulo: 'another title',
+            descricao: 'descricao do ep',
+        },
+        {
+            titulo: 'just testing the filter',
+            descricao: 'descricao do ep',
+        },
+        {
+            titulo: 'epa',
+            descricao: 'descricao do ep',
+        }
+    ]
+    const items = JSON.stringify(rawData)
+    const search = document.getElementsByTagName('search-bar')[0]
+    search.setAttribute('items', items)
+    search.addEventListener('filtered', event => console.log(event.detail))
+</script>
 
 <style>
     body {

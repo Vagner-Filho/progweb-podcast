@@ -135,6 +135,12 @@ class hamburguerMenu extends HTMLElement {
             z-index: 99;
             margin-left: 200px;
         }
+        .align-on-menu:hover {
+            background-color: coral
+        }
+        .align-on-menu {
+            transition: background-color 250ms linear
+        }
         `;
 
         const script = document.createElement('script');
