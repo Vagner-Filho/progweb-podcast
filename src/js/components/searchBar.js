@@ -7,6 +7,20 @@ class searchBar extends HTMLElement {
         const head = document.createElement('head')
         const link = document.createElement('link')
 
+        // Filtra episódio
+        const searchEpisode = () => {
+          const shadow = document.getElementsByTagName('search-bar')
+          const input = shadow[0].shadowRoot.querySelector('#search-input').value
+          const originalData = JSON.parse(shadow[0].attributes.items.value)
+          if (input) {
+            const filteredData = originalData.filter(item => item.titulo.includes(input))
+            this.dispatchEvent(new CustomEvent('filtered', {bubbles: true, detail: filteredData}))
+          } else {
+            const filteredData = originalData
+            this.dispatchEvent(new CustomEvent('filtered', {bubbles: true, detail: filteredData}))
+          }
+        } 
+
         link.setAttribute('href', 'https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap')
         link.setAttribute('rel', 'stylesheet')
 
@@ -19,6 +33,7 @@ class searchBar extends HTMLElement {
         input.setAttribute('id', 'search-input')
         input.setAttribute('type', 'text')
         input.setAttribute('placeholder', 'Pesquisar')
+        input.addEventListener('keyup', searchEpisode)
 
         const btn = div.appendChild(document.createElement('button'))
         btn.setAttribute('onclick', 'searchEpisode()')
@@ -27,25 +42,9 @@ class searchBar extends HTMLElement {
         const img = btn.appendChild(document.createElement('img'))
         img.src = '../searchBar/searchItem.svg'
 
-        // attr to get items to filter
-        const items = this.getAttribute('items')
-        console.log(items)
         barMarkUp.appendChild(head)
         barMarkUp.appendChild(div)
-
-        // barMarkUp.innerHTML = `
-        // <head>
-        //     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
-
-        // </head>
-        // <div class="barra-pesquisa">
-        //     <input id="search-input" type="text" placeholder="Pesquisar"/>
-        //     <button onclick="searchEpisode()"> Buscar 
-        //         <img src="../searchBar/searchItem.svg">
-        //     </button>
-        // </div>
-        // `;
-
+        
         const style = document.createElement('style');
         style.textContent = `
         .barra-pesquisa {
@@ -125,15 +124,13 @@ class searchBar extends HTMLElement {
           function searchEpisode() {
             const shadow = document.getElementsByTagName('search-bar')
             const input = shadow[0].shadowRoot.querySelector('#search-input').value
-            console.log(input)
-            const array = JSON.parse(shadow[0].attributes.items.value)
-            console.log(array)
+            const originalData = JSON.parse(shadow[0].attributes.items.value)
             if (input) {
-              const episodesFilter = episodesArray.filter(episode => episode.nome.includes(input))
-              return episodesFilter
+              const filteredData = originalData.filter(item => item.titulo.includes(input))
+              console.log(filteredData)
             } else {
-              const episodesFilter = espisodesArray
-              return episodesFilter
+              const filteredData = originalData
+              console.log(filteredData)
             }
           }
         `

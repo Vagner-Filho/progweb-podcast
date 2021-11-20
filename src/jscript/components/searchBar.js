@@ -4,19 +4,47 @@ class searchBar extends HTMLElement {
       const shadow = this.attachShadow({ mode: 'open' });
       const barMarkUp = document.createElement('bar')
 
-      barMarkUp.innerHTML = `
-      <head>
-          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
+      const head = document.createElement('head')
+      const link = document.createElement('link')
 
-      </head>
-      <div class="barra-pesquisa">
-          <input id="search-input" type="text" placeholder="Pesquisar"/>
-          <button onclick="searchEpisode()"> Buscar 
-              <img src="../searchBar/searchItem.svg">
-          </button>
-      </div>
-      `;
+      // Filtra episódio
+      const searchEpisode = () => {
+        const shadow = document.getElementsByTagName('search-bar')
+        const input = shadow[0].shadowRoot.querySelector('#search-input').value
+        const originalData = JSON.parse(shadow[0].attributes.items.value)
+        if (input) {
+          const filteredData = originalData.filter(item => item.titulo.includes(input))
+          this.dispatchEvent(new CustomEvent('filtered', {bubbles: true, detail: filteredData}))
+        } else {
+          const filteredData = originalData
+          this.dispatchEvent(new CustomEvent('filtered', {bubbles: true, detail: filteredData}))
+        }
+      } 
 
+      link.setAttribute('href', 'https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap')
+      link.setAttribute('rel', 'stylesheet')
+
+      head.appendChild(link)
+
+      const div = document.createElement('div')
+      div.setAttribute('class', 'barra-pesquisa')
+
+      const input = div.appendChild(document.createElement('input'))
+      input.setAttribute('id', 'search-input')
+      input.setAttribute('type', 'text')
+      input.setAttribute('placeholder', 'Pesquisar')
+      input.addEventListener('keyup', searchEpisode)
+
+      const btn = div.appendChild(document.createElement('button'))
+      btn.setAttribute('onclick', 'searchEpisode()')
+      btn.textContent = "Buscar"
+
+      const img = btn.appendChild(document.createElement('img'))
+      img.src = '../searchBar/searchItem.svg'
+
+      barMarkUp.appendChild(head)
+      barMarkUp.appendChild(div)
+      
       const style = document.createElement('style');
       style.textContent = `
       .barra-pesquisa {
@@ -96,13 +124,13 @@ class searchBar extends HTMLElement {
         function searchEpisode() {
           const shadow = document.getElementsByTagName('search-bar')
           const input = shadow[0].shadowRoot.querySelector('#search-input').value
-          console.log(input)
+          const originalData = JSON.parse(shadow[0].attributes.items.value)
           if (input) {
-            const episodesFilter = episodesArray.filter(episode => episode.nome.includes(input))
-            return episodesFilter
+            const filteredData = originalData.filter(item => item.titulo.includes(input))
+            console.log(filteredData)
           } else {
-            const episodesFilter = espisodesArray
-            return episodesFilter
+            const filteredData = originalData
+            console.log(filteredData)
           }
         }
       `
