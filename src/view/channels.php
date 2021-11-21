@@ -3,6 +3,7 @@ if (!$data) {
 	header('location: /login?mensagem=Você precisa se identificar primeiro');
 }
 
+<<<<<<< HEAD
 $script = 
         '<script> 
             const rawData = [ ';
@@ -12,6 +13,8 @@ $script .= " ] </script>";
 echo $script;
 
 
+=======
+>>>>>>> Routes
 $canais = Usuario::getAll();
 $canais_seguidos = $data->getCanaisSeguidos();
 $generos = $data->getGeneros();
