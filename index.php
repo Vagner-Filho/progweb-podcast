@@ -62,6 +62,21 @@ Route::add('/account', function() {
     $controller->account();
 }, 'get');
 
+Route::add('/changeProfile', function() {
+    $controller = new LoginController();
+    $controller->changeProfile();
+}, 'get');
+
+Route::add('/changePassword', function() {
+    $controller = new LoginController();
+    $controller->changePassword();
+}, 'get');
+
+Route::add('/forgetPassword', function() {
+    $controller = new LoginController();
+    $controller->forgetPassword();
+}, 'get');
+
 Route::add('/channels', function() {
     $controller = new LoginController();
     $controller->channels();

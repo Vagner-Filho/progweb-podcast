@@ -59,8 +59,8 @@ if (!$data) {
 								<p><?= $data->dataInscricao->format('d/m/Y') ?></p>
 							</div>
 							
-							<button class="btn-edit">Editar informações</button>
-							<a href="#" class="change-password">Alterar senha</a>
+							<button onclick='editarInfoUsuario()' class="btn-edit">Editar informações</button>
+							<a href="/changePassword" class="change-password">Alterar senha</a>
 						</div>
 				</div>
 			</section>
@@ -119,6 +119,13 @@ if (!$data) {
 	</div>
 </body>
 </html>
+
+<script>
+	function editarInfoUsuario() {
+		window.location.href = "/changeProfile" 
+	}
+
+</script>
 
 <style>
 	body{

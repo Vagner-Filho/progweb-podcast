@@ -30,7 +30,7 @@
                     <img id='img2' class='img2' src="src/rss/img/eye-slash-solid.svg" >
                 </button><br>
             </div>
-            <a href='/login' class="novaSenha">Esqueci a senha</u></a>
+            <a href='/forgetPassword' class="novaSenha">Esqueci a senha</u></a>
             <br />
             <button id='entrar' class="completarLogin" type="submit">Entrar</button>
         </form>

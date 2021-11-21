@@ -221,7 +221,7 @@ $episodios = Episodio::getEpisodios($usuario->__get('id'));
     }
 
     /*function naoRedirecionar() {
-        event.preventDefault();
+        event.preventDefault();git
     }*/
 </script>
 <style>
