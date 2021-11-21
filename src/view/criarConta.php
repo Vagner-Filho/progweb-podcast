@@ -20,7 +20,6 @@
                 </h1>
                 <div class='nome'>
                     <h1> Criar conta </h1>
-                    <h2> <a href="/teste"> aaaaaaa</a></h2>
                 </div>
             </header>
             <?php include(__DIR__.'/alert.php') ?>

@@ -2,6 +2,16 @@
 if (!$data) {
 	header('location: /login?mensagem=Você precisa se identificar primeiro');
 }
+
+$script = 
+        '<script> 
+            const rawData = [ ';
+$script .= Usuario::scriptAllChannels();
+$script .= Episodio::scriptAllEpisodios();
+$script .= " ] </script>";
+echo $script;
+
+
 $episodios = $data->episodiosFavoritos();
 ?>
 
@@ -11,11 +21,11 @@ $episodios = $data->episodiosFavoritos();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="src/jscript/components/sideMenu.js"></script>
+    <script src="src/js/components/sideMenu.js"></script>
 
     <link rel="stylesheet" href="src/utils/css/bootstrap.css">
     <script src="src/utils/js/bootstrap.bundle.js" async></script>
-    <script src="src/jscript/components/searchBar.js"></script>
+    <script src="src/js/components/searchBar.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,27 +52,27 @@ $episodios = $data->episodiosFavoritos();
                     foreach ($episodios as $ep) { ?>
                         
                             
-                            <div class="podcast-container">
-                                <a class='foto' href="/player?id=<?= $ep->__get('id')?>">
-                                    <div>
-                                        <?php echo "<img src='" . BASEPATH . "uploads/" . $ep->__get('foto') . "' class='icon-conteudo'/>" ?>
-                                    </div>
-                                </a>
-                                <div class="podcast-info">
-                                    <div class="head">
-                                        <?= $ep->__get('titulo') ?>
-                                    </div>
-                                    <p>
-                                        <?= $ep->__get('descricao') ?>
-                                    </p>
-                                </div>
-                                <div class='options'>
-                                <!-- Ambos os corações estão na tela, e logo abaixo ele verifica quem vai aparecer-->
-                                <button type='submit' class='favorito'><img class='imagem vermelho' src="src/rss/img/coracaoVermelho.png" alt="like-button" onclick='favoritar(<?= $ep->__get("id") ?>, <?= $contador ?>)'></button>
-                                <img class='listar' src="src/rss/img/list.svg" alt="like-button">
-                                                           
-                                </div>
-                            </div>
+						<div class="podcast-container">
+							<a class='foto' href="/player?id=<?= $ep->__get('id')?>">
+								<div>
+									<?php echo "<img src='" . BASEPATH . "uploads/" . $ep->__get('foto') . "' class='icon-conteudo'/>" ?>
+								</div>
+							</a>
+							<div class="podcast-info">
+								<div class="head">
+									<?= $ep->__get('titulo') ?>
+								</div>
+								<p>
+									<?= $ep->__get('descricao') ?>
+								</p>
+							</div>
+							<div class='options'>
+							<!-- Ambos os corações estão na tela, e logo abaixo ele verifica quem vai aparecer-->
+							<button type='submit' class='favorito'><img class='imagem vermelho' src="src/rss/img/coracaoVermelho.png" alt="like-button" onclick='favoritar(<?= $ep->__get("id") ?>, <?= $contador ?>)'></button>
+							<img class='listar' src="src/rss/img/list.svg" alt="like-button">
+														
+							</div>
+						</div>
                     <?php $contador++;}  ?>
             </div>
         </div>
@@ -71,6 +81,12 @@ $episodios = $data->episodiosFavoritos();
 </body>
 </html>
 <script>
+    const items = JSON.stringify(rawData)
+    const search = document.getElementsByTagName('search-bar')[0]
+    search.setAttribute('items', items)
+    search.addEventListener('filtered', event => console.log(event.detail))
+
+    
     function favoritar(episodioId, contador) {
         
         var url = "http://localhost/cadastrarFavorito?episodioId="+episodioId
@@ -259,10 +275,6 @@ $episodios = $data->episodiosFavoritos();
             justify-content: center;
             align-items: center;
         }
-        .listar {    
-        }
-        .imagem {
-
-        }
+        
     }
 </style>

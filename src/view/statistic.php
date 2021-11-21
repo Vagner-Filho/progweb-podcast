@@ -13,7 +13,7 @@ if (!$data) {
 
 	<link rel="stylesheet" href="src/utils/css/bootstrap.css">
     <script src="src/utils/js/bootstrap.bundle.js" async></script>
-    <script src="src/jscript/components/sideMenu.js"></script>
+    <script src="src/js/components/sideMenu.js"></script>
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

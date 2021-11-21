@@ -42,11 +42,6 @@ Route::add('/login', function() {
     $controller->login();
 }, 'post');
 
-Route::add('/teste', function() {
-    $controller = new LoginController();
-    $controller->teste();
-}, ['get', 'post']);
-
 Route::add('/criarConta', function() {
     $controller = new LoginController();
     $controller->criarContaIndex();

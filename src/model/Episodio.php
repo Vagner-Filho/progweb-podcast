@@ -37,6 +37,20 @@ class Episodio{
     }
 
 	/**
+    * Função que cria o um obj de todos os eps
+    */
+	static public function scriptAllEpisodios() {
+        $episodios = Episodio::getAll();
+        $script = '';
+        $contador = 0;
+        foreach ($episodios as $episodio) {
+            $script .= "{ titulo: '".$episodio->titulo."',} ,";
+        }
+        
+        return $script;
+    }
+
+	/**
 	 * Função que retorna todos os episodios do BD
 	 */
 	static public function getAll(){

@@ -15,7 +15,7 @@ if (!$data) {
     <link rel="stylesheet" href="src/utils/css/bootstrap.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
     <script src="src/utils/js/bootstrap.bundle.js" async></script>
-    <script src="src/jscript/components/sideMenu.js"></script>
+    <script src="src/js/components/sideMenu.js"></script>
 
     <title>Novo Episódio</title>
 </head>

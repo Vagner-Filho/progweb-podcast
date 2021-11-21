@@ -3,6 +3,14 @@ if (!$data) {
 	header('location: /login?mensagem=Você precisa se identificar primeiro');
 }
 
+$script = 
+        '<script> 
+            const rawData = [ ';
+$script .= Usuario::scriptAllChannels();
+$script .= Episodio::scriptAllEpisodios();
+$script .= " ] </script>";
+echo $script;
+
 $canais = Usuario::getAll();
 ?>
 
@@ -21,8 +29,8 @@ $canais = Usuario::getAll();
     O que consiste em baixar o código fonte, incluir na pasta utils e fazer a referência onde quer usar :) -->
     <link rel="stylesheet" href="src/utils/css/bootstrap.css">
     <script src="src/utils/js/bootstrap.bundle.js" async></script>
-    <script src="src/jscript/components/sideMenu.js"></script>
-    <script src="src/jscript/components/searchBar.js"></script>
+    <script src="src/js/components/sideMenu.js"></script>
+    <script src="src/js/components/searchBar.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -66,7 +74,7 @@ $canais = Usuario::getAll();
                             <div class="carousel-item active">
                                 <div class="main-card">
                                     <a href="/mainChannel?id=<?=$canais[0]->__get('id')?>">
-                                        <img src="src/uploads/<?= $canais[0]->__get('fotoCanal') ?>" class="main-card d-block w-100" alt="...">
+                                        <img src="src/uploads/<?= $canais[0]->__get('canal')->__get('fotoCanal') ?>" class="main-card d-block w-100" alt="...">
                                     </a>
                                 </div>
                               </div>
@@ -74,7 +82,7 @@ $canais = Usuario::getAll();
                                 <div class="carousel-item">
                                 <div class="main-card">
                                     <a href="/mainChannel?id=<?=$canal->__get('id')?>">
-                                        <img src="src/uploads/<?= $canal->__get('fotoCanal') ?>" class="main-card d-block w-100" alt="...">
+                                        <img src="src/uploads/<?= $canal->__get('canal')->__get('fotoCanal') ?>" class="main-card d-block w-100" alt="...">
                                     </a>
                                 </div>
                                 </div>
@@ -151,6 +159,13 @@ $canais = Usuario::getAll();
     </div>
 </body>
 </html>
+
+<script>
+    const items = JSON.stringify(rawData)
+    const search = document.getElementsByTagName('search-bar')[0]
+    search.setAttribute('items', items)
+    search.addEventListener('filtered', event => console.log(event.detail))
+</script>
 
 <style>
     body {

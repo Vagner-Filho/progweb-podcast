@@ -17,7 +17,7 @@ $episodios = Episodio::getEpisodios($usuario->__get('id'));
 
 	<link rel="stylesheet" href="src/utils/css/bootstrap.css">
     <script src="src/utils/js/bootstrap.bundle.js" async></script>
-    <script src="src/jscript/components/sideMenu.js"></script>
+    <script src="src/js/components/sideMenu.js"></script>
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,12 +34,12 @@ $episodios = Episodio::getEpisodios($usuario->__get('id'));
                     <div class="ms-4">
                         <div class="channel-info">
                             <div>
-                                <?php echo "<img src='" . BASEPATH . "uploads/" . $usuario->__get('fotoCanal') . "' class='fotoCanal'/>" ?>
+                                <?php echo "<img src='" . BASEPATH . "uploads/" . $usuario->__get("canal" )->__get('fotoCanal') . "' class='fotoCanal'/>" ?>
                             </div>
                             <div class="side">
                                 <div class="channel-title">
                                     <p>
-                                        <?= $usuario->nomeCanal ?>
+                                        <?= $usuario->__get('canal')->nomeCanal ?>
                                     </p>
                                     <!--<p class="text">
                                         MTG
@@ -65,7 +65,7 @@ $episodios = Episodio::getEpisodios($usuario->__get('id'));
                             <p><?= $usuario->descricao ?></p>
                         </div>
                         <div class="tags">
-                        <?php foreach ($usuario->generos as $genero) { ?> 
+                        <?php foreach ($usuario->canal->generos as $genero) { ?> 
                             <button class="tag"><?= $genero ?></button>
                         <?php } ?>
                             
