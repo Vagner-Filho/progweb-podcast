@@ -231,7 +231,7 @@ class Usuario {
         $conexao = Database::getInstance();
         $generos = array();
 
-		$stm = $conexao->query('select * from generos');
+		$stm = $conexao->query('select distinct genero from generos');
     
         $resultado = $stm->fetchAll(PDO::FETCH_ASSOC);
 

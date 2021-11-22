@@ -28,12 +28,7 @@ class hamburguerMenu extends HTMLElement {
                         Favoritos
                     </a>
                 </div>
-                <div class="align-on-menu">
-                    <a href="/channels">
-                        <img src="src/rss/img/list.svg" alt="channels-menu">
-                        Canais
-                    </a>
-                </div>
+                
                 <div class="h-line"></div>
                 <div class="align-on-menu">
                     <a href="/newEpisode">

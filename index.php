@@ -77,10 +77,6 @@ Route::add('/forgetPassword', function() {
     $controller->forgetPassword();
 }, 'get');
 
-Route::add('/channels', function() {
-    $controller = new LoginController();
-    $controller->channels();
-}, 'get');
 
 Route::add('/mainChannel', function() {
     $controller = new LoginController();

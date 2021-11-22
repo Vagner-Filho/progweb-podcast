@@ -12,6 +12,8 @@ $script .= " ] </script>";
 echo $script;
 
 $canais = Usuario::getAll();
+$canais_seguidos = $data->getCanaisSeguidos();
+$generos = $data->getGeneros();
 ?>
 
 <!DOCTYPE html>
@@ -101,60 +103,53 @@ $canais = Usuario::getAll();
                 </div>
             </section>
             <section>
+                <input id='canais' type="hidden" value='<?= $canais ?>'>
                 <div class="col-10 offset-1">
                     <div class="head">
                         <div class="head-text">
-                            Comédia
+                            Seguindo
                         </div>
                         <div class="line"></div>
                     </div>
-                    <div class="subcards-container">
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
+					<div class="subcards-container">
+						<?php if(count($canais_seguidos) == 0){
+								echo "Você não segue nenhum canal ainda.";
+							}
+							foreach ($canais_seguidos as $canal_seguido) { ?>
+							<a href="/mainChannel?id=<?= $canal_seguido->__get('id')?>">
+								<?php echo "<img src='" . BASEPATH . "uploads/" . $canal_seguido->canal->__get('fotoCanal') . "' class='subcard-small' />"  ?>
+							</a>
+						<?php } ?>
                     </div>
                 </div>
-            </section>
+			</section>
             <section>
                 <div class="col-10 offset-1">
-                    <div class="head">
-                        <div class="head-text">
-                            Ciência
-                        </div>
-                        <div class="line"></div>
-                    </div>
-                    <div class="subcards-container">
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                    </div>
+					<?php foreach ($generos as  $value) { ?>
+						
+						<div class="head">
+							<div class="head-text">
+								<?= $value ?>
+							</div>
+							<div class="line"></div>
+						</div>
+
+						<div class="subcards-container">
+							<?php foreach ($canais as $canal) {
+								$g = $canal->__get('canal')->__get('generos');
+								if(in_array($value, $g, false)){	
+							?>
+								<a href="/mainChannel?id=<?= $canal->__get('id')?>">
+									<?php echo "<img src='" . BASEPATH . "uploads/" . $canal->__get("canal")->__get('fotoCanal') . "' class='subcard-small' />"  ?>
+								</a>
+							<?php } } ?>
+
+						</div>
+
+					<?php } ?>
                 </div>
-            </section>
-            <section>
-                <div class="col-10 offset-1">
-                    <div class="head">
-                        <div class="head-text">
-                            Tecnologia
-                        </div>
-                        <div class="line"></div>
-                    </div>
-                    <div class="subcards-container">
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                        <div class="subcard"></div>
-                    </div>
-                </div>
-            </section>
+			</section>
+            
         </div>
     </div>
 </body>
@@ -210,22 +205,26 @@ $canais = Usuario::getAll();
         margin: 30px auto;
     }
     .subcards-container {
-        margin: 30px auto;
+		margin: 45px auto;
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         overflow-x: auto;
-        justify-content: space-between;
         width: 100%;
     }
-    .subcard {
+    .subcard, .subcard-small{
         width: 232px;
         height: 232px;
         background-color: #616161;
-        border-radius: 25px;
+        border-radius: 250px;
         flex: 0 0 auto;
         margin: auto 10px;
     }
+
+	.subcard-small{
+		width: 200px;
+		height: 200px;
+	}
     /* width */
     ::-webkit-scrollbar {
         height: 7px;
