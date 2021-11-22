@@ -107,7 +107,7 @@ if (!$data) {
 									<div class="line"></div>
 									<p><?= $data->nomeUsuario ?></p>
 								</div>
-								<button class="btn-edit">Editar informações</button>
+								<button onclick="editarInfoCanal()" class="btn-edit">Editar informações</button>
 							</div>
 						</div>
 					</div>
@@ -123,6 +123,10 @@ if (!$data) {
 <script>
 	function editarInfoUsuario() {
 		window.location.href = "/changeProfile" 
+	}
+
+	function editarInfoCanal() {
+		window.location.href = "/changeChannel" 
 	}
 
 </script>

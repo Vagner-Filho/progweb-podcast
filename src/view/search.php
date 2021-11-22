@@ -1,4 +1,11 @@
 <?php 
+$script = 
+'<script> 
+	const rawData = [ ';
+$script .= Usuario::scriptAllChannels();
+$script .= Episodio::scriptAllEpisodios();
+$script .= " ] </script>";
+echo $script;
 
 $resultados = Usuario::getAllSearches();
 ?>
@@ -14,6 +21,7 @@ $resultados = Usuario::getAllSearches();
     <script src="src/utils/js/bootstrap.bundle.js" async></script>
     <script src="src/js/components/sideMenu.js"></script>
     <script src="src/js/components/searchBar.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,6 +64,41 @@ $resultados = Usuario::getAllSearches();
 </body>
 </html>
 
+<script>
+    const items = JSON.stringify(rawData)
+    const search = document.getElementsByTagName('search-bar')[0]
+    search.setAttribute('items', items)
+    search.addEventListener('filtered', async event => { 
+
+        var emp1 = {};
+
+        //emp1.id = 1;
+        //emp1.name = 'Henrique';
+        //emp1.addn = 'violeiro'; 
+        console.log(event.detail)
+        emp1 = {...event.detail}
+
+        await $.ajax ({ 
+                url: "http://localhost/pesquisa",
+                method: "get",
+                data : emp1,
+                success: function(res) {
+                    console.log(res);
+                },
+                fail: function(res) {
+                    console.log(res)
+                }
+            })
+
+        window.location.href = '/search'
+    })
+
+            
+
+   
+
+</script>
+
 <style>
     body {
         background-color: #fff;
@@ -90,7 +133,6 @@ $resultados = Usuario::getAllSearches();
         flex-direction: row;
         flex-wrap: nowrap;
         overflow-x: auto;
-        justify-content: space-between;
         width: 100%;
     }
     .subcard{

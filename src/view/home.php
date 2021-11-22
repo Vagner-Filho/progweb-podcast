@@ -57,31 +57,16 @@ $generos = $data->getGeneros();
                         <div id="carouselExampleControls" class="carousel slide carousel-fade" data-bs-ride="carousel" data-interval="false">
                             <div class="carousel-inner">
 
-                            <!-- <div class="carousel-item active">
-                                  <div class="main-card" style="background-color: gray;">
-                                  </div>
-                                <--! <img src="..." class="d-block w-100" alt="..."> -- >
-                              </div>
-                              <div class="carousel-item">
-                                  <div class="main-card" style="background-color: lightgray;">
-                                  </div>
-                                <--! <img src="..." class="d-block w-100" alt="..."> -- >
-                              </div>
-                              <div class="carousel-item">
-                                  <div class="main-card" style="background-color: black;">
-                                  </div>
-                                 <--! <img src="..." class="d-block w-100" alt="..."> -- > 
-                              </div>
-                            </div>-->
 
                             <div class="carousel-item active">
                                 <div class="main-card">
-                                    <a href="/mainChannel?id=<?=$canais[0]->__get('id')?>">
-                                        <img src="src/uploads/<?= $canais[0]->__get('canal')->__get('fotoCanal') ?>" class="main-card d-block w-100" alt="...">
+                                    <a href="/mainChannel?id=<?=$canais[1]->__get('id')?>">
+                                        <img src="src/uploads/<?= $canais[1]->__get('canal')->__get('fotoCanal') ?>" class="main-card d-block w-100" alt="...">
                                     </a>
                                 </div>
-                              </div>
-                            <?php  foreach ($canais as $key => $canal) { if ($canal != $canais[0]) {?>
+                            </div>
+                            <?php  foreach ($canais as $key => $canal) { if ($canal != $canais[1]) {
+								?>
                                 <div class="carousel-item">
                                 <div class="main-card">
                                     <a href="/mainChannel?id=<?=$canal->__get('id')?>">
@@ -186,72 +171,7 @@ $generos = $data->getGeneros();
 
             
 
-    /*var emp1 = {};
-
-        emp1.id = 1;
-        emp1.name = 'Henrique';
-        emp1.addn = 'violeiro'; 
-        console.log(emp1)
-        
-
-    function getResultadoPesquisa(datas) {
-        try {
-            $.ajax ({ 
-                url: "http://localhost/pesquisa",
-                method: "get",
-                data : datas,
-                success: function(res) {
-                    console.log(res);
-                },
-                fail: function(res) {
-                    console.log(res)
-                }
-            })
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-/*
-var emp1 = {};
-
-        emp1.id = 1;
-        emp1.name = 'Henrique';
-        emp1.addn = 'violeiro'; 
-        console.log(emp1)
-        try {
-            $.ajax ({ 
-                url: "http://localhost/pesquisa",
-                method: "get",
-                data : emp1,
-                success: function(res) {
-                    console.log(res);
-                },
-                fail: function(res) {
-                    console.log(res)
-                }
-            })
-        } catch (error) {
-            console.log(error)
-        }
-
-
-
-
-    var url = "http://localhost/pesquisa?id=pqp"
-
-    var request = new XMLHttpRequest()
-    request.open("GET", url)
-    //request.setRequestHeader("Accept", "application/json");
-    request.setRequestHeader("Content-Type", "application/json");
-
-    request.onreadystatechange = function () {
-    if (request.readyState === 4) {
-        console.log(request.status);
-        console.log(request.responseText);
-    }};
-
-    request.send()*/
+   
 
 </script>
 
@@ -313,7 +233,12 @@ var emp1 = {};
         border-radius: 25px;
         flex: 0 0 auto;
         margin: auto 10px;
+		border-radius: 40px;
     }
+
+	.subcard-small{
+		border-radius: 40px;
+	}
     /* width */
     ::-webkit-scrollbar {
         height: 7px;

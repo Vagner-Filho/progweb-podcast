@@ -114,6 +114,16 @@ class LoginController extends Controller  {
         $this->view('change-profile', $this->loggedUser);        
     }
 
+	public function changeChannel() 
+    {
+        if (!$this->loggedUser) 
+        {
+            header('Location: /login?mensagem=Você precisa se identificar primeiro');    
+            return;
+        }
+        $this->view('change-channel', $this->loggedUser);        
+    }
+
     public function changePassword() 
     {
         if (!$this->loggedUser) 

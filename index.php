@@ -67,6 +67,12 @@ Route::add('/changeProfile', function() {
     $controller->changeProfile();
 }, 'get');
 
+Route::add('/changeChannel', function() {
+    $controller = new LoginController();
+    $controller->changeChannel();
+}, 'get');
+
+
 Route::add('/changePassword', function() {
     $controller = new LoginController();
     $controller->changePassword();
