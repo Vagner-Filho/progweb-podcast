@@ -44,7 +44,7 @@ class Episodio{
         $script = '';
         $contador = 0;
         foreach ($episodios as $episodio) {
-            $script .= "{ titulo: '".$episodio->titulo."',} ,";
+            $script .= "{ id: '".$episodio->id."', titulo: '".$episodio->titulo."',} ,";
         }
         
         return $script;
@@ -81,6 +81,7 @@ class Episodio{
 		Database::createSchema();
         $conexao = Database::getInstance();
 		$episodios = array();
+		
 
 		$stm = $conexao->prepare('select * from episodios where canal = :canal');
 		$stm->bindParam(':canal', $idCanal);

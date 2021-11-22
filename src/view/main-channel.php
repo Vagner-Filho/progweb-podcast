@@ -22,7 +22,7 @@ $episodios = Episodio::getEpisodios($usuario->__get('id'));
 	<link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
-
+    
 	<title>Canais</title>
 </head>
 <body>
@@ -34,7 +34,7 @@ $episodios = Episodio::getEpisodios($usuario->__get('id'));
                     <div class="ms-4">
                         <div class="channel-info">
                             <div>
-                                <?php echo "<img src='" . BASEPATH . "uploads/" . $usuario->__get("canal" )->__get('fotoCanal') . "' class='fotoCanal'/>" ?>
+                                <?php echo "<img src='" . BASEPATH . "uploads/" . $usuario->__get("canal" )->__get('fotoCanal') . "' class='icon-conteudo'/>" ?>
                             </div>
                             <div class="side">
                                 <div class="channel-title">
@@ -94,7 +94,7 @@ $episodios = Episodio::getEpisodios($usuario->__get('id'));
                             <div class="episodio">
                                 <a href="/player?id=<?= $ep->__get('id')?>">
                                     <div>
-                                        <?php echo "<img src='" . BASEPATH . "uploads/" . $ep->__get('foto') . "' class='icon-conteudo'/>" ?>
+                                        <?php echo "<img src='" . BASEPATH . "uploads/" . $ep->__get('foto') . "' class='fotoCanal'/>" ?>
                                     </div>
                                 </a>
                                 <div class="conteudo">
@@ -302,9 +302,9 @@ $episodios = Episodio::getEpisodios($usuario->__get('id'));
     }
 
     .icon-conteudo{
-        width: 159px;
-        height: 159px;
-        border-radius: 100px;
+        width: 273px;
+        height: 273px;
+        border-radius: 150px;
 
     }
     

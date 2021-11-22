@@ -181,6 +181,31 @@ class LoginController extends Controller  {
         $this->view('home', $this->loggedUser);        
     }
 
+    public function pesquisa() 
+    {   
+        Database::createPesquisa();
+        $conexao = Database::getInstance();
+        
+        foreach ($_GET as $titulos) {
+            $stm = $conexao->prepare('insert into pesquisa values (:id, :titulo)');
+            $stm->bindParam(':id', $titulos['id']);
+            $stm->bindParam(':titulo', $titulos['titulo']);
+            $stm->execute();
+        }
+    }
+
+    public function search() 
+    {   
+        
+        if (!$this->loggedUser) 
+        {
+            header('Location: /login?mensagem=Você precisa se identificar primeiro');    
+            return;
+        }
+        $this->view('search', $this->loggedUser);
+        
+    }
+
     public function newEpisode() 
     {
         if (!$this->loggedUser) 
@@ -225,6 +250,7 @@ class LoginController extends Controller  {
 	public function saveNewEpisode(){
 
 		if(isset($_FILES['foto-episodio']) && isset($_FILES['audio-file'])){
+           
 			$extensaoFoto = strtolower(substr($_FILES['foto-episodio']['name'], -4));
 			$novoNomeFoto = md5(time()).$extensaoFoto;
 			$diretorio = BASEPATH . "uploads/";
@@ -235,7 +261,7 @@ class LoginController extends Controller  {
 			move_uploaded_file($_FILES['foto-episodio']['tmp_name'], $diretorio.$novoNomeFoto);
 
 			$extensaoAudio = strtolower(substr($_FILES['audio-file']['name'], -4));
-			$novoNomeAudio = md5(time()).$extensaoAudio;
+			$novoNomeAudio = md5(time()+1).$extensaoAudio;
 
 			move_uploaded_file($_FILES['audio-file']['tmp_name'], $diretorio.$novoNomeAudio);
 

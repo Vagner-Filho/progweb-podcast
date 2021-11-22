@@ -1,6 +1,7 @@
 <?php
+
     $episodioAtual = Episodio::getEpisodio($_GET['id']);
-    $episodios = Episodio::getEpisodios($data->__get('id'));
+    $episodios = Episodio::getEpisodios($episodioAtual->canal->id);
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +30,7 @@
                 <div class="wrapper ">
                     <article class="card-custom">
                         <div id="player">
-                            <a href='/mainChannel?id=<?= $episodioAtual->canal->__get('id') ?>'><i class="material-icons">equalizer</i> <?= $episodioAtual->canal->__get('nomeCanal') ?></a>
+                            <a href='/mainChannel?id=<?= $episodioAtual->canal->__get('id') ?>'><i class="material-icons">equalizer</i> <?= $episodioAtual->canal->canal->__get('nomeCanal') ?></a>
                             <div class="card">
                                 <div class="card-image">
                                     <?php echo "<img src='" . BASEPATH . "uploads/" . $episodioAtual->__get('foto') . "'class='fotoEpisodio'/>" ?>

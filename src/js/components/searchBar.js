@@ -33,10 +33,10 @@ class searchBar extends HTMLElement {
       input.setAttribute('id', 'search-input')
       input.setAttribute('type', 'text')
       input.setAttribute('placeholder', 'Pesquisar')
-      input.addEventListener('keyup', searchEpisode)
+      //input.addEventListener('keyup', searchEpisode)
 
       const btn = div.appendChild(document.createElement('button'))
-      btn.setAttribute('onclick', 'searchEpisode()')
+      btn.addEventListener('click', searchEpisode)
       btn.textContent = "Buscar"
 
       const img = btn.appendChild(document.createElement('img'))
@@ -127,10 +127,8 @@ class searchBar extends HTMLElement {
           const originalData = JSON.parse(shadow[0].attributes.items.value)
           if (input) {
             const filteredData = originalData.filter(item => item.titulo.includes(input))
-            console.log(filteredData)
           } else {
             const filteredData = originalData
-            console.log(filteredData)
           }
         }
       `

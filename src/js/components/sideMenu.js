@@ -28,7 +28,6 @@ class hamburguerMenu extends HTMLElement {
                         Favoritos
                     </a>
                 </div>
-                
                 <div class="h-line"></div>
                 <div class="align-on-menu">
                     <a href="/newEpisode">

@@ -57,11 +57,80 @@ class Usuario {
         $script = '';
         $contador = 0;
         foreach ($usuarios as $usuario) {
-            $script .= "{ titulo: '".$usuario->canal->nomeCanal."',} ,";
+            $script .= "{ id: '".$usuario->id."', titulo: '".$usuario->canal->nomeCanal."',} ,";
             
         }
         return $script;
     }
+
+    /**
+	 * Função que busca todos as pesquisas do BD
+	 */
+    static public function getAllSearches()
+    {	
+		Database::createSchema();
+        $conexao = Database::getInstance();
+
+        $stm = $conexao->prepare('SELECT * FROM pesquisa');
+
+        $episodios = array();
+        $usuarios = array();
+
+        $stm->execute();
+
+        $pesquisas = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+		foreach ($pesquisas as $pesquisa) {
+
+            $stm = $conexao->prepare('SELECT * FROM usuarios where id = :id and nome_canal = :nome_canal');
+            $stm->bindParam(':id', $pesquisa['id']);
+            $stm->bindParam(':nome_canal', $pesquisa['titulo']);
+            $stm->execute();
+
+            $resultado = $stm->fetch();
+
+            if ($resultado) {
+
+                $generos = Usuario::buscarGeneros($resultado['email']);
+
+                $dataNasc = new DateTime($resultado['data_nasc'], new DateTimezone("America/Campo_Grande"));
+                $dataInscricao = new DateTime($resultado['data_inscricao'], new DateTimezone("America/Campo_Grande"));
+
+                $canal = new Canal($resultado['nome_canal'], $resultado['descricao'], $generos, $resultado['classificacao'], $resultado['foto_canal']);
+        
+                $usuario = new Usuario ($resultado['nome_usuario'], $dataNasc, $resultado['email'], $resultado['senha'], $dataInscricao, $resultado['foto_perfil'], $canal);
+                $usuario->id = $resultado['id'];
+                $usuario->senha = $resultado['senha'];
+
+                array_push($usuarios, $usuario);
+            } else {
+
+                $stm = $conexao->prepare('SELECT * FROM episodios where id = :id and titulo = :titulo');
+                $stm->bindParam(':id', $pesquisa['id']);
+                $stm->bindParam(':titulo', $pesquisa['titulo']);
+                $stm->execute();
+
+                $resultado = $stm->fetch();
+
+                $canal = Usuario::buscarUsuarioPorId($resultado['canal']);
+
+                $episodio = new Episodio($resultado['titulo'], $resultado['descricao'], $canal, $resultado['arquivoaudio'], $resultado['foto']);
+                $episodio->id = $resultado['id'];
+                
+                array_push($episodios, $episodio);
+            }
+
+            $resultados = array(
+                'usuarios' => $usuarios,
+                'episodios' => $episodios
+            );
+            
+		}
+		
+        return $resultados;
+    }
+
+
     
 	/**
 	 * Função que busca todos os usuarios do BD

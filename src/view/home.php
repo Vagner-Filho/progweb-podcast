@@ -33,6 +33,7 @@ $generos = $data->getGeneros();
     <script src="src/utils/js/bootstrap.bundle.js" async></script>
     <script src="src/js/components/sideMenu.js"></script>
     <script src="src/js/components/searchBar.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -149,7 +150,6 @@ $generos = $data->getGeneros();
 					<?php } ?>
                 </div>
 			</section>
-            
         </div>
     </div>
 </body>
@@ -159,7 +159,100 @@ $generos = $data->getGeneros();
     const items = JSON.stringify(rawData)
     const search = document.getElementsByTagName('search-bar')[0]
     search.setAttribute('items', items)
-    search.addEventListener('filtered', event => console.log(event.detail))
+    search.addEventListener('filtered', async event => { 
+
+        var emp1 = {};
+
+        //emp1.id = 1;
+        //emp1.name = 'Henrique';
+        //emp1.addn = 'violeiro'; 
+        console.log(event.detail)
+        emp1 = {...event.detail}
+
+        await $.ajax ({ 
+                url: "http://localhost/pesquisa",
+                method: "get",
+                data : emp1,
+                success: function(res) {
+                    console.log(res);
+                },
+                fail: function(res) {
+                    console.log(res)
+                }
+            })
+
+        window.location.href = '/search'
+    })
+
+            
+
+    /*var emp1 = {};
+
+        emp1.id = 1;
+        emp1.name = 'Henrique';
+        emp1.addn = 'violeiro'; 
+        console.log(emp1)
+        
+
+    function getResultadoPesquisa(datas) {
+        try {
+            $.ajax ({ 
+                url: "http://localhost/pesquisa",
+                method: "get",
+                data : datas,
+                success: function(res) {
+                    console.log(res);
+                },
+                fail: function(res) {
+                    console.log(res)
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+/*
+var emp1 = {};
+
+        emp1.id = 1;
+        emp1.name = 'Henrique';
+        emp1.addn = 'violeiro'; 
+        console.log(emp1)
+        try {
+            $.ajax ({ 
+                url: "http://localhost/pesquisa",
+                method: "get",
+                data : emp1,
+                success: function(res) {
+                    console.log(res);
+                },
+                fail: function(res) {
+                    console.log(res)
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+
+
+
+
+    var url = "http://localhost/pesquisa?id=pqp"
+
+    var request = new XMLHttpRequest()
+    request.open("GET", url)
+    //request.setRequestHeader("Accept", "application/json");
+    request.setRequestHeader("Content-Type", "application/json");
+
+    request.onreadystatechange = function () {
+    if (request.readyState === 4) {
+        console.log(request.status);
+        console.log(request.responseText);
+    }};
+
+    request.send()*/
+
 </script>
 
 <style>
@@ -205,26 +298,22 @@ $generos = $data->getGeneros();
         margin: 30px auto;
     }
     .subcards-container {
-		margin: 45px auto;
+        margin: 30px auto;
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         overflow-x: auto;
+        justify-content: space-between;
         width: 100%;
     }
-    .subcard, .subcard-small{
+    .subcard {
         width: 232px;
         height: 232px;
         background-color: #616161;
-        border-radius: 250px;
+        border-radius: 25px;
         flex: 0 0 auto;
         margin: auto 10px;
     }
-
-	.subcard-small{
-		width: 200px;
-		height: 200px;
-	}
     /* width */
     ::-webkit-scrollbar {
         height: 7px;
