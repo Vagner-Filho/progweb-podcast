@@ -2,6 +2,16 @@
 if (!$data) {
 	header('location: /login?mensagem=Você precisa se identificar primeiro');
 }
+
+$script = 
+        '<script> 
+            const rawData = [ ';
+$script .= Usuario::scriptAllChannels();
+$script .= Episodio::scriptAllEpisodios();
+$script .= " ] </script>";
+echo $script;
+
+$canais = Usuario::getAll();
 ?>
 
 <!DOCTYPE html>
@@ -19,8 +29,9 @@ if (!$data) {
     O que consiste em baixar o código fonte, incluir na pasta utils e fazer a referência onde quer usar :) -->
     <link rel="stylesheet" href="src/utils/css/bootstrap.css">
     <script src="src/utils/js/bootstrap.bundle.js" async></script>
-    <script src="src/jscript/components/sideMenu.js"></script>
-    <script src="src/jscript/components/searchBar.js"></script>
+    <script src="src/js/components/sideMenu.js"></script>
+    <script src="src/js/components/searchBar.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,21 +54,40 @@ if (!$data) {
                     <div class="highlights">
                         <div id="carouselExampleControls" class="carousel slide carousel-fade" data-bs-ride="carousel" data-interval="false">
                             <div class="carousel-inner">
-                              <div class="carousel-item active">
+
+                            <!-- <div class="carousel-item active">
                                   <div class="main-card" style="background-color: gray;">
                                   </div>
-                                <!-- <img src="..." class="d-block w-100" alt="..."> -->
+                                <--! <img src="..." class="d-block w-100" alt="..."> -- >
                               </div>
                               <div class="carousel-item">
                                   <div class="main-card" style="background-color: lightgray;">
                                   </div>
-                                <!-- <img src="..." class="d-block w-100" alt="..."> -->
+                                <--! <img src="..." class="d-block w-100" alt="..."> -- >
                               </div>
                               <div class="carousel-item">
                                   <div class="main-card" style="background-color: black;">
                                   </div>
-                                <!-- <img src="..." class="d-block w-100" alt="..."> -->
+                                 <--! <img src="..." class="d-block w-100" alt="..."> -- > 
                               </div>
+                            </div>-->
+
+                            <div class="carousel-item active">
+                                <div class="main-card">
+                                    <a href="/mainChannel?id=<?=$canais[0]->__get('id')?>">
+                                        <img src="src/uploads/<?= $canais[0]->__get('canal')->__get('fotoCanal') ?>" class="main-card d-block w-100" alt="...">
+                                    </a>
+                                </div>
+                              </div>
+                            <?php  foreach ($canais as $key => $canal) { if ($canal != $canais[0]) {?>
+                                <div class="carousel-item">
+                                <div class="main-card">
+                                    <a href="/mainChannel?id=<?=$canal->__get('id')?>">
+                                        <img src="src/uploads/<?= $canal->__get('canal')->__get('fotoCanal') ?>" class="main-card d-block w-100" alt="...">
+                                    </a>
+                                </div>
+                                </div>
+                            <?php }}?>
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -131,10 +161,115 @@ if (!$data) {
 </body>
 </html>
 
+<script>
+    const items = JSON.stringify(rawData)
+    const search = document.getElementsByTagName('search-bar')[0]
+    search.setAttribute('items', items)
+    search.addEventListener('filtered', async event => { 
+
+        var emp1 = {};
+
+        //emp1.id = 1;
+        //emp1.name = 'Henrique';
+        //emp1.addn = 'violeiro'; 
+        console.log(event.detail)
+        emp1 = {...event.detail}
+
+        await $.ajax ({ 
+                url: "http://localhost/pesquisa",
+                method: "get",
+                data : emp1,
+                success: function(res) {
+                    console.log(res);
+                },
+                fail: function(res) {
+                    console.log(res)
+                }
+            })
+
+        window.location.href = '/search'
+    })
+
+            
+
+    /*var emp1 = {};
+
+        emp1.id = 1;
+        emp1.name = 'Henrique';
+        emp1.addn = 'violeiro'; 
+        console.log(emp1)
+        
+
+    function getResultadoPesquisa(datas) {
+        try {
+            $.ajax ({ 
+                url: "http://localhost/pesquisa",
+                method: "get",
+                data : datas,
+                success: function(res) {
+                    console.log(res);
+                },
+                fail: function(res) {
+                    console.log(res)
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+/*
+var emp1 = {};
+
+        emp1.id = 1;
+        emp1.name = 'Henrique';
+        emp1.addn = 'violeiro'; 
+        console.log(emp1)
+        try {
+            $.ajax ({ 
+                url: "http://localhost/pesquisa",
+                method: "get",
+                data : emp1,
+                success: function(res) {
+                    console.log(res);
+                },
+                fail: function(res) {
+                    console.log(res)
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+
+
+
+
+    var url = "http://localhost/pesquisa?id=pqp"
+
+    var request = new XMLHttpRequest()
+    request.open("GET", url)
+    //request.setRequestHeader("Accept", "application/json");
+    request.setRequestHeader("Content-Type", "application/json");
+
+    request.onreadystatechange = function () {
+    if (request.readyState === 4) {
+        console.log(request.status);
+        console.log(request.responseText);
+    }};
+
+    request.send()*/
+
+</script>
+
 <style>
     body {
         background-color: #fff;
         z-index: 1;
+    }
+
+    img{
+        width: 200px;
+        height: 200px;
     }
     .main-head, .head {
         display: flex;

@@ -1,6 +1,1 @@
-<<<<<<< HEAD
-[1103/105517.458:ERROR:exception_handler_server.cc(524)] ConnectNamedPipe: O pipe está sendo fechado. (0xE8)
-[1103/105803.421:ERROR:exception_handler_server.cc(524)] ConnectNamedPipe: O pipe está sendo fechado. (0xE8)
-=======
 [1013/021310.000:ERROR:exception_handler_server.cc(524)] ConnectNamedPipe: O pipe está sendo fechado. (0xE8)
->>>>>>> 5c6e841d53b4f11dc2fa3c0e6b446b405d354b77

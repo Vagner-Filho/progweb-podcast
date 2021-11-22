@@ -2,8 +2,10 @@
 error_reporting(E_ERROR | E_PARSE);
 
 include 'src/libs/Route.php';
+
 use Steampixel\Route;
 require 'src/controller/LoginController.php';
+
 
 /*Route::add('/login', fn () => $controller->login(), ['post']);
 Route::add('/criarConta', fn () => $controller->criarContaIndex(), ['post']);
@@ -60,9 +62,29 @@ Route::add('/account', function() {
     $controller->account();
 }, 'get');
 
+Route::add('/changeProfile', function() {
+    $controller = new LoginController();
+    $controller->changeProfile();
+}, 'get');
+
+Route::add('/changePassword', function() {
+    $controller = new LoginController();
+    $controller->changePassword();
+}, 'get');
+
+Route::add('/forgetPassword', function() {
+    $controller = new LoginController();
+    $controller->forgetPassword();
+}, 'get');
+
 Route::add('/channels', function() {
     $controller = new LoginController();
     $controller->channels();
+}, 'get');
+
+Route::add('/mainChannel', function() {
+    $controller = new LoginController();
+    $controller->mainChannel();
 }, 'get');
 
 Route::add('/favorites', function() {
@@ -79,6 +101,31 @@ Route::add('/newEpisode', function() {
     $controller = new LoginController();
 	$controller->saveNewEpisode();
 }, 'post');
+
+Route::add('/player', function() {
+    $controller = new LoginController();
+	$controller->player();
+}, 'get');
+
+Route::add('/cadastrarFavorito', function() {
+    $controller = new LoginController();
+    $controller->favoritarEpisodio();
+}, 'get');
+
+Route::add('/seguirCanal', function() {
+    $controller = new LoginController();
+    $controller->seguirCanal();
+}, 'get');
+
+Route::add('/pesquisa', function() {
+    $controller = new LoginController();
+    $controller->pesquisa();
+}, 'get');
+
+Route::add('/search', function() {
+    $controller = new LoginController();
+    $controller->search();
+}, 'get');
 
 Route::add('/statistic', function() {
     $controller = new LoginController();

@@ -6,58 +6,58 @@ class hamburguerMenu extends HTMLElement {
         
         sideMenu.innerHTML = `
         <div class="navbar">
-            <button onclick="switchSideMenu(true)" class="align-on-menu hamburguer">
-                <img src="../rss/img/menu.svg" alt="hamburguer-menu">
-            </button>
-            <div class="side-menu">
-                <div class="outer-window" onclick="switchSideMenu(false)"></div>
-                <button onclick="switchSideMenu(false)" class="align-on-menu hamburguer">
-                    <img src="../rss/img/menu.svg" alt="hamburguer-menu">
-                    PODCAST
+        <button onclick="switchSideMenu(true)" class="align-on-menu hamburguer">
+            <img src="src/rss/img/menu.svg" alt="hamburguer-menu">
+        </button>
+        <div class="side-menu">
+            <div class="outer-window" onclick="switchSideMenu(false)"></div>
+            <button onclick="switchSideMenu(false)" class="align-on-menu hamburguer">
+                <img src="src/rss/img/menu.svg" alt="hamburguer-menu">
+                PODCAST
                 </button>
                 <div class="h-line"></div>
                 <div class="align-on-menu home">
-                    <a href="../view/home.html">
-                        <img src="../rss/img/home.svg" alt="home-menu">
+                    <a href="/home">
+                        <img src="src/rss/img/home.svg" alt="home-menu">
                         Home
                     </a>
                 </div>
                 <div class="align-on-menu">
-                    <a href="../view/favorites.html">
-                        <img src="../rss/img/heart.svg" alt="favorites-menu">
+                    <a href="/favorites">
+                        <img src="src/rss/img/heart.svg" alt="favorites-menu">
                         Favoritos
                     </a>
                 </div>
                 <div class="align-on-menu">
-                    <a href="../view/channels.html">
-                        <img src="../rss/img/list.svg" alt="channels-menu">
+                    <a href="/channels">
+                        <img src="src/rss/img/list.svg" alt="channels-menu">
                         Canais
                     </a>
                 </div>
                 <div class="h-line"></div>
                 <div class="align-on-menu">
-                    <a href="../view/newEpisode.html">
-                        <img src="../rss/img/add.svg" alt="new-episode-menu">
+                    <a href="/newEpisode">
+                        <img src="src/rss/img/add.svg" alt="new-episode-menu">
                         Novo Episódio
                     </a>
                 </div>
                 <div class="align-on-menu">
-                    <a href="../view/statistic.html">
-                        <img src="../rss/img/chart.svg" alt="statistics-menu">
+                    <a href="/statistic">
+                        <img src="src/rss/img/chart.svg" alt="statistics-menu">
                         Estatísticas
                     </a>
                 </div>
                 <div class="h-line"></div>
                 <div class="align-on-menu">
-                    <a href="../view/account.html">
-                        <img src="../rss/img/account.svg" alt="account-menu">
+                    <a href="/account">
+                        <img src="src/rss/img/account.svg" alt="account-menu">
                         Conta
                     </a>
                 </div>
                 <div class="h-line"></div>
                 <div class="align-on-menu sair">
-                    <a href="../view/login.html">
-                        <img src="../rss/img/sign-out-alt-solid.svg">
+                    <a href="/sair">
+                        <img src="src/rss/img/sign-out-alt-solid.svg">
                         Sair
                     </a>
                 </div>
@@ -134,12 +134,6 @@ class hamburguerMenu extends HTMLElement {
             height: 100vh;
             z-index: 99;
             margin-left: 200px;
-        }
-        .align-on-menu:hover {
-            background-color: coral
-        }
-        .align-on-menu {
-            transition: background-color 250ms linear
         }
         `;
 

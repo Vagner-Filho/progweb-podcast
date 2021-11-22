@@ -13,7 +13,7 @@ if (!$data) {
 
 	<link rel="stylesheet" href="src/utils/css/bootstrap.css">
     <script src="src/utils/js/bootstrap.bundle.js" async></script>
-	<script src="src/jscript/components/sideMenu.js"></script>
+	<script src="src/js/components/sideMenu.js"></script>
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +29,7 @@ if (!$data) {
 				<div class="col-10 offset-1">
 					
 						<div class="profile-picture mt-3">
-							<img src="src/rss/img/profile.jpg" alt="">
+							<?php echo "<img src='" . BASEPATH . "uploads/" . $data->__get('fotoPerfil') . "' class='icon-conteudo'/>" ?>
 						</div>
 
 						<div class="ms-4">
@@ -59,42 +59,47 @@ if (!$data) {
 								<p><?= $data->dataInscricao->format('d/m/Y') ?></p>
 							</div>
 							
-							<button class="btn-edit">Editar informações</button>
-							<a href="#" class="change-password">Alterar senha</a>
+							<button onclick='editarInfoUsuario()' class="btn-edit">Editar informações</button>
+							<a href="/changePassword" class="change-password">Alterar senha</a>
 						</div>
 				</div>
 			</section>
 
-			<section>
+			<section class='seção2'>
 				<div class="col-10 offset-1">
 					<div class="ms-4">
 						<h2 class="head mt-4">Canal</h2>
 
 						<div class="channel-info">
-							<div class="side">
-								<div class="channel-picture"></div>
+							<div class="side ">
+								<a href="/mainChannel?id=<?= $data->__get('id') ?>">
+									<?php echo "<img src='" . BASEPATH . "uploads/" . $data->canal->__get('fotoCanal') . "' class='icon-conteudo canal'/>" ?>
+								</a>
 		
 								<div class="channel-description">
-								<p><?= $data->descricao ?></p>
+								<p><?= $data->canal->descricao ?></p>
 								</div>
 		
 							</div>
 		
-							<div class="side">
+							<div class="side lado2">
 								<div class="channel-title">
-								<?= $data->nomeCanal ?>
+								<?= $data->canal->nomeCanal ?>
 								</div>
 
 								<div class="info">
 									<p>Gênero</p>
 									<div class="line"></div>
-									<p><?= $data->genero ?></p>
+									<?php 
+									foreach ($data->canal->generos as $genero) { ?>
+									<p><?=  $genero.'/' ?> </p> <?php } ?>
 								</div>
+
 
 								<div class="info">
 									<p>Classificação</p>
 									<div class="line"></div>
-									<p><?= $data->classificacao ?></p>
+									<p><?= $data->canal->classificacao ?></p>
 								</div>
 
 								<div class="info">
@@ -114,6 +119,13 @@ if (!$data) {
 	</div>
 </body>
 </html>
+
+<script>
+	function editarInfoUsuario() {
+		window.location.href = "/changeProfile" 
+	}
+
+</script>
 
 <style>
 	body{
@@ -135,6 +147,12 @@ if (!$data) {
         border-radius: 250px;
         flex: 0 0 auto;
         margin: auto 10px;	
+	}
+
+	.canal {
+		width: 250px;
+        height: 250px;
+		border-radius: 25px;
 	}
 
 	.info{
@@ -189,8 +207,13 @@ if (!$data) {
 		color: #2b8585;
 	}
 
+	.lado2 {
+		margin-left: 12%;
+		width: 40%;
+		min-width: 220px;
+	}
+	
 	.side{
-		width: 28%;
 		margin-bottom: 20px;
 	}
 
@@ -216,5 +239,15 @@ if (!$data) {
 		margin-top: 15px;
 		margin-bottom: 120px;
 	}
-	
+
+	@media (max-width: 775px) {
+
+		.channel-info {
+			flex-direction: column;
+		}
+
+		.lado2 {
+			margin-left:0;
+		}
+	}
 </style>

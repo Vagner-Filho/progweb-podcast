@@ -15,7 +15,7 @@ if (!$data) {
     <link rel="stylesheet" href="src/utils/css/bootstrap.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
     <script src="src/utils/js/bootstrap.bundle.js" async></script>
-    <script src="src/jscript/components/sideMenu.js"></script>
+    <script src="src/js/components/sideMenu.js"></script>
 
     <title>Novo Episódio</title>
 </head>
@@ -25,28 +25,28 @@ if (!$data) {
     <div class="container-fluid mt-5">
         <div class="row">
             <div class="col-xxl-4 offset-xxl-4 col-12">
-                <form method="POST" action="/newEpisode" class="novo-episodio mt-5">
-				<?php include(__DIR__.'/alert.php') ?>
+                <form method="POST" action="/newEpisode" class="novo-episodio mt-5" enctype="multipart/form-data">
+				<div class='alert'><?php include(__DIR__.'/alert.php') ?></div>
                     <div class='foto'>
-                        <a href=#>
-                            <div id='foto'class="default-pic"></div>
-                        </a>
+                        <label for="foto-episodio" class="addPick marginBottom">
+                            <img id='foto'class="default-pic">
+                        </label>
                         <label for="foto-episodio" class="addPick">
 							Adicionar foto
 						</label>
-                        <input type="file" name="foto-episodio" id="foto-episodio" class="d-none" accept="image/*">
+                        <input type="file" name="foto-episodio" id="foto-episodio" class="d-none" accept=".png, .jpg" onchange='previewImagem()'>
                         
                     </div>
                     <label for="titulo-episodio" class="mt-5">Titulo do episódio</label>
-                    <input type="text" id="titulo-episodio" name="titulo-episodio">
+                    <input type="text" id="titulo-episodio" name="titulo-episodio" required>
                     <label for="descricao-episodio" class="mt-4">Descrição</label>
-                    <textarea id="descricao-episodio" rows="5" cols="33" name="descricao"></textarea>
+                    <textarea id="descricao-episodio" rows="5" cols="33" name="descricao" required></textarea>
                     <label for="audio-file" class="audio-input mt-5">
                         <div class="mt-5">
                             Adicionar arquivo de áudio
                         </div>    
                     </label>
-                    <input type="file" id="audio-file" class="d-none" name="audio-file" accept="audio/*">
+                    <input type="file" id="audio-file" class="d-none" name="audio-file" accept="audio/*" required>
                     <button class="btn-cinza mt-5" type="submit">Salvar Episódio</button>
                 </form>
             </div>
@@ -57,7 +57,49 @@ if (!$data) {
 
 </html>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    function previewImagem() {
+        var imagem = document.getElementById('foto-episodio').files[0]
+        var preview = document.getElementById('foto')
+
+        var reader = new FileReader()
+
+        reader.onloadend = function() {
+            preview.src = reader.result
+        }
+
+        if (imagem) {
+            reader.readAsDataURL(imagem)
+        } else {
+            preview.src = ''
+        }
+    }
+
+    function previewImagemCanal() {
+        var imagem = document.getElementById('fotoCanal').files[0]
+        var preview = document.getElementById('fotoDoCanal')
+
+        var reader = new FileReader()
+
+        reader.onloadend = function() {
+            preview.src = reader.result
+        }
+
+        if (imagem) {
+            reader.readAsDataURL(imagem)
+        } else {
+            preview.src = ''
+        }
+    }
+</script>
+
 <style>
+    .alerta {
+        margin-left: -15px;
+        height: 60px;
+        padding-top: 10px;
+    }
     body, input, textarea, button {
         font-family: 'Inter', sans-serif;
         font-weight: bolder;
@@ -93,6 +135,7 @@ if (!$data) {
     .addPick {
         text-decoration: underline;
         color: black;
+        
     }
     .addPick:hover {
         cursor: pointer;
@@ -102,6 +145,9 @@ if (!$data) {
         height: 200px;
         background-color: #616161;
         border-radius: 35px;
+    }
+    .marginBottom {
+        margin-bottom: 20px;
     }
     .novo-episodio {
         display: flex;
@@ -142,6 +188,15 @@ if (!$data) {
         border: 0px;
         margin: auto;
         line-height: 30px;
+    }
+
+    @media (max-width: 595px) {
+        
+        .alerta {
+            margin-left: -15px;
+            width: 100%;
+            height: 60px;
+            padding-top: 10px;
     }
     
 </style>
